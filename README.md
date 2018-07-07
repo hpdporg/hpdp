@@ -2,18 +2,22 @@
 
 **HPDP**  High Performance Data Processing is a framework enabling multiple use cases to leverage high performance, real-time data analytics.
 
-The **HPDP** tools can allow single users to script single-page web analytics or multiple users to collaborate on big-data hosted real-time dashboards and mobile app thin clients in parallel.
+The **HPDP** tools will allow single users to script single-page web analytics or multiple users to collaborate on big-data hosted real-time dashboards and mobile app thin clients in parallel.
+
+## Long-Term Project Goals ##
+
+This README outlines long-term Project goals.
 
 ## Implementations ##
 
-Front-ends and APIs are provided in many forms. **HPDP** can ingest data or processing commands from:
+Front-ends and APIs are provided in many forms. **HPDP** will ingest data or processing commands from:
 
 * C, Java 10, R, and REST APIs
 * Static and real-time CSV, JSON, and SQL datasets
 
 ## Features ##
 
-Along with default charting and metric capabilities, **HPDP** provides:
+Along with default charting and metric capabilities, **HPDP** will provide:
 
 * Hierarchically-organized datasets: View data broken down by different nesting levels.
 * Status and health indicators: Leverage **HPDP** views as project summary and project health dashboards.
