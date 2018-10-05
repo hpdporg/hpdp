@@ -1,19 +1,16 @@
 # HPDP #
 
-**HPDP**  High Performance Data Processing is a framework enabling multiple use cases to leverage high performance, real-time data analytics.
+**HPDP**  High Performance Data Processing is a visualization and analytics framework. The core subsystems are a fast data scraper, which acts as a lightweight server, and the translation subsystem, which visualizes the dataset.
 
-The **HPDP** tools will allow single users to script single-page web analytics or multiple users to collaborate on big-data hosted real-time dashboards and mobile app thin clients in parallel.
+The visualization subsystem is a customizable framework providing APIs that expose chart, layout, and interactivity specification.
 
-## Long-Term Project Goals ##
+The data scraper can be controlled via the network and can also receive dataset updates. Updated datasets provides the option for **HPDP** systems to behave as real-time dashboards.
 
-This README outlines long-term Project goals.
+The **HPDP** tools allow top to bottom visualization and dynamic analytic scripting as well. A single user can therefore script a disposable single-page report or set of charts with minimal effort.
 
 ## Implementations ##
 
-Front-ends and APIs are provided in many forms. **HPDP** will ingest data or processing commands from:
-
-* C, Java 10, R, and REST APIs
-* Static and real-time CSV, JSON, and SQL datasets
+The **HPDP** source is written in ASM, using the flatassembler (fasm). APIs are subject ot change but are planned to include asm, C/C++, Java, along with a network and scripting interface.
 
 ## Features ##
 
