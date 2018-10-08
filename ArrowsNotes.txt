@@ -1,0 +1,126 @@
+var titlePosID = "titlePos";
+var xOffset = 0;
+var yOffset = 0;
+
+
+function setTitleText(){
+	svgText = document.getElementById("title");
+	svgText.childNodes[0].nodeValue = titleText;
+
+}
+
+function setElementText(elementID, elementText){
+	svgText = document.getElementById(elementID);
+	svgText.childNodes[0].nodeValue = elementText;
+
+}
+
+function setRectWidth(elementID,width){
+	svgRect = document.getElementById(elementID);
+	svgRect.setAttribute("width",width);
+
+}
+
+function setOffset(elementID,xIncrease,yIncrease){
+	xOffset = (xOffset+xIncrease);
+	yOffset = (yOffset+yIncrease);
+	svgElement = document.getElementById(elementID);
+	svgElement.setAttribute("x",xOffset);
+	svgElement.setAttribute("y",yOffset);
+
+
+}
+
+function setLineHeight(elementID,height){
+	svgRect = document.getElementById(elementID);
+	svgRect.setAttribute("y1",height);
+	svgRect.setAttribute("y2",height);
+
+}
+
+function snapLineRectRight(rectID,elementID,elementWidth){
+	svgRect = document.getElementById(rectID);
+	var rectWidth = parseInt(svgRect.getAttribute("width"));
+	var rectX = parseInt(svgRect.getAttribute("x"));
+	svgElement = document.getElementById(elementID);
+	var x1 = (rectX + rectWidth);
+
+	svgElement.setAttribute("x1",x1);
+	var rectWidthInt = parseInt(rectWidth);
+	var elementWidthInt = parseInt(elementWidth);
+	elementWidthInt = elementWidth+rectWidthInt;
+	var elementWidth = elementWidthInt;
+	var x2 = (rectX+elementWidth);
+	svgElement.setAttribute("x2",x2);
+	//console.log(rectWidth);
+	//console.log(elementWidth);
+
+}
+function buildLine(lineID,elementIDStart,edgeStart, elementIDEnd,edgeEnd){
+	/*svgStart = document.getElementById(elementIDStart);
+	svgEnd = document.getElementById(elementIDEnd); 
+	svgLine = document.getElementById(lineID); 
+	if (edgeStart==="RIGHT"){
+		var startX = svgStart.getAttribute("width");
+		var startY = svgStart.getAttribute("y");
+	}*/
+
+}
+
+function buildArrow(lineID,arrowTopID,arrowBottomID){
+	svgLine = document.getElementById(lineID);
+	var lineCoordX2 = parseInt(svgLine.getAttribute("x2"));
+	var lineCoordY2 = parseInt(svgLine.getAttribute("y2"));
+	var lineCoordX1 = parseInt(svgLine.getAttribute("x1"));
+	var lineCoordY1 = parseInt(svgLine.getAttribute("y1"));
+	
+	var lineDirX = lineCoordX2 - lineCoordX1;
+	var lineDirY = lineCoordY2 - lineCoordY1;
+
+	var arrowTopX = ((lineDirY*(-1))/Math.sqrt((lineDirX^2)+(lineDirY^2)))*1;
+	var arrowTopY = ((lineDirX)/Math.sqrt((lineDirX^2)+(lineDirY^2)))*1;
+	var arrowBottomX = ((lineDirY*(-1))/Math.sqrt((lineDirX^2)+(lineDirY^2)))*(-1);
+	var arrowBottomY = ((lineDirX)/Math.sqrt((lineDirX^2)+(lineDirY^2)))*(-1);
+
+
+	var lineDirInvX = lineCoordX1 - lineCoordX2;
+	var lineDirInvY = lineCoordY1 - lineCoordY2;
+
+
+	/*console.log("lineDirInvX"+lineDirInvX);
+	console.log("lineDirInvY"+lineDirInvY);
+	console.log("lineDirInvY"+(Math.pow(lineDirInvX,2)));//+(lineDirInvY^2)));*/
+
+
+	lineDirInvX = ((lineDirInvX)/Math.sqrt(Math.pow(lineDirInvX,2)+Math.pow(lineDirInvY,2)))*5;
+	lineDirInvY = ((lineDirInvY)/Math.sqrt(Math.pow(lineDirInvX,2)+Math.pow(lineDirInvY,2)))*5;
+
+
+	//console.log("lineDirInvX"+lineDirInvX);
+
+	svgElement = document.getElementById(arrowTopID);
+	svgElement.setAttribute("x1",lineCoordX2);
+	svgElement.setAttribute("x2",arrowTopX+lineCoordX2+lineDirInvX);
+	svgElement.setAttribute("y1",lineCoordY2);
+	svgElement.setAttribute("y2",arrowTopY+lineCoordY2+lineDirInvY);
+
+	svgElement = document.getElementById(arrowBottomID);
+	svgElement.setAttribute("x1",lineCoordX2);
+	svgElement.setAttribute("x2",lineCoordX2+arrowBottomX+lineDirInvX);
+	svgElement.setAttribute("y1",lineCoordY2);
+	svgElement.setAttribute("y2",lineCoordY2+arrowBottomY+lineDirInvY);
+
+
+	/*console.log("lineDirX" + lineDirX);
+	console.log(lineDirY);
+	console.log(lineCoordX1);
+	console.log(lineCoordY1);
+	console.log(lineCoordY2);
+	console.log(arrowBottomX);
+	console.log(arrowBottomY);
+	console.log(lineCoordX2);
+	console.log(arrowTopY);
+	console.log(arrowTopX);*/
+
+
+}
