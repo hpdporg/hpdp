@@ -10,7 +10,7 @@ The **HPDP** tools allow top to bottom visualization and dynamic analytic script
 
 ## Implementations ##
 
-The **HPDP** source is written in ASM, using the flatassembler (fasm). APIs are subject ot change but are planned to include asm, C/C++, Java, along with a network and scripting interface.
+The **HPDP** source is written in ASM, using flatassembler g (fasmg). APIs are subject to change but are planned to include asm, C/C++, Java, along with a network and scripting interface.
 
 ## Features ##
 
