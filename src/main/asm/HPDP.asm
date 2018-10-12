@@ -1,4 +1,5 @@
 include 'format/format.inc'
+
 format MS64 COFF
 
 
@@ -8,16 +9,26 @@ include 'Exports.inc'
 
 
 
+
+
+
 public start as 'start'
 
+section '.data' data readable writeable align 16
 
+	abcmsg db '0',0
+	list1Addr dq 0
+	item1 db '1',0
+	item1Addr dq 0
+	
 
-
-;section '.data' data readable writeable align 16
 
 
 
 section '.text' code readable writeable executable align 16
+
+
+
 
 
 align 16
@@ -29,7 +40,32 @@ start:
        and rsp, -32
 
 
+	mov qword [valueSize],1
 
+	newFile fileAddr,fileHandleAddr
+	writeFile fileHandleAddr,fileValue,valueSize,bytesWritten
+	;mov rbx, item1Addr
+	;mov rdx, item1
+	;mov [rbx], rdx
+	newList list1Addr
+	;mov rcx, 4
+	;mov [item1Addr], rcx
+	;newLastItem list1Addr, item1Addr
+	mov rax, 2
+	mov rcx, rax
+	;byteAsNumeric fileValue 
+	mov rbx, 111b
+	and rbx, cl
+	add bl, 48
+	mov byte [fileValue], bl
+	writeFile fileHandleAddr,fileValue,valueSize,bytesWritten
+	
+
+	;resetIndex list1Addr
+
+	;getNextItem list1Addr, item1Addr
+	;mov rdx, [item1Addr]
+	;writeFile fileHandleAddr,fileValue,valueSize,bytesWritten
 exit:
 
 	;pop r15 r14 r13 r12 rsp rsi rdi rbp rbx
@@ -43,3 +79,6 @@ exit:
 	 call [ExitProcess]
 	 add rsp, 8*4
        ; retn 0
+
+
+

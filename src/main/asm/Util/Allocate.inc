@@ -1,3 +1,18 @@
+macro allocate heapAddress, size,allocationDestination
+	sub rsp, 8*4
+	call [GetProcessHeap]
+	mov [heapAddress], rax
+	add rsp, 8*4
+
+	sub rsp, 8*4
+	mov r8,  size
+	mov rdx, 000001000b
+	mov rcx, [heapAddress]
+	call [ HeapAlloc]
+	mov [allocationDestination], rax
+	add rsp, 8*4
+end macro
+
 section '.data' data readable writeable
 
 	struc Element{
@@ -20,6 +35,10 @@ section '.data' data readable writeable
 
 		
 section '.text' code readable writeable executable ;align 16
+
+
+
+
 
 newElement:
 	push rbp 
@@ -47,10 +66,7 @@ newElement:
 	add rsp, 8*8
 
 
-	sub rsp, 8*4
-	call [GetProcessHeap]
-	mov [newElement.heapAddress], rax
-	add rsp, 8*4
+
 	
 
 	lea rax, [newElement.element]

@@ -1,104 +1,91 @@
 section '.data' data readable writeable
 
-	struc Element{
-		.text			dq 0		; Text of the Element
+	struc HTML{
+		.text			dq 0		; Text of the HTML
 	}
 	
 
 
 	; Used with address offsets
 	virtual at 0
-		Element Element
+		HTML HTML
 	end virtual
 
 	; ---- Structures
-	element Element
+	html HTML
 
 
-	;newElementMsg db 'New Element',0
-	
+	;newHTMLMsg db 'New HTML',0
+	htmlStart db '<html>',0
+	htmlEnd db '</html>',0
 
 		
 section '.text' code readable writeable executable ;align 16
 
-newElement:
+newHTML:
 	push rbp 
 	mov rbp, rsp 
-	sub rsp, (8*2)+(8*7)
+	sub rsp, (8*2)+(8*1)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
 	label .heapAddress qword at rbp-8  
 	label .handleAllocatedMemory qword at rbp-16
-	virtual at rbp-72
-		.element Element
+	virtual at rbp-8
+		.html HTML
 	end virtual	
 
 
 	and rsp, -32
 	push rbx rbp rdi rsi rsp r12 r13 r14 r15
 	sub rsp, 8
-	;align 16
-
 
 	sub rsp, 8*8
-	mov rcx, newElementMsg
+	mov rcx, newHTMLMsg
 	call debugMsg2
 	add rsp, 8*8
 
 
 	sub rsp, 8*4
 	call [GetProcessHeap]
-	mov [newElement.heapAddress], rax
+	mov [newHTML.heapAddress], rax
 	add rsp, 8*4
 	
 
-	lea rax, [newElement.element]
+	lea rax, [newHTML.html]
 
-	lea rcx, [newElement.element.modBuilderElementIndex]
+	lea rcx, [newHTML.html.text]
 
 	sub rcx, rax
 	add rcx, 1000b
 
 	sub rsp, 8*4
-	mov r8, rcx		;TensorRankOne size
+	mov r8, rcx	
 	mov rdx, 000001000b
-	mov rcx, [newElement.heapAddress]
+	mov rcx, [newHTML.heapAddress]
 	call [ HeapAlloc] 
-	mov [newElement.handleAllocatedMemory], rax
+	mov [newHTML.handleAllocatedMemory], rax
 	add rsp, 8*4
 
 
 	mov rax, 0
-	mov [newElement.element.modBuilder], rax
-	mov rax, 0
-	mov [newElement.element.mfElementRef], rax
-	mov rax, 0
-	mov [newElement.element.buildReadyFlag], rax			
-	mov rax, 0
-	mov [newElement.element.chainAllocIndex], rax
-	mov rax, 0
-	mov [newElement.element.chainAllocCount], rax
-	mov rax, 0
-	mov [newElement.element.modAllocCopyReadyFlag], rax			
-	mov rax, 0
-	mov [newElement.element.modBuilderElementIndex], rax			
+	mov [newHTML.html.text], rax
 		
 
-	lea rax, [newElement.element]
-	lea rcx, [newElement.element.modBuilderElementIndex]
+	lea rax, [newHTML.html]
+	lea rcx, [newHTML.html.text]
 
 	sub rcx, rax
 	add rcx, 1000b
 
 	cld
 
-	lea rsi, [newElement.element]
-	mov rdi, [newElement.handleAllocatedMemory]
+	lea rsi, [newHTML.html]
+	mov rdi, [newHTML.handleAllocatedMemory]
 
 	rep movsb
 
-	mov rax, [newElement.handleAllocatedMemory]
+	mov rax, [newHTML.handleAllocatedMemory]
 
 	add rsp, 8	
 	pop r15 r14 r13 r12 rsp rsi rdi rbp rbx
@@ -109,21 +96,17 @@ newElement:
 	retn 0
 
 
-elementFunc:
+html:
+.writeTags:
 	push rbp 
 	mov rbp, rsp
-	;and rsp, -32					;32 alignment 
 	;mov r13, rsp
 	;mov r10, [rsp+8*6]
 
-	sub rsp, (8*14)+(8*0);8*8;8*6
-	;sub rsp, 8					;16 alignment (optionally even out; 9 pushes below are odd)
-
+	sub rsp, (8*14)+(8*0)
+	
 	;mov qword [rbp-16], r10
 
-	mov rcx, rcx
-	mov rdx, rdx
-	mov r8, r8
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
@@ -143,21 +126,17 @@ elementFunc:
 	label .chainModSizesList qword at rbp-112
 
 
-	;label .deviceName qword at rbp-96
-	;virtual at rbp-104;56
-	;	.app APP
-	;end virtual	
-
-
 	and rsp, -32
 	push rbx rbp rdi rsi rsp r12 r13 r14 r15
 	sub rsp, 8
 
-	mov [elementFunc.dispatch], rcx
-	mov [elementFunc.chainStart], rdx
-	mov [elementFunc.comparisonChainStart], r8
+	mov [htmlFunc.html], rcx
+	;mov [htmlFunc.chainStart], rdx
+	;mov [htmlFunc.comparisonChainStart], r8
 
 
+	mov rbx, [htmlFunc.html]
+	
 
 
 

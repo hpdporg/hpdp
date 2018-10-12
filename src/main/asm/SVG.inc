@@ -1,27 +1,27 @@
 section '.data' data readable writeable
 
-	struc Element{
-		.text			dq 0		; Text of the Element
+	struc SVG{
+		.text			dq 0		; Text of the SVG
 	}
 	
 
 
 	; Used with address offsets
 	virtual at 0
-		Element Element
+		SVG SVG
 	end virtual
 
 	; ---- Structures
-	element Element
+	svg SVG
 
 
-	;newElementMsg db 'New Element',0
-	
-
+	;newSVGMsg db 'New SVG',0
+	svgTextStart db '<svg version="1.1" baseProfile="full" width="1000" height="200" xmlns="http://www.w3.org/2000/svg">',0
+	svgTextEnd db '</svg>',0
 		
 section '.text' code readable writeable executable ;align 16
 
-newElement:
+newSVG:
 	push rbp 
 	mov rbp, rsp 
 	sub rsp, (8*2)+(8*7)
@@ -31,7 +31,7 @@ newElement:
 	label .heapAddress qword at rbp-8  
 	label .handleAllocatedMemory qword at rbp-16
 	virtual at rbp-72
-		.element Element
+		.svg SVG
 	end virtual	
 
 
@@ -42,20 +42,20 @@ newElement:
 
 
 	sub rsp, 8*8
-	mov rcx, newElementMsg
+	mov rcx, newSVGMsg
 	call debugMsg2
 	add rsp, 8*8
 
 
 	sub rsp, 8*4
 	call [GetProcessHeap]
-	mov [newElement.heapAddress], rax
+	mov [newSVG.heapAddress], rax
 	add rsp, 8*4
 	
 
-	lea rax, [newElement.element]
+	lea rax, [newSVG.svg]
 
-	lea rcx, [newElement.element.modBuilderElementIndex]
+	lea rcx, [newSVG.svg.modBuilderSVGIndex]
 
 	sub rcx, rax
 	add rcx, 1000b
@@ -63,42 +63,42 @@ newElement:
 	sub rsp, 8*4
 	mov r8, rcx		;TensorRankOne size
 	mov rdx, 000001000b
-	mov rcx, [newElement.heapAddress]
+	mov rcx, [newSVG.heapAddress]
 	call [ HeapAlloc] 
-	mov [newElement.handleAllocatedMemory], rax
+	mov [newSVG.handleAllocatedMemory], rax
 	add rsp, 8*4
 
 
 	mov rax, 0
-	mov [newElement.element.modBuilder], rax
+	mov [newSVG.svg.modBuilder], rax
 	mov rax, 0
-	mov [newElement.element.mfElementRef], rax
+	mov [newSVG.svg.mfSVGRef], rax
 	mov rax, 0
-	mov [newElement.element.buildReadyFlag], rax			
+	mov [newSVG.svg.buildReadyFlag], rax			
 	mov rax, 0
-	mov [newElement.element.chainAllocIndex], rax
+	mov [newSVG.svg.chainAllocIndex], rax
 	mov rax, 0
-	mov [newElement.element.chainAllocCount], rax
+	mov [newSVG.svg.chainAllocCount], rax
 	mov rax, 0
-	mov [newElement.element.modAllocCopyReadyFlag], rax			
+	mov [newSVG.svg.modAllocCopyReadyFlag], rax			
 	mov rax, 0
-	mov [newElement.element.modBuilderElementIndex], rax			
+	mov [newSVG.svg.modBuilderSVGIndex], rax			
 		
 
-	lea rax, [newElement.element]
-	lea rcx, [newElement.element.modBuilderElementIndex]
+	lea rax, [newSVG.svg]
+	lea rcx, [newSVG.svg.modBuilderSVGIndex]
 
 	sub rcx, rax
 	add rcx, 1000b
 
 	cld
 
-	lea rsi, [newElement.element]
-	mov rdi, [newElement.handleAllocatedMemory]
+	lea rsi, [newSVG.svg]
+	mov rdi, [newSVG.handleAllocatedMemory]
 
 	rep movsb
 
-	mov rax, [newElement.handleAllocatedMemory]
+	mov rax, [newSVG.handleAllocatedMemory]
 
 	add rsp, 8	
 	pop r15 r14 r13 r12 rsp rsi rdi rbp rbx
@@ -109,7 +109,7 @@ newElement:
 	retn 0
 
 
-elementFunc:
+svgFunc:
 	push rbp 
 	mov rbp, rsp
 	;and rsp, -32					;32 alignment 
@@ -153,9 +153,9 @@ elementFunc:
 	push rbx rbp rdi rsi rsp r12 r13 r14 r15
 	sub rsp, 8
 
-	mov [elementFunc.dispatch], rcx
-	mov [elementFunc.chainStart], rdx
-	mov [elementFunc.comparisonChainStart], r8
+	mov [svgFunc.dispatch], rcx
+	mov [svgFunc.chainStart], rdx
+	mov [svgFunc.comparisonChainStart], r8
 
 
 
