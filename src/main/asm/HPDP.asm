@@ -50,14 +50,9 @@ start:
 	newList list1Addr
 	;mov rcx, 4
 	;mov [item1Addr], rcx
-	;newLastItem list1Addr, item1Addr
-	mov rax, 2
+	newLastItem list1Addr, item1Addr
 	mov rcx, rax
-	;byteAsNumeric fileValue 
-	mov rbx, 111b
-	and rbx, cl
-	add bl, 48
-	mov byte [fileValue], bl
+	byteAsNumeric fileValue 
 	writeFile fileHandleAddr,fileValue,valueSize,bytesWritten
 	
 

@@ -22,6 +22,7 @@ section '.data' data readable writeable align 16
 	fileAddr db 'C:\Users\Qualitest\Desktop\1100111b.txt',0
 	fileHandleAddr dq 0
 	fileValue db 'A',0
+	fileValue2 db 'B',0
 	bytesWritten dq 0
 	valueSize dq 0
 	;newElementMsg db 'New Element',0
@@ -73,8 +74,8 @@ end macro
 macro byteAsNumeric entry
 
 	mov rbx, 111b
-	and rbx, cl
+	and bl, cl
 	add bl, 48
-	;mov byte [entry], bl
+	mov byte [entry], bl
 
 end macro

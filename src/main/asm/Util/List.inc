@@ -306,7 +306,6 @@ list.newLastItem:
 	mov rbx, [list.newLastItem.list]
 	add rbx, List.itemsCount
 	mov rax, [rbx]
-	mov rax, 1
 
 	add rsp, 8	
 	pop r15 
