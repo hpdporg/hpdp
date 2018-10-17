@@ -29,6 +29,110 @@ section '.data' data readable writeable align 16
 
 section '.text' code readable writeable executable align 16
 
+storage:
+.newFile:
+	push rbp 
+	mov rbp, rsp 
+	sub rsp, (8*2);+(8*0)
+
+	;mov rcx, [rbp+8] 
+	;mov rdx, [rbp+12] 
+	label storage.newFile.handleAddr qword at rbp-8  
+	label storage.newFile.fileNameAddr qword at rbp-16
+	;virtual at rbp-64
+	;	.list List
+	;end virtual	
+
+	mov [storage.newFile.fileNameAddr], rcx
+
+	and rsp, -32
+	push rbx 
+	push rbp 
+	push rdi 
+	push rsi
+	push rsp 
+	push r12 
+	push r13 
+	push r14 
+	push r15
+	sub rsp, 8
+
+
+	newFile [storage.newFile.fileNameAddr],[storage.newFile.handleAddr]
+
+	mov rax, [storage.newFile.handleAddr]
+
+	add rsp, 8	
+	pop r15 
+	pop r14 
+	pop r13 
+	pop r12 
+	pop rsp 
+	pop rsi 
+	pop rdi 
+	pop rbp 
+	pop rbx
+
+	mov rsp, rbp
+	pop rbp
+
+	retn 0
+
+
+storage.writeFile:
+	push rbp 
+	mov rbp, rsp 
+	sub rsp, (8*4);+(8*0)
+
+	;mov rcx, [rbp+8] 
+	;mov rdx, [rbp+12] 
+	label storage.writeFile.handleAddr qword at rbp-8  
+	label storage.writeFile.entry qword at rbp-16
+	label storage.writeFile.size qword at rbp-24
+	label storage.writeFile.writtenAddr qword at rbp-32
+	;virtual at rbp-64
+	;	.list List
+	;end virtual	
+
+	mov [storage.writeFile.handleAddr], rcx
+	mov [storage.writeFile.entry], rdx
+	mov [storage.writeFile.size], r8
+
+	and rsp, -32
+	push rbx 
+	push rbp 
+	push rdi 
+	push rsi
+	push rsp 
+	push r12 
+	push r13 
+	push r14 
+	push r15
+	sub rsp, 8
+
+	lea rbx, [storage.writeFile.writtenAddr]
+	writeFile [storage.writeFile.handleAddr],[storage.writeFile.entry],[storage.writeFile.size],rbx
+	
+
+	mov rax, [storage.writeFile.handleAddr]
+
+	add rsp, 8	
+	pop r15 
+	pop r14 
+	pop r13 
+	pop r12 
+	pop rsp 
+	pop rsi 
+	pop rdi 
+	pop rbp 
+	pop rbx
+
+	mov rsp, rbp
+	pop rbp
+
+	retn 0
+
+
 macro newFile fileNameAddr,handleAddr
 
 	sub rsp, 8*8
@@ -41,9 +145,9 @@ macro newFile fileNameAddr,handleAddr
 	mov rcx, fileNameAddr
 	call [CreateFile]
 	add rsp, 8*8
-	mov [handleAddr], rax
+	mov handleAddr, rax
 
-	mov rcx, [handleAddr]
+	mov rcx, handleAddr
 	sub rsp, 8*4
 	call [SetEndOfFile]
 	add rsp, 8*4
@@ -52,7 +156,7 @@ end macro
 
 macro writeFile handleAddr,entry,size,writtenAddr
 
-	mov rcx, [handleAddr]
+	mov rcx, handleAddr
 	sub rsp, 8*4
 	call [SetEndOfFile]
 	add rsp, 8*4
@@ -61,9 +165,9 @@ macro writeFile handleAddr,entry,size,writtenAddr
 	sub rsp, 8*8
 	mov qword [rsp+4*8], 0
 	mov r9, writtenAddr
-	mov r8, [size]
+	mov r8, size
 	mov rdx, entry
-	mov rcx, [handleAddr]
+	mov rcx, handleAddr
 	call [WriteFile]
 	add rsp, 8*8
 

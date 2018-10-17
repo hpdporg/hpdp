@@ -1,0 +1,5 @@
+﻿  Runner.cpp
+  HPDP.cpp
+  Generating Code...
+Runner.obj : error LNK2019: unresolved external symbol _newList referenced in function _main
+C:\Users\Lewis\HPDP\src\main\cpp\HPDP\Debug\HPDP.exe : fatal error LNK1120: 1 unresolved externals

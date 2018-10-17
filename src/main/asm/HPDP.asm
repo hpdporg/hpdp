@@ -42,8 +42,8 @@ start:
 
 	mov qword [valueSize],1
 
-	newFile fileAddr,fileHandleAddr
-	writeFile fileHandleAddr,fileValue,valueSize,bytesWritten
+	newFile fileAddr,[fileHandleAddr]
+	writeFile [fileHandleAddr],fileValue,[valueSize],[bytesWritten]
 	;mov rbx, item1Addr
 	;mov rdx, item1
 	;mov [rbx], rdx
@@ -53,7 +53,7 @@ start:
 	newLastItem list1Addr, item1Addr
 	mov rcx, rax
 	byteAsNumeric fileValue 
-	writeFile fileHandleAddr,fileValue,valueSize,bytesWritten
+	writeFile [fileHandleAddr],fileValue,[valueSize],[bytesWritten]
 	
 
 	;resetIndex list1Addr
