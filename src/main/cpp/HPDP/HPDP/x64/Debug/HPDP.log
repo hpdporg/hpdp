@@ -1,0 +1,9 @@
+﻿  HPDP.cpp
+  Generating Code...
+  Compiling...
+  Runner.cpp
+c:\users\lewis\hpdp\src\main\cpp\runner.cpp(158): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+  HTML.cpp
+  Generating Code...
+  HPDP.vcxproj -> C:\Users\Lewis\HPDP\src\main\cpp\HPDP\x64\Debug\HPDP.exe
+  HPDP.vcxproj -> C:\Users\Lewis\HPDP\src\main\cpp\HPDP\x64\Debug\HPDP.pdb (Partial PDB)

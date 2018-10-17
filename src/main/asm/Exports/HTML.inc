@@ -1,1 +1,1 @@
-public newElement as 'newElement'
+public html.new as 'newHTML'
