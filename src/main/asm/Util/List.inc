@@ -5,6 +5,7 @@ section '.data' data readable writeable
 		label .
 		.item dq 0
 		.previous dq 0
+		.nesting dq 0
 		.next dq 0
 	end struc
 
@@ -208,6 +209,10 @@ list.newLastItem:
 	mov [rbx], rax
 	mov rbx, [list.newLastItem.handleAllocatedMemory]
 	add rbx, ListItem.previous
+	mov rax, 0
+	mov [rbx], rax
+	mov rbx, [list.newLastItem.handleAllocatedMemory]
+	add rbx, ListItem.nesting
 	mov rax, 0
 	mov [rbx], rax
 	mov rbx, [list.newLastItem.handleAllocatedMemory]

@@ -7,6 +7,7 @@ using namespace hpdp;
 HPDP::HPDP(){
 	this->defaultPath = new string("HTML.html");
 	this->htmlFileHandle = NULL;
+	this->asmHPDP = newHPDP();
 
 }
 
@@ -22,10 +23,27 @@ void HPDP::writeHTML(string* path) {
 	char* entry = "ABCD";
 	LONGLONG entrySize = (LONGLONG)(strlen(entry));//(LONGLONG*)malloc(sizeof(LONGLONG));
 	//*entrySize = (LONGLONG)(strlen(entry));
-	char** entryPtr = (char**)malloc(sizeof(char**));
-	*entryPtr = entry;
-	writeFile(this->htmlFileHandle,entry, entrySize);
+	
+	entrySize = (LONGLONG)(strlen(getSVGStartTag()));
+	writeFile(this->htmlFileHandle, getSVGStartTag(), entrySize);
+	Topology* topology = newTopology();
+	newShape(topology, TOPOLOGYSHAPE_LETTERS);
+	entrySize = (LONGLONG)(strlen(getTopologyStartTag(topology)));
+	writeFile(this->htmlFileHandle, getTopologyStartTag(topology), entrySize);
+	char* textEntry = "x=\"10\" y=\"10\">";
+	char* textEntry2 = "Title";
+	char* textEntry3 = appendLetters(textEntry, textEntry2);
 
+
+	entrySize = (LONGLONG)(strlen(textEntry));
+	writeFile(this->htmlFileHandle, textEntry, entrySize);
+	entrySize = (LONGLONG)(strlen(getTopologyEndTag(topology)));
+	writeFile(this->htmlFileHandle, getTopologyEndTag(topology), entrySize);
+	entrySize = (LONGLONG)(strlen(getSVGEndTag()));
+	writeFile(this->htmlFileHandle, getSVGEndTag(), entrySize);
+	HTML* html = newHTML();
+	newLastItem(this->asmHPDP->htmls, html);
+	expose(this->asmHPDP);
 
 }
 

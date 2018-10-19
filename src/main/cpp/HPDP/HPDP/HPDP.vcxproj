@@ -123,12 +123,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\HPDP.cpp" />
-    <ClCompile Include="..\..\HTML.cpp" />
     <ClCompile Include="..\..\Runner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\HPDP.h" />
-    <ClInclude Include="..\..\HTML.h" />
     <ClInclude Include="..\..\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
