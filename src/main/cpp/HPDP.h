@@ -68,6 +68,8 @@ namespace hpdp {
 		List* newList();
 		void newLastItem(List* list, void* item);
 		void* getNextItem(List* list);
+		void* getNextItemNesting(List* list);
+		void* nextItemNesting(List* list, LONGLONG nesting);
 		void resetIndex(List* list);
 		// Letters
 		char* numAsLetters(LONGLONG num);
@@ -122,6 +124,7 @@ namespace hpdp {
 		//getNextItemNesting
 		//nextItemNesting nesting
 		//moveNextItem index
+		//moveNextItems endIndex index
 
 		//newSpaceTopology space topology region
 
