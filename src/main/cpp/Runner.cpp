@@ -8,8 +8,8 @@ HINSTANCE ghInst;
 const LPCTSTR lpClassName = "HPDP";
 HWND hDlgCurrent = NULL;
 
-int winWidth = 1920;
-int winHeight = 1080;
+int winWidth = 600;
+int winHeight = 300;
 
 
 
@@ -137,7 +137,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	HWND hwnd = CreateWindowEx(NULL, lpClassName, "HPDP",
 		WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SIZEBOX,
-		200, 200, winWidth, winHeight, NULL, NULL, ghInst, NULL);
+		50, 50, winWidth, winHeight, NULL, NULL, ghInst, NULL);
 
 	ShowWindow(hwnd, 5);//nShowCmd);
 	ShowCursor(FALSE);

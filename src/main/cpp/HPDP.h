@@ -120,11 +120,15 @@ namespace hpdp {
 		//newRegion
 		//nestRegion
 
+		//getTopologyRegion
+
 		//List
-		//getNextItemNesting
-		//nextItemNesting nesting
-		//moveNextItem index
-		//moveNextItems endIndex index
+		//getNextItemNesting list
+		//nextItemNesting list nesting
+		//moveNextItem list index
+		//moveNextItems list endIndex index
+		//newNextItem
+		//getPriorItem
 
 		//newSpaceTopology space topology region
 

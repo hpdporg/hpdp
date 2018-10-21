@@ -36,8 +36,7 @@ section '.data' data readable writeable
 
 	
 
-	topologyEndTag db '/>',0
-	textStartTag db '<text ',0	
+	topologyEndTag db '/>',0	
 	textEndTag db '</text>',0
 	idStartTag db 'id="',0
 	doubleQuote db '"',0
@@ -320,8 +319,80 @@ topology.getTopologyStartTag:
 	jmp topology.getTopologyStartTag.end
 
 	topology.getTopologyStartTag.rect:	
+	
+	mov r8, [topology.topologyShape.rect]
+	cmp rcx, r8
+	jne topology.getTopologyStartTag.ellipse
 
+	mov rax, rectStartTag
+	jmp topology.getTopologyStartTag.end
+
+	topology.getTopologyStartTag.ellipse:
+
+	mov r8, [topology.topologyShape.ellipse]
+	cmp rcx, r8
+	jne topology.getTopologyStartTag.line
+
+	mov rax, ellipseStartTag
+	jmp topology.getTopologyStartTag.end
+
+	topology.getTopologyStartTag.line:
+
+	mov r8, [topology.topologyShape.line]
+	cmp rcx, r8
+	jne topology.getTopologyStartTag.chart
+
+	mov rax, lineStartTag
+	jmp topology.getTopologyStartTag.end
+
+	topology.getTopologyStartTag.chart:
+
+	mov r8, [topology.topologyShape.chart]
+	cmp rcx, r8
+	jne topology.getTopologyStartTag.table
+
+	;mov rax, chartStartTag
+	jmp topology.getTopologyStartTag.end
+
+	topology.getTopologyStartTag.table:
+
+	mov r8, [topology.topologyShape.table]
+	cmp rcx, r8
+	jne topology.getTopologyStartTag.arrow
+
+	;mov rax, tableStartTag
+	jmp topology.getTopologyStartTag.end
+
+	topology.getTopologyStartTag.arrow:
+
+	mov r8, [topology.topologyShape.arrow]
+	cmp rcx, r8
+	jne topology.getTopologyStartTag.logo
+
+	;mov rax, arrowStartTag
+	jmp topology.getTopologyStartTag.end
+
+	topology.getTopologyStartTag.logo:
+
+	mov r8, [topology.topologyShape.logo]
+	cmp rcx, r8
+	jne topology.getTopologyStartTag.region
+
+	;mov rax, logoStartTag
+	jmp topology.getTopologyStartTag.end
+
+	topology.getTopologyStartTag.region:
+
+	mov r8, [topology.topologyShape.region]
+	cmp rcx, r8
+	jne topology.getTopologyStartTag.end
+
+	;mov rax, regionStartTag
+	jmp topology.getTopologyStartTag.end
+
+	
 	topology.getTopologyStartTag.end:
+
 
 
 	add rsp, 8	

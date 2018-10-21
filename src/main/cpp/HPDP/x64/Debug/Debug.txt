@@ -1,0 +1,9 @@
+List ind:3
+Index item:2128524293376
+First item:2128524293376
+List ind2:0
+List items count:1
+Item addressC:2128524293376
+Item addressb:2128524293376
+Item addressa:2128524293952
+Index item:2128524298304

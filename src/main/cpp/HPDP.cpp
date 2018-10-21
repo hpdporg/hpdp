@@ -30,13 +30,13 @@ void HPDP::writeHTML(string* path) {
 	newShape(topology, TOPOLOGYSHAPE_LETTERS);
 	entrySize = (LONGLONG)(strlen(getTopologyStartTag(topology)));
 	writeFile(this->htmlFileHandle, getTopologyStartTag(topology), entrySize);
-	char* textEntry = "x=\"10\" y=\"10\">";
-	char* textEntry2 = "Title";
+	char* textEntry = "x=\"10\" y=\"10\">";// width = \"30\" height=\"30\"";
+	char* textEntry2 = "Statements Test Automation";
 	char* textEntry3 = appendLetters(textEntry, textEntry2);
 
 
-	entrySize = (LONGLONG)(strlen(textEntry));
-	writeFile(this->htmlFileHandle, textEntry, entrySize);
+	entrySize = (LONGLONG)(strlen(textEntry3));
+	writeFile(this->htmlFileHandle, textEntry3, entrySize);
 	entrySize = (LONGLONG)(strlen(getTopologyEndTag(topology)));
 	writeFile(this->htmlFileHandle, getTopologyEndTag(topology), entrySize);
 	entrySize = (LONGLONG)(strlen(getSVGEndTag()));
