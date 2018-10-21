@@ -4,4 +4,5 @@ public list.getNextItem as 'getNextItem'
 public list.getNextItemNesting as 'getNextItemNesting'
 public list.nextItemNesting as 'nextItemNesting'
 public list.resetIndex as 'resetIndex'
-
+public list.newNextItem as 'newNextItem'
+public list.getPriorItem as 'getPriorItem'

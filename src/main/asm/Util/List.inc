@@ -727,7 +727,7 @@ list.nextItemNesting:
 list.newNextItem:
 	push rbp 
 	mov rbp, rsp 
-	sub rsp, (8*6);+(8*6)
+	sub rsp, (8*9);+(8*6)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
@@ -737,12 +737,16 @@ list.newNextItem:
 	label list.newNextItem.item qword at rbp-32
 	label list.newNextItem.prevItem qword at rbp-40
 	label list.newNextItem.prevItemIndex qword at rbp-48
+	label list.newNextItem.newItem qword at rbp-56
+	label list.newNextItem.prevItemNext qword at rbp-64
+	label list.newNextItem.nextItemPrev qword at rbp-72
 	;virtual at rbp-64
 	;	.list List
 	;end virtual	
 
 
 	mov [list.newNextItem.list], rcx
+	mov [list.newNextItem.newItem], rdx
 
 
 
@@ -762,6 +766,27 @@ list.newNextItem:
 
 	mov rcx, 0
 	mov [list.newNextItem.prevItemIndex], rcx		; Begin as 0
+	mov [list.newNextItem.prevItemNext], rcx
+
+
+	sub rsp, 8*4
+	call [GetProcessHeap]
+	mov [list.newNextItem.heapAddress], rax
+	add rsp, 8*4
+
+
+	mov rcx, 0
+	add rcx, ListItem.next
+	add rcx, 1000b
+
+	sub rsp, 8*4
+	mov r8, rcx		
+	mov rdx, 000001000b
+	mov rcx, [list.newNextItem.heapAddress]
+	call [ HeapAlloc] 
+	mov [list.newNextItem.handleAllocatedMemory], rax
+	add rsp, 8*4
+
 
 	mov rbx, [list.newNextItem.list]
 	add rbx, List.indexItem
@@ -819,6 +844,21 @@ list.newNextItem:
 	list.newNextItem.indexReached:
 
 
+	mov rbx, [list.newNextItem.item]
+	add rbx, ListItem.next
+	mov rdx, [rbx]
+	cmp rdx, 0
+	je list.newNextItem.noNextItem
+
+	mov [list.newNextItem.prevItemNext], rdx	
+	add rdx, ListItem.previous
+	mov [list.newNextItem.nextItemPrev], rdx		; Cache index. May remove this.
+	mov rax, [list.newNextItem.handleAllocatedMemory]
+	mov [rdx], rax
+
+	list.newNextItem.noNextItem:
+
+
 	mov rbx, [list.newNextItem.list]			; Advance List index
 	add rbx, List.index
 	mov r11, [rbx]
@@ -826,33 +866,16 @@ list.newNextItem:
 	mov [rbx], r11
 
 
-	sub rsp, 8*4
-	call [GetProcessHeap]
-	mov [list.newNextItem.heapAddress], rax
-	add rsp, 8*4
-
-
-	mov rcx, 0
-	add rcx, ListItem.next
-	add rcx, 1000b
-
-	sub rsp, 8*4
-	mov r8, rcx		
-	mov rdx, 000001000b
-	mov rcx, [list.newNextItem.heapAddress]
-	call [ HeapAlloc] 
-	mov [list.newNextItem.handleAllocatedMemory], rax
-	add rsp, 8*4
 
 
 
 	mov rbx, [list.newNextItem.handleAllocatedMemory]
 	add rbx, ListItem.item
-	mov rax, [list.newNextItem.item]
+	mov rax, [list.newNextItem.newItem]
 	mov [rbx], rax
 	mov rbx, [list.newNextItem.handleAllocatedMemory]
 	add rbx, ListItem.previous
-	mov rax, 0
+	mov rax, [list.newNextItem.item]
 	mov [rbx], rax
 	mov rbx, [list.newNextItem.handleAllocatedMemory]
 	add rbx, ListItem.nesting
@@ -860,14 +883,14 @@ list.newNextItem:
 	mov [rbx], rax
 	mov rbx, [list.newNextItem.handleAllocatedMemory]
 	add rbx, ListItem.next
-	mov rax, 0
+	mov rax, [list.newNextItem.prevItemNext]
 	mov [rbx], rax
 
 
 
 
 
-	mov rbx, [list.newNextItem.list]			; Advance List index
+	mov rbx, [list.newNextItem.list]			; Increase items count
 	add rbx, List.itemsCount
 	mov r11, [rbx]
 	add r11, 1b
@@ -877,14 +900,11 @@ list.newNextItem:
 	mov rbx, [list.newNextItem.list]			; Advance index item, index item index
 	mov rdx, rbx
 	add rbx, List.indexItem
-	mov r13, [list.newNextItem.item]
+	mov r13, [list.newNextItem.handleAllocatedMemory]
 	mov [rbx], r13
 	add rdx, List.indexedItemIndex
 	mov [rdx], r11
 
-	mov r12, [list.newNextItem.item]			; Get List Item's item
-	add r12, ListItem.item
-	mov rax, [r12]
 
 	add rsp, 8	
 	pop r15 
@@ -902,6 +922,145 @@ list.newNextItem:
 
 	retn 0
 
+list.getPriorItem:
+	push rbp 
+	mov rbp, rsp 
+	sub rsp, (8*6);+(8*6)
+
+	;mov rcx, [rbp+8] 
+	;mov rdx, [rbp+12] 
+	label list.getPriorItem.heapAddress qword at rbp-8  
+	label list.getPriorItem.handleAllocatedMemory qword at rbp-16
+	label list.getPriorItem.list qword at rbp-24 
+	label list.getPriorItem.item qword at rbp-32
+	label list.getPriorItem.prevItem qword at rbp-40
+	label list.getPriorItem.prevItemIndex qword at rbp-48
+	;virtual at rbp-64
+	;	.list List
+	;end virtual	
+
+
+	mov [list.getPriorItem.list], rcx
+
+
+
+	and rsp, -32
+	push rbx 
+	push rbp 
+	push rdi 
+	push rsi
+	push rsp 
+	push r12 
+	push r13 
+	push r14 
+	push r15
+	sub rsp, 8
+
+
+
+	mov rcx, 0
+	mov [list.getPriorItem.prevItemIndex], rcx		; Begin as 0
+
+	mov rbx, [list.getPriorItem.list]
+	add rbx, List.indexItem
+	mov rdx, [rbx]
+	mov [list.getPriorItem.prevItem], rdx
+
+
+	mov rbx, [list.getPriorItem.list]
+	mov rdx, rbx
+	add rbx, List.index
+	mov r8, [rbx]
+	add rdx, List.indexedItemIndex
+	mov r9, [rdx]
+	cmp r8, r9
+	je list.getPriorItem.atIndexedItem
+
+	mov rbx, [list.getPriorItem.list]			; Get first item when indexed is not cached and retrievable.
+	add rbx, List.firstItem
+	mov rdx, [rbx]
+	mov [list.getPriorItem.prevItem], rdx
+
+	mov rbx, [list.getPriorItem.list]
+	add rbx, List.index
+	mov rcx, [rbx]
+	cmp rcx, 0
+	jne list.getPriorItem.nextItem
+
+	list.getPriorItem.atIndexedItem:
+
+	mov rbx, [list.getPriorItem.prevItem]
+	mov [list.getPriorItem.item], rbx		
+
+	jmp list.getPriorItem.lastItemReached
+
+	list.getPriorItem.nextItem:
+	mov rbx, [list.getPriorItem.list]
+	add rbx, List.index
+	mov rcx, [rbx]
+	mov rdx, [list.getPriorItem.prevItemIndex]
+	cmp rcx, rdx
+	jne list.getPriorItem.lastItemReached
+
+
+	mov r9, [list.getPriorItem.prevItem]
+	add r9, ListItem.next
+	mov r10, [r9]
+	mov [list.getPriorItem.item], r10
+
+	mov r11, [list.getPriorItem.prevItemIndex]
+	add r11, 1b
+	mov [list.getPriorItem.prevItemIndex], r11		; Increase prior item index
+	
+	jmp list.getPriorItem.nextItem
+
+	list.getPriorItem.lastItemReached:
+
+	mov r13, [list.getPriorItem.item]
+	add r13, ListItem.previous
+	mov rax, [r13]
+	mov [list.getPriorItem.item], rax	
+	cmp rax, 0
+	je list.getPriorItem.end
+
+
+
+	mov rbx, [list.getPriorItem.list]			; Decrease List index
+	add rbx, List.index
+	mov r11, [rbx]
+	sub r11, 1b
+	mov [rbx], r11
+
+	mov rbx, [list.getPriorItem.list]			; Cache index item, index item index
+	mov rdx, rbx
+	add rbx, List.indexItem
+	mov r13, [list.getPriorItem.item]
+	mov [rbx], r13
+	add rdx, List.indexedItemIndex
+	mov [rdx], r11
+
+	mov r12, [list.getPriorItem.item]			; Get List Item's item
+	add r12, ListItem.item
+	mov rax, [r12]
+
+	list.getPriorItem.end:
+
+
+	add rsp, 8	
+	pop r15 
+	pop r14 
+	pop r13 
+	pop r12 
+	pop rsp 
+	pop rsi 
+	pop rdi 
+	pop rbp 
+	pop rbx
+
+	mov rsp, rbp
+	pop rbp
+
+	retn 0
 
 
 list.resetIndex:

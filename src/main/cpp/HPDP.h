@@ -71,6 +71,8 @@ namespace hpdp {
 		void* getNextItemNesting(List* list);
 		void* nextItemNesting(List* list, LONGLONG nesting);
 		void resetIndex(List* list);
+		void* newNextItem(List* list, void* item);
+		void* getPriorItem(List* list);
 		// Letters
 		char* numAsLetters(LONGLONG num);
 		LONGLONG letterLength(char* letters);
