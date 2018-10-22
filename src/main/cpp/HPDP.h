@@ -19,6 +19,12 @@ namespace hpdp {
 		void* next;
 	} ListItem;
 
+	typedef struct ItemMatch {
+		void* item;
+		LONGLONG index;
+		LONGLONG nesting;
+	} ItemMatch;
+
 	typedef struct List {
 		void* firstItem;
 		LONGLONG	listSize;
@@ -73,6 +79,7 @@ namespace hpdp {
 		void resetIndex(List* list);
 		void* newNextItem(List* list, void* item);
 		void* getPriorItem(List* list);
+		void* getNextItemMatch(List* list, void* itemMatch);
 		// Letters
 		char* numAsLetters(LONGLONG num);
 		LONGLONG letterLength(char* letters);
@@ -122,7 +129,20 @@ namespace hpdp {
 		//newRegion
 		//nestRegion
 
-		//getTopologyRegion
+		//getTopologyRegion uses same nesting
+		//newSpaceTopology space topology region
+
+		//Region flags
+		// xoffsetFromPriorRegionBound
+			// i,j, or k
+		//Bound
+			//Displacement
+			//FitNestedTopologies
+				//Include Padding
+
+		//Topology flags
+		// xoffsetFromPriorRegionBound
+		// i,j, or k
 
 		//List
 		//getNextItemNesting list
@@ -131,8 +151,9 @@ namespace hpdp {
 		//moveNextItems list endIndex index
 		//newNextItem
 		//getPriorItem
+		//getNextItemMatch
 
-		//newSpaceTopology space topology region
+		
 
 		//setID
 		//setXOffset

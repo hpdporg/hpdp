@@ -9,6 +9,13 @@ section '.data' data readable writeable
 		.next dq 0
 	end struc
 
+	struc ItemMatch
+		label .
+		.item dq 0
+		.index dq 0
+		.nesting dq 0
+	end struc
+
 	struc List
 		label .
 		.firstItem dq 0
@@ -17,17 +24,28 @@ section '.data' data readable writeable
 		.index dq 0
 		.indexItem dq 0 			; Address of item at current index for faster item retrieval
 		.indexedItemIndex dq 0			; Used to determine if index was set manually or actually equals indexed Item address
+		.itemMatch dq 0				; Item matching
 	end struc	
 	
-	; Used with address offsets
-	virtual at 0
-		List List
-	end virtual
+
 
 	; Used with address offsets
 	virtual at 0
 		ListItem ListItem
 	end virtual
+
+	; Used with address offsets
+	virtual at 0
+		ItemMatch ItemMatch
+	end virtual
+
+
+	; Used with address offsets
+	virtual at 0
+		List List
+	end virtual
+
+
 	; ---- Structures
 	;list List
 
@@ -76,7 +94,7 @@ list:
 	
 
 	mov rcx, 0
-	add rcx, List.indexedItemIndex
+	add rcx, List.itemMatch
 	add rcx, 1000b
 
 	sub rsp, 8*4
@@ -112,6 +130,12 @@ list:
 	add rbx, List.indexedItemIndex
 	mov rax, 0
 	mov [rbx], rax
+	mov rbx, [list.new.handleAllocatedMemory]
+	add rbx, List.itemMatch
+	sub rsp, 8*8
+	call list.newItemMatch
+	add rsp, 8*8
+	mov [rbx], rax
 
 
 	;lea rax, [list.new.list]
@@ -129,6 +153,101 @@ list:
 
 
 	mov rax, [list.new.handleAllocatedMemory]
+
+
+	add rsp, 8	
+	pop r15 
+	pop r14 
+	pop r13 
+	pop r12 
+	pop rsp 
+	pop rsi 
+	pop rdi 
+	pop rbp 
+	pop rbx
+
+	mov rsp, rbp
+	pop rbp
+
+	retn 0
+
+list.newItemMatch:
+	push rbp 
+	mov rbp, rsp 
+	sub rsp, (8*2);+(8*0)
+
+	;mov rcx, [rbp+8] 
+	;mov rdx, [rbp+12] 
+	label list.newItemMatch.heapAddress qword at rbp-8  
+	label list.newItemMatch.handleAllocatedMemory qword at rbp-16
+	;virtual at rbp-64
+	;	.list List
+	;end virtual	
+
+
+
+	and rsp, -32
+	push rbx 
+	push rbp 
+	push rdi 
+	push rsi
+	push rsp 
+	push r12 
+	push r13 
+	push r14 
+	push r15
+	sub rsp, 8
+
+
+
+	sub rsp, 8*4
+	call [GetProcessHeap]
+	mov [list.newItemMatch.heapAddress], rax
+	add rsp, 8*4
+	
+
+	mov rcx, 0
+	add rcx, List.itemMatch
+	add rcx, 1000b
+
+	sub rsp, 8*4
+	mov r8, rcx		
+	mov rdx, 000001000b
+	mov rcx, [list.newItemMatch.heapAddress]
+	call [ HeapAlloc] 
+	mov [list.newItemMatch.handleAllocatedMemory], rax
+	add rsp, 8*4
+
+
+	mov rbx, [list.newItemMatch.handleAllocatedMemory]
+	add rbx, ItemMatch.item
+	mov rax, 0
+	mov [rbx], rax
+	mov rbx, [list.newItemMatch.handleAllocatedMemory]
+	add rbx, ItemMatch.index
+	mov rax, 0
+	mov [rbx], rax
+	mov rbx, [list.newItemMatch.handleAllocatedMemory]
+	add rbx, ItemMatch.nesting
+	mov rax, 0
+	mov [rbx], rax
+
+
+	;lea rax, [list.newItemMatch.list]
+	;lea rcx, [list.newItemMatch.list.indexedItemIndex]
+
+	;sub rcx, rax
+	;add rcx, 1000b
+
+	;cld
+
+	;lea rsi, [list.newItemMatch.list]
+	;mov rdi, [list.newItemMatch.handleAllocatedMemory]
+
+	;rep movsb
+
+
+	mov rax, [list.newItemMatch.handleAllocatedMemory]
 
 
 	add rsp, 8	
@@ -925,7 +1044,7 @@ list.newNextItem:
 list.getPriorItem:
 	push rbp 
 	mov rbp, rsp 
-	sub rsp, (8*6);+(8*6)
+	sub rsp, (8*7);+(8*6)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
@@ -935,6 +1054,7 @@ list.getPriorItem:
 	label list.getPriorItem.item qword at rbp-32
 	label list.getPriorItem.prevItem qword at rbp-40
 	label list.getPriorItem.prevItemIndex qword at rbp-48
+	label list.getPriorItem.listItemMatch qword at rbp-56
 	;virtual at rbp-64
 	;	.list List
 	;end virtual	
@@ -1039,12 +1159,210 @@ list.getPriorItem:
 	add rdx, List.indexedItemIndex
 	mov [rdx], r11
 
+
+	list.getPriorItem.end:
+
+	mov r12, [list.getPriorItem.item]	
+	cmp r12, 0
+	je list.getPriorItem.noMatch
+
+	mov rbx, [list.getPriorItem.list]
+	mov rdx, rbx
+	add rdx, List.itemMatch			
+	mov rcx, [rdx]
+	mov [list.getPriorItem.listItemMatch], rcx	
+	mov r11, rcx
+	add r11, ItemMatch.item
+	mov r12, [list.getPriorItem.item]
+	add r12, ListItem.item
+	mov rax, [r12]
+	mov [r11], rax
+	mov rdx, rbx
+	add rdx, List.index
+	mov r11, rcx
+	add r11, ItemMatch.index
+	mov r13, [rdx]
+	sub r13, 1b
+	mov [r11], r13
+	mov r11, rcx
+	add r11, ItemMatch.nesting
+	mov r12, [list.getPriorItem.item]	
+	add r12, ListItem.nesting
+	mov r13, [r12]
+	mov [r11], r13
+
 	mov r12, [list.getPriorItem.item]			; Get List Item's item
 	add r12, ListItem.item
 	mov rax, [r12]
 
-	list.getPriorItem.end:
+	list.getPriorItem.noMatch:
 
+	add rsp, 8	
+	pop r15 
+	pop r14 
+	pop r13 
+	pop r12 
+	pop rsp 
+	pop rsi 
+	pop rdi 
+	pop rbp 
+	pop rbx
+
+	mov rsp, rbp
+	pop rbp
+
+	retn 0
+
+list.getNextItemMatch:
+	push rbp 
+	mov rbp, rsp 
+	sub rsp, (8*8);+(8*6)
+
+	;mov rcx, [rbp+8] 
+	;mov rdx, [rbp+12] 
+	label list.getNextItemMatch.heapAddress qword at rbp-8  
+	label list.getNextItemMatch.handleAllocatedMemory qword at rbp-16
+	label list.getNextItemMatch.list qword at rbp-24 
+	label list.getNextItemMatch.item qword at rbp-32
+	label list.getNextItemMatch.prevItem qword at rbp-40
+	label list.getNextItemMatch.prevItemIndex qword at rbp-48
+	label list.getNextItemMatch.itemMatch qword at rbp-56
+	label list.getNextItemMatch.listItemMatch qword at rbp-64
+
+	;virtual at rbp-64
+	;	.list List
+	;end virtual	
+
+
+	mov [list.getNextItemMatch.list], rcx
+	mov [list.getNextItemMatch.itemMatch], rdx
+
+
+
+	and rsp, -32
+	push rbx 
+	push rbp 
+	push rdi 
+	push rsi
+	push rsp 
+	push r12 
+	push r13 
+	push r14 
+	push r15
+	sub rsp, 8
+
+
+
+	mov rcx, 0
+	mov [list.getNextItemMatch.prevItemIndex], rcx		; Begin as 0
+
+	mov rbx, [list.getNextItemMatch.list]
+	add rbx, List.indexItem
+	mov rdx, [rbx]
+	mov [list.getNextItemMatch.prevItem], rdx
+
+
+	mov rbx, [list.getNextItemMatch.list]
+	mov rdx, rbx
+	add rbx, List.index
+	mov r8, [rbx]
+	add rdx, List.indexedItemIndex
+	mov r9, [rdx]
+	cmp r8, r9
+	je list.getNextItemMatch.atIndexedItem
+
+	mov rbx, [list.getNextItemMatch.list]			; Get first item when indexed is not cached and retrievable.
+	add rbx, List.firstItem
+	mov rdx, [rbx]
+	mov [list.getNextItemMatch.prevItem], rdx
+
+	mov rbx, [list.getNextItemMatch.list]
+	add rbx, List.index
+	mov rcx, [rbx]
+	cmp rcx, 0
+	jne list.getNextItemMatch.nextItem
+
+	list.getNextItemMatch.atIndexedItem:
+
+	mov rbx, [list.getNextItemMatch.prevItem]
+	mov [list.getNextItemMatch.item], rbx		
+
+	jmp list.getNextItemMatch.lastItemReached
+
+	list.getNextItemMatch.nextItem:
+	mov rbx, [list.getNextItemMatch.list]
+	add rbx, List.index
+	mov rcx, [rbx]
+	mov rdx, [list.getNextItemMatch.prevItemIndex]
+	cmp rcx, rdx
+	jne list.getNextItemMatch.lastItemReached
+
+
+	mov r9, [list.getNextItemMatch.prevItem]
+	add r9, ListItem.next
+	mov r10, [r9]
+	mov [list.getNextItemMatch.item], r10
+
+	mov r11, [list.getNextItemMatch.prevItemIndex]
+	add r11, 1b
+	mov [list.getNextItemMatch.prevItemIndex], r11		; Increase prior item index
+	
+	jmp list.getNextItemMatch.nextItem
+
+	list.getNextItemMatch.lastItemReached:
+
+
+	mov rbx, [list.getNextItemMatch.list]			; Advance List index
+	add rbx, List.index
+	mov r11, [rbx]
+	add r11, 1b
+	mov [rbx], r11
+
+	mov rbx, [list.getNextItemMatch.list]			; Advance index item, index item index
+	mov rdx, rbx
+	add rbx, List.indexItem
+	mov r13, [list.getNextItemMatch.item]
+	mov [rbx], r13
+	add rdx, List.indexedItemIndex
+	mov [rdx], r11
+
+	mov r12, [list.getNextItemMatch.item]			; Get List Item's item
+	add r12, ListItem.item
+	mov rax, [r12]
+	mov r13, [list.getNextItemMatch.itemMatch]
+	cmp rax, r13
+	jne list.getNextItemMatch.nextItem
+
+	mov r12, [list.getNextItemMatch.item]	
+	cmp r12, 0
+	je list.getNextItemMatch.noMatch
+
+	mov rbx, [list.getNextItemMatch.list]
+	mov rdx, rbx
+	add rdx, List.itemMatch			
+	mov rcx, [rdx]
+	mov [list.getNextItemMatch.listItemMatch], rcx	
+	mov r11, rcx
+	add r11, ItemMatch.item
+	mov r13, [list.getNextItemMatch.itemMatch]
+	mov [r11], r13
+	mov rdx, rbx
+	add rdx, List.index
+	mov r11, rcx
+	add r11, ItemMatch.index
+	mov r13, [rdx]
+	sub r13, 1b
+	mov [r11], r13
+	mov r11, rcx
+	add r11, ItemMatch.nesting
+	mov r12, [list.getNextItemMatch.item]	
+	add r12, ListItem.nesting
+	mov r13, [r12]
+	mov [r11], r13
+
+
+
+	list.getNextItemMatch.noMatch:
 
 	add rsp, 8	
 	pop r15 

@@ -10,6 +10,7 @@ section '.data' data readable writeable
 		.offsetJ dq 0
 		.width dq 0
 		.height dq 0
+		.space dq 0	
 	end struc
 
 
@@ -82,7 +83,7 @@ topology:
 	
 
 	mov rcx, 0
-	add rcx,Topology.height
+	add rcx,Topology.space
 	add rcx, 1000b
 
 	sub rsp, 8*4
@@ -121,6 +122,10 @@ topology:
 	mov [rbx], rax
 	mov rbx, [topology.new.handleAllocatedMemory]
 	add rbx, Topology.height
+	mov rax, 0
+	mov [rbx], rax
+	mov rbx, [topology.new.handleAllocatedMemory]
+	add rbx, Topology.space
 	mov rax, 0
 	mov [rbx], rax
 	
@@ -414,14 +419,14 @@ topology.getTopologyStartTag:
 topology.expose:
 	push rbp 
 	mov rbp, rsp 
-	sub rsp, (8*3);+(8*0)
+	sub rsp, (8*4);+(8*0)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
 	label topology.expose.heapAddress qword at rbp-8  
 	label topology.expose.handleAllocatedMemory qword at rbp-16
 	label topology.expose.topology qword at rbp-24	
-	;label topology.expose.space qword at rbp-32
+	label topology.expose.region qword at rbp-32
 	;label topology.expose.topology qword at rbp-40
 	;label hpdp.expose.prevItem qword at rbp-40
 	;virtual at rbp-64
@@ -444,8 +449,126 @@ topology.expose:
 
 
 
-	mov rbx, [topology.expose.topology]
+	sub rsp, 8*8
+	mov rcx, [topology.expose.topology]
+	call getTopologyRegion
+	add rsp, 8*8
+	mov [topology.expose.region], rax
+
+
+	add rsp, 8	
+	pop r15 
+	pop r14 
+	pop r13 
+	pop r12 
+	pop rsp 
+	pop rsi 
+	pop rdi 
+	pop rbp 
+	pop rbx
+
+	mov rsp, rbp
+	pop rbp
+
+	retn 0
+
+topology.getTopologyRegion:
+	push rbp 
+	mov rbp, rsp 
+	sub rsp, (8*7);+(8*0)
+
+	;mov rcx, [rbp+8] 
+	;mov rdx, [rbp+12] 
+	label topology.getTopologyRegion.heapAddress qword at rbp-8  
+	label topology.getTopologyRegion.handleAllocatedMemory qword at rbp-16
+	label topology.getTopologyRegion.topology qword at rbp-24	
+	label topology.getTopologyRegion.region qword at rbp-32
+	label topology.getTopologyRegion.space qword at rbp-40
+	label topology.getTopologyRegion.nesting qword at rbp-48
+	label topology.getTopologyRegion.itemMatch qword at rbp-56
+	;label hpdp.expose.prevItem qword at rbp-40
+	;virtual at rbp-64
+	;	.html HTML
+	;end virtual	
+
+	mov [topology.getTopologyRegion.topology], rcx
+
+	and rsp, -32
+	push rbx 
+	push rbp 
+	push rdi 
+	push rsi
+	push rsp 
+	push r12 
+	push r13 
+	push r14 
+	push r15
+	sub rsp, 8
+
+
+
+	mov rbx, [topology.getTopologyRegion.topology]
+	add rbx, Topology.space
+	mov rcx, [rbx]
+	mov [topology.getTopologyRegion.space], rcx
 	
+	sub rsp, 8*8
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.resetIndex
+	add rsp, 8*8
+
+	sub rsp, 8*8
+	mov rdx, [topology.getTopologyRegion.topology]
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.getNextItemMatch
+	add rsp, 8*8
+
+	
+	mov rbx, [topology.getTopologyRegion.space]
+	add rbx, List.itemMatch
+	mov rdx, [rbx]
+	mov [topology.getTopologyRegion.itemMatch], rdx
+	add rdx, ItemMatch.nesting
+	mov rcx, [rdx]
+	mov [topology.getTopologyRegion.nesting], rcx
+	
+
+	sub rsp, 8*8
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.getPriorItem					; Reverse once so Topology is not included in search
+	add rsp, 8*8
+
+
+	topology.getTopologyRegion.priorItem:
+	mov rdx, [topology.getTopologyRegion.space]
+	add rdx, List.index
+	mov rcx, [rdx]
+	cmp rcx, 0
+	jl topology.getTopologyRegion.firstIndex
+
+
+	sub rsp, 8*8
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.getPriorItem
+	add rsp, 8*8
+	mov [topology.getTopologyRegion.region], rax
+
+	mov [topology.getTopologyRegion.itemMatch], rdx
+	add rdx, ItemMatch.nesting
+	mov rcx, [rdx]
+	add rcx, 1b
+	mov r11, [topology.getTopologyRegion.nesting]
+	cmp rcx, r11
+	je topology.getTopologyRegion.firstIndex			; Found
+
+
+	jmp topology.getTopologyRegion.priorItem
+	topology.getTopologyRegion.firstIndex:
+
+
+
+
+
 
 	add rsp, 8	
 	pop r15 

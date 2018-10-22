@@ -399,3 +399,97 @@ layout.expose:
 	pop rbp
 
 	retn 0
+
+layout.newSpaceTopology:
+	push rbp 
+	mov rbp, rsp 
+	sub rsp, (8*5);+(8*0)
+
+	;mov rcx, [rbp+8] 
+	;mov rdx, [rbp+12] 
+	label layout.newSpaceTopology.heapAddress qword at rbp-8  
+	label layout.newSpaceTopology.handleAllocatedMemory qword at rbp-16
+	label layout.newSpaceTopology.layout qword at rbp-24	
+	label layout.newSpaceTopology.space qword at rbp-32
+	label layout.newSpaceTopology.topology qword at rbp-40
+	;label hpdp.expose.prevItem qword at rbp-40
+	;virtual at rbp-64
+	;	.html HTML
+	;end virtual	
+
+	mov [layout.newSpaceTopology.layout], rcx
+	mov [layout.newSpaceTopology.space], rdx
+	mov [layout.newSpaceTopology.topology], r8
+
+	and rsp, -32
+	push rbx 
+	push rbp 
+	push rdi 
+	push rsi
+	push rsp 
+	push r12 
+	push r13 
+	push r14 
+	push r15
+	sub rsp, 8
+
+
+	mov rbx, [topology.getTopologyRegion.topology]
+	add rbx, Topology.space
+	mov rcx, [rbx]
+	mov [topology.getTopologyRegion.space], rcx
+	
+	sub rsp, 8*8
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.resetIndex
+	add rsp, 8*8
+
+	; region 0, otherwise last
+
+	sub rsp, 8*8
+	mov rdx, [topology.getTopologyRegion.topology]
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.getNextItemMatch
+	add rsp, 8*8
+
+	
+	mov rbx, [topology.getTopologyRegion.space]
+	add rbx, List.itemMatch
+	mov rdx, [rbx]
+	mov [topology.getTopologyRegion.itemMatch], rdx
+	add rdx, ItemMatch.nesting
+	mov rcx, [rdx]
+	mov [topology.getTopologyRegion.nesting], rcx
+	
+
+	sub rsp, 8*8
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.getPriorItem					; Reverse once so Topology is not included in search
+	add rsp, 8*8
+
+
+	sub rsp, 8*8
+	mov rdx, [topology.getTopologyRegion.topology]
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.newNextItem
+	add rsp, 8*8
+
+
+
+
+
+	add rsp, 8	
+	pop r15 
+	pop r14 
+	pop r13 
+	pop r12 
+	pop rsp 
+	pop rsi 
+	pop rdi 
+	pop rbp 
+	pop rbx
+
+	mov rsp, rbp
+	pop rbp
+
+	retn 0
