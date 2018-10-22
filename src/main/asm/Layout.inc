@@ -403,23 +403,23 @@ layout.expose:
 layout.newSpaceTopology:
 	push rbp 
 	mov rbp, rsp 
-	sub rsp, (8*5);+(8*0)
+	sub rsp, (8*6);+(8*0)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
 	label layout.newSpaceTopology.heapAddress qword at rbp-8  
 	label layout.newSpaceTopology.handleAllocatedMemory qword at rbp-16
-	label layout.newSpaceTopology.layout qword at rbp-24	
+	label layout.newSpaceTopology.region qword at rbp-24	
 	label layout.newSpaceTopology.space qword at rbp-32
 	label layout.newSpaceTopology.topology qword at rbp-40
-	;label hpdp.expose.prevItem qword at rbp-40
+	label layout.newSpaceTopology.itemMatch qword at rbp-48
 	;virtual at rbp-64
 	;	.html HTML
 	;end virtual	
 
-	mov [layout.newSpaceTopology.layout], rcx
-	mov [layout.newSpaceTopology.space], rdx
-	mov [layout.newSpaceTopology.topology], r8
+	mov [layout.newSpaceTopology.space], rcx
+	mov [layout.newSpaceTopology.topology], rdx
+	mov [layout.newSpaceTopology.region], r8
 
 	and rsp, -32
 	push rbx 
@@ -433,21 +433,17 @@ layout.newSpaceTopology:
 	push r15
 	sub rsp, 8
 
-
-	mov rbx, [topology.getTopologyRegion.topology]
-	add rbx, Topology.space
-	mov rcx, [rbx]
-	mov [topology.getTopologyRegion.space], rcx
+	mov r8, [layout.newSpaceTopology.region]
+	cmp r8, 0
+	je layout.newSpaceTopology.noRegion			; Topology may be Region
 	
 	sub rsp, 8*8
 	mov rcx, [topology.getTopologyRegion.space]
 	call list.resetIndex
 	add rsp, 8*8
 
-	; region 0, otherwise last
-
 	sub rsp, 8*8
-	mov rdx, [topology.getTopologyRegion.topology]
+	mov rdx, [topology.getTopologyRegion.region]
 	mov rcx, [topology.getTopologyRegion.space]
 	call list.getNextItemMatch
 	add rsp, 8*8
@@ -459,6 +455,7 @@ layout.newSpaceTopology:
 	mov [topology.getTopologyRegion.itemMatch], rdx
 	add rdx, ItemMatch.nesting
 	mov rcx, [rdx]
+	add rcx, 1b
 	mov [topology.getTopologyRegion.nesting], rcx
 	
 
@@ -474,8 +471,31 @@ layout.newSpaceTopology:
 	call list.newNextItem
 	add rsp, 8*8
 
+	sub rsp, 8*8
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.getPriorItem					; Reverse once so Topology is not included in search
+	add rsp, 8*8
+
+	sub rsp, 8*8
+	mov rdx, [topology.getTopologyRegion.nesting]
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.nextItemNesting					
+	add rsp, 8*8
 
 
+
+	jmp layout.newSpaceTopology.end
+
+	layout.newSpaceTopology.noRegion:
+
+	sub rsp, 8*8
+	mov rdx, [topology.getTopologyRegion.topology]
+	mov rcx, [topology.getTopologyRegion.space]
+	call list.newLastItem
+	add rsp, 8*8
+
+
+	layout.newSpaceTopology.end:
 
 
 	add rsp, 8	
