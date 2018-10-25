@@ -50,6 +50,7 @@ namespace hpdp {
 		LONGLONG offsetJ;
 		LONGLONG width;
 		LONGLONG height;
+		List* space;
 	} Topology;
 
 	typedef struct ASMHPDP {					// Wrapper around assembly HPDP struc
@@ -80,6 +81,7 @@ namespace hpdp {
 		void* newNextItem(List* list, void* item);
 		void* getPriorItem(List* list);
 		void* getNextItemMatch(List* list, void* itemMatch);
+		void* getNextItemMatchComp(List* list, void* itemMatch, LONGLONG comp);
 		// Letters
 		char* numAsLetters(LONGLONG num);
 		LONGLONG letterLength(char* letters);
@@ -143,6 +145,8 @@ namespace hpdp {
 		//Topology flags
 		// xoffsetFromPriorRegionBound
 		// i,j, or k
+		// xoffsetFromPriorTopologyBound
+		// i, j, or k
 
 		//List
 		//getNextItemNesting list
@@ -154,6 +158,37 @@ namespace hpdp {
 		//getNextItemMatch
 
 		
+		//expose
+			//startTag
+			//getRegion
+			//
+		//offsets into members use generic exposer
+		//setOffset
+			//takes shape param
+		//width, offset per shape
+
+		//get arrays index with shape param
+
+		//opacity addresses array, shape as index
+		//textOpacityTag, rectOpacityTag
+
+		//tags relevant based on shape
+			// width relevant when rect, line 
+			// roundedness relevant
+			// stroke
+
+		//CoInduce relevancy
+			// shape
+		//coInduce tagStart
+			// shape
+		//coInduce tagEnd
+			// shape
+
+		//match shape and width, roundedness
+			// get relevancy, start, end tag
+
+		// match with offset
+				// get value
 
 		//setID
 		//setXOffset
@@ -209,6 +244,7 @@ namespace hpdp {
 
 		//expose
 			//Topology offsets based on references
+
 
 
 		//scripting

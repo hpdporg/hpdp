@@ -497,6 +497,10 @@ layout.newSpaceTopology:
 
 	layout.newSpaceTopology.end:
 
+	mov rbx, [topology.getTopologyRegion.topology]
+	add rbx, Topology.space
+	mov r8, [topology.getTopologyRegion.space]
+	mov [rbx], r8
 
 	add rsp, 8	
 	pop r15 

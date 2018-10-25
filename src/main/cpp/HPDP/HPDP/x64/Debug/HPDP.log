@@ -1,10 +1,8 @@
-﻿  Runner.cpp
-c:\users\lewis\hpdp\src\main\cpp\runner.cpp(159): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
-  HPDP.cpp
+﻿  HPDP.cpp
   Generating Code...
-  LINK : C:\Users\Lewis\HPDP\src\main\cpp\HPDP\x64\Debug\HPDP.exe not found or not built by the last incremental link; performing full link
-HPDP.obj : warning LNK4078: multiple '.data' sections found with different attributes (C03000C0)
-HPDP.obj : warning LNK4078: multiple '.text' sections found with different attributes (E03000A0)
-HPDP.obj : warning LNK4078: multiple '.text' sections found with different attributes (60501020)
+  Compiling...
+  Runner.cpp
+c:\users\lewis\hpdp\src\main\cpp\runner.cpp(159): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+  Generating Code...
   HPDP.vcxproj -> C:\Users\Lewis\HPDP\src\main\cpp\HPDP\x64\Debug\HPDP.exe
   HPDP.vcxproj -> C:\Users\Lewis\HPDP\src\main\cpp\HPDP\x64\Debug\HPDP.pdb (Partial PDB)
