@@ -1,7 +1,7 @@
 
 section '.data' data readable writeable
 
-	struc Topology
+	struc Shape
 		label .
 		.text dq 0
 		.svgText dq 0
@@ -17,27 +17,27 @@ section '.data' data readable writeable
 	
 	; Used with address offsets
 	virtual at 0
-		Topology Topology
+		Shape Shape
 	end virtual
 
 	; ---- Structures
-	;topology Topology
+	;shape Shape
 
 
-	topology.topologyShape:
-	topology.topologyShape.letters dq 1b
-	topology.topologyShape.rect dq 10b
-	topology.topologyShape.ellipse dq 11b
-	topology.topologyShape.line dq 100b
-	topology.topologyShape.chart dq 101b
-	topology.topologyShape.table dq 110b
-	topology.topologyShape.arrow dq 111b
-	topology.topologyShape.logo dq 1000b
-	topology.topologyShape.region dq 1001b
+	shape.shapeShape:
+	shape.shapeShape.letters dq 1b
+	shape.shapeShape.rect dq 10b
+	shape.shapeShape.ellipse dq 11b
+	shape.shapeShape.line dq 100b
+	shape.shapeShape.chart dq 101b
+	shape.shapeShape.table dq 110b
+	shape.shapeShape.arrow dq 111b
+	shape.shapeShape.logo dq 1000b
+	shape.shapeShape.region dq 1001b
 
 	
 
-	topologyEndTag db '/>',0	
+	shapeEndTag db '/>',0	
 	textEndTag db '</text>',0
 	idStartTag db 'id="',0
 	doubleQuote db '"',0
@@ -46,7 +46,7 @@ section '.text' code readable writeable executable ;align 16
 
 
 
-topology:
+shape:
 .new:
 	push rbp 
 	mov rbp, rsp 
@@ -54,10 +54,10 @@ topology:
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
-	label topology.new.heapAddress qword at rbp-8  
-	label topology.new.handleAllocatedMemory qword at rbp-16
+	label shape.new.heapAddress qword at rbp-8  
+	label shape.new.handleAllocatedMemory qword at rbp-16
 	;virtual at rbp-64
-	;	.topology Topology
+	;	.shape Shape
 	;end virtual	
 
 
@@ -78,61 +78,61 @@ topology:
 
 	sub rsp, 8*4
 	call [GetProcessHeap]
-	mov [topology.new.heapAddress], rax
+	mov [shape.new.heapAddress], rax
 	add rsp, 8*4
 	
 
 	mov rcx, 0
-	add rcx,Topology.space
+	add rcx,Shape.space
 	add rcx, 1000b
 
 	sub rsp, 8*4
 	mov r8, rcx		
 	mov rdx, 000001000b
-	mov rcx, [topology.new.heapAddress]
+	mov rcx, [shape.new.heapAddress]
 	call [ HeapAlloc] 
-	mov [topology.new.handleAllocatedMemory], rax
+	mov [shape.new.handleAllocatedMemory], rax
 	add rsp, 8*4
 
 
 
-	mov rbx, [topology.new.handleAllocatedMemory]
-	add rbx, Topology.text
+	mov rbx, [shape.new.handleAllocatedMemory]
+	add rbx, Shape.text
 	mov rax, 0
 	mov [rbx], rax
-	mov rbx, [topology.new.handleAllocatedMemory]
-	add rbx, Topology.svgText
+	mov rbx, [shape.new.handleAllocatedMemory]
+	add rbx, Shape.svgText
 	mov rax, 0
 	mov [rbx], rax
-	mov rbx, [topology.new.handleAllocatedMemory]
-	add rbx, Topology.shape
+	mov rbx, [shape.new.handleAllocatedMemory]
+	add rbx, Shape.shape
 	mov rax, 0
 	mov [rbx], rax
-	mov rbx, [topology.new.handleAllocatedMemory]
-	add rbx, Topology.offsetI
+	mov rbx, [shape.new.handleAllocatedMemory]
+	add rbx, Shape.offsetI
 	mov rax, 0
 	mov [rbx], rax
-	mov rbx, [topology.new.handleAllocatedMemory]
-	add rbx, Topology.offsetJ
+	mov rbx, [shape.new.handleAllocatedMemory]
+	add rbx, Shape.offsetJ
 	mov rax, 0
 	mov [rbx], rax
-	mov rbx, [topology.new.handleAllocatedMemory]
-	add rbx, Topology.width
+	mov rbx, [shape.new.handleAllocatedMemory]
+	add rbx, Shape.width
 	mov rax, 0
 	mov [rbx], rax
-	mov rbx, [topology.new.handleAllocatedMemory]
-	add rbx, Topology.height
+	mov rbx, [shape.new.handleAllocatedMemory]
+	add rbx, Shape.height
 	mov rax, 0
 	mov [rbx], rax
-	mov rbx, [topology.new.handleAllocatedMemory]
-	add rbx, Topology.space
+	mov rbx, [shape.new.handleAllocatedMemory]
+	add rbx, Shape.space
 	mov rax, 0
 	mov [rbx], rax
 	
 
 
 
-	mov rax, [topology.new.handleAllocatedMemory]
+	mov rax, [shape.new.handleAllocatedMemory]
 
 
 	add rsp, 8	
@@ -151,23 +151,23 @@ topology:
 
 	retn 0
 
-topology.getTopologyEndTag:
+shape.getShapeEndTag:
 	push rbp 
 	mov rbp, rsp 
 	sub rsp, (8*2);+(8*6)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
-	label topology.getTopologyEndTag.topology qword at rbp-8  
-	label topology.getTopologyEndTag.shape qword at rbp-16
-	;label topology.getTopologyEndTag.list qword at rbp-24 
-	;label topology.getTopologyEndTag.item qword at rbp-32
-	;label topology.getTopologyEndTag.prevItem qword at rbp-40
+	label shape.getShapeEndTag.shape qword at rbp-8  
+	label shape.getShapeEndTag.shape qword at rbp-16
+	;label shape.getShapeEndTag.list qword at rbp-24 
+	;label shape.getShapeEndTag.item qword at rbp-32
+	;label shape.getShapeEndTag.prevItem qword at rbp-40
 	;virtual at rbp-64
 	;	.list List
 	;end virtual	
 
-	mov [topology.getTopologyEndTag.topology], rcx
+	mov [shape.getShapeEndTag.shape], rcx
 
 
 
@@ -185,24 +185,24 @@ topology.getTopologyEndTag:
 	sub rsp, 8
 
 
-	mov rbx, [topology.getTopologyEndTag.topology]
-	add rbx, Topology.shape
+	mov rbx, [shape.getShapeEndTag.shape]
+	add rbx, Shape.shape
 	mov rdx, [rbx]
-	mov [topology.getTopologyEndTag.shape], rdx		; Cache shape
+	mov [shape.getShapeEndTag.shape], rdx		; Cache shape
 
-	mov rcx, [topology.getTopologyEndTag.shape]
-	mov r8, [topology.topologyShape.letters]
+	mov rcx, [shape.getShapeEndTag.shape]
+	mov r8, [shape.shapeShape.letters]
 	cmp rcx, r8
-	jne topology.getTopologyEndTag.nonText
+	jne shape.getShapeEndTag.nonText
 
 	mov rax, textEndTag
-	jmp topology.getTopologyEndTag.end
+	jmp shape.getShapeEndTag.end
 
-	topology.getTopologyEndTag.nonText:	
+	shape.getShapeEndTag.nonText:	
 
-	mov rax, topologyEndTag
+	mov rax, shapeEndTag
 
-	topology.getTopologyEndTag.end:
+	shape.getShapeEndTag.end:
 
 	
 
@@ -222,24 +222,24 @@ topology.getTopologyEndTag:
 
 	retn 0
 
-topology.newShape:
+shape.newShape:
 	push rbp 
 	mov rbp, rsp 
 	sub rsp, (8*2);+(8*6)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
-	label topology.newShape.topology qword at rbp-8  
-	label topology.newShape.shape qword at rbp-16
-	;label topology.getTopologyEndTag.list qword at rbp-24 
-	;label topology.getTopologyEndTag.item qword at rbp-32
-	;label topology.getTopologyEndTag.prevItem qword at rbp-40
+	label shape.newShape.shape qword at rbp-8  
+	label shape.newShape.shape qword at rbp-16
+	;label shape.getShapeEndTag.list qword at rbp-24 
+	;label shape.getShapeEndTag.item qword at rbp-32
+	;label shape.getShapeEndTag.prevItem qword at rbp-40
 	;virtual at rbp-64
 	;	.list List
 	;end virtual	
 
-	mov [topology.newShape.topology], rcx
-	mov [topology.newShape.shape], rdx
+	mov [shape.newShape.shape], rcx
+	mov [shape.newShape.shape], rdx
 
 	
 
@@ -256,9 +256,9 @@ topology.newShape:
 	sub rsp, 8
 
 
-	mov rbx, [topology.newShape.topology]
-	add rbx, Topology.shape
-	mov rdx, [topology.newShape.shape]
+	mov rbx, [shape.newShape.shape]
+	add rbx, Shape.shape
+	mov rdx, [shape.newShape.shape]
 	mov [rbx], rdx
 
 	add rsp, 8	
@@ -277,23 +277,23 @@ topology.newShape:
 
 	retn 0
 
-topology.getTopologyStartTag:
+shape.getShapeStartTag:
 	push rbp 
 	mov rbp, rsp 
 	sub rsp, (8*2);+(8*6)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
-	label topology.getTopologyStartTag.topology qword at rbp-8  
-	label topology.getTopologyStartTag.shape qword at rbp-16
-	;label topology.getTopologyEndTag.list qword at rbp-24 
-	;label topology.getTopologyEndTag.item qword at rbp-32
-	;label topology.getTopologyEndTag.prevItem qword at rbp-40
+	label shape.getShapeStartTag.shape qword at rbp-8  
+	label shape.getShapeStartTag.shape qword at rbp-16
+	;label shape.getShapeEndTag.list qword at rbp-24 
+	;label shape.getShapeEndTag.item qword at rbp-32
+	;label shape.getShapeEndTag.prevItem qword at rbp-40
 	;virtual at rbp-64
 	;	.list List
 	;end virtual	
 
-	mov [topology.getTopologyStartTag.topology], rcx
+	mov [shape.getShapeStartTag.shape], rcx
 	
 	
 
@@ -310,93 +310,93 @@ topology.getTopologyStartTag:
 	sub rsp, 8
 
 
-	mov rbx, [topology.getTopologyStartTag.topology]
-	add rbx, Topology.shape
+	mov rbx, [shape.getShapeStartTag.shape]
+	add rbx, Shape.shape
 	mov rdx, [rbx]
-	mov [topology.getTopologyStartTag.shape], rdx		; Cache shape
+	mov [shape.getShapeStartTag.shape], rdx		; Cache shape
 
-	mov rcx, [topology.getTopologyStartTag.shape]
-	mov r8, [topology.topologyShape.letters]
+	mov rcx, [shape.getShapeStartTag.shape]
+	mov r8, [shape.shapeShape.letters]
 	cmp rcx, r8
-	jne topology.getTopologyStartTag.rect
+	jne shape.getShapeStartTag.rect
 
 	mov rax, textStartTag
-	jmp topology.getTopologyStartTag.end
+	jmp shape.getShapeStartTag.end
 
-	topology.getTopologyStartTag.rect:	
+	shape.getShapeStartTag.rect:	
 	
-	mov r8, [topology.topologyShape.rect]
+	mov r8, [shape.shapeShape.rect]
 	cmp rcx, r8
-	jne topology.getTopologyStartTag.ellipse
+	jne shape.getShapeStartTag.ellipse
 
 	mov rax, rectStartTag
-	jmp topology.getTopologyStartTag.end
+	jmp shape.getShapeStartTag.end
 
-	topology.getTopologyStartTag.ellipse:
+	shape.getShapeStartTag.ellipse:
 
-	mov r8, [topology.topologyShape.ellipse]
+	mov r8, [shape.shapeShape.ellipse]
 	cmp rcx, r8
-	jne topology.getTopologyStartTag.line
+	jne shape.getShapeStartTag.line
 
 	mov rax, ellipseStartTag
-	jmp topology.getTopologyStartTag.end
+	jmp shape.getShapeStartTag.end
 
-	topology.getTopologyStartTag.line:
+	shape.getShapeStartTag.line:
 
-	mov r8, [topology.topologyShape.line]
+	mov r8, [shape.shapeShape.line]
 	cmp rcx, r8
-	jne topology.getTopologyStartTag.chart
+	jne shape.getShapeStartTag.chart
 
 	mov rax, lineStartTag
-	jmp topology.getTopologyStartTag.end
+	jmp shape.getShapeStartTag.end
 
-	topology.getTopologyStartTag.chart:
+	shape.getShapeStartTag.chart:
 
-	mov r8, [topology.topologyShape.chart]
+	mov r8, [shape.shapeShape.chart]
 	cmp rcx, r8
-	jne topology.getTopologyStartTag.table
+	jne shape.getShapeStartTag.table
 
 	;mov rax, chartStartTag
-	jmp topology.getTopologyStartTag.end
+	jmp shape.getShapeStartTag.end
 
-	topology.getTopologyStartTag.table:
+	shape.getShapeStartTag.table:
 
-	mov r8, [topology.topologyShape.table]
+	mov r8, [shape.shapeShape.table]
 	cmp rcx, r8
-	jne topology.getTopologyStartTag.arrow
+	jne shape.getShapeStartTag.arrow
 
 	;mov rax, tableStartTag
-	jmp topology.getTopologyStartTag.end
+	jmp shape.getShapeStartTag.end
 
-	topology.getTopologyStartTag.arrow:
+	shape.getShapeStartTag.arrow:
 
-	mov r8, [topology.topologyShape.arrow]
+	mov r8, [shape.shapeShape.arrow]
 	cmp rcx, r8
-	jne topology.getTopologyStartTag.logo
+	jne shape.getShapeStartTag.logo
 
 	;mov rax, arrowStartTag
-	jmp topology.getTopologyStartTag.end
+	jmp shape.getShapeStartTag.end
 
-	topology.getTopologyStartTag.logo:
+	shape.getShapeStartTag.logo:
 
-	mov r8, [topology.topologyShape.logo]
+	mov r8, [shape.shapeShape.logo]
 	cmp rcx, r8
-	jne topology.getTopologyStartTag.region
+	jne shape.getShapeStartTag.region
 
 	;mov rax, logoStartTag
-	jmp topology.getTopologyStartTag.end
+	jmp shape.getShapeStartTag.end
 
-	topology.getTopologyStartTag.region:
+	shape.getShapeStartTag.region:
 
-	mov r8, [topology.topologyShape.region]
+	mov r8, [shape.shapeShape.region]
 	cmp rcx, r8
-	jne topology.getTopologyStartTag.end
+	jne shape.getShapeStartTag.end
 
 	;mov rax, regionStartTag
-	jmp topology.getTopologyStartTag.end
+	jmp shape.getShapeStartTag.end
 
 	
-	topology.getTopologyStartTag.end:
+	shape.getShapeStartTag.end:
 
 
 
@@ -416,24 +416,24 @@ topology.getTopologyStartTag:
 
 	retn 0
 
-topology.expose:
+shape.expose:
 	push rbp 
 	mov rbp, rsp 
 	sub rsp, (8*4);+(8*0)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
-	label topology.expose.heapAddress qword at rbp-8  
-	label topology.expose.handleAllocatedMemory qword at rbp-16
-	label topology.expose.topology qword at rbp-24	
-	label topology.expose.region qword at rbp-32
-	;label topology.expose.topology qword at rbp-40
+	label shape.expose.heapAddress qword at rbp-8  
+	label shape.expose.handleAllocatedMemory qword at rbp-16
+	label shape.expose.shape qword at rbp-24	
+	label shape.expose.region qword at rbp-32
+	;label shape.expose.shape qword at rbp-40
 	;label hpdp.expose.prevItem qword at rbp-40
 	;virtual at rbp-64
 	;	.html HTML
 	;end virtual	
 
-	mov [topology.expose.topology], rcx
+	mov [shape.expose.shape], rcx
 
 	and rsp, -32
 	push rbx 
@@ -450,10 +450,10 @@ topology.expose:
 
 
 	sub rsp, 8*8
-	mov rcx, [topology.expose.topology]
-	call topology.getTopologyRegion
+	mov rcx, [shape.expose.shape]
+	call shape.getShapeRegion
 	add rsp, 8*8
-	mov [topology.expose.region], rax
+	mov [shape.expose.region], rax
 
 
 	add rsp, 8	
@@ -472,26 +472,26 @@ topology.expose:
 
 	retn 0
 
-topology.getTopologyRegion:
+shape.getShapeRegion:
 	push rbp 
 	mov rbp, rsp 
 	sub rsp, (8*7);+(8*0)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
-	label topology.getTopologyRegion.heapAddress qword at rbp-8  
-	label topology.getTopologyRegion.handleAllocatedMemory qword at rbp-16
-	label topology.getTopologyRegion.topology qword at rbp-24	
-	label topology.getTopologyRegion.region qword at rbp-32
-	label topology.getTopologyRegion.space qword at rbp-40
-	label topology.getTopologyRegion.nesting qword at rbp-48
-	label topology.getTopologyRegion.itemMatch qword at rbp-56
+	label shape.getShapeRegion.heapAddress qword at rbp-8  
+	label shape.getShapeRegion.handleAllocatedMemory qword at rbp-16
+	label shape.getShapeRegion.shape qword at rbp-24	
+	label shape.getShapeRegion.region qword at rbp-32
+	label shape.getShapeRegion.space qword at rbp-40
+	label shape.getShapeRegion.nesting qword at rbp-48
+	label shape.getShapeRegion.itemMatch qword at rbp-56
 	;label hpdp.expose.prevItem qword at rbp-40
 	;virtual at rbp-64
 	;	.html HTML
 	;end virtual	
 
-	mov [topology.getTopologyRegion.topology], rcx
+	mov [shape.getShapeRegion.shape], rcx
 
 	and rsp, -32
 	push rbx 
@@ -507,63 +507,63 @@ topology.getTopologyRegion:
 
 
 
-	mov rbx, [topology.getTopologyRegion.topology]
-	add rbx, Topology.space
+	mov rbx, [shape.getShapeRegion.shape]
+	add rbx, Shape.space
 	mov rcx, [rbx]
-	mov [topology.getTopologyRegion.space], rcx
+	mov [shape.getShapeRegion.space], rcx
 	
 	sub rsp, 8*8
-	mov rcx, [topology.getTopologyRegion.space]
+	mov rcx, [shape.getShapeRegion.space]
 	call list.resetIndex
 	add rsp, 8*8
 
 	sub rsp, 8*8
-	mov rdx, [topology.getTopologyRegion.topology]
-	mov rcx, [topology.getTopologyRegion.space]
+	mov rdx, [shape.getShapeRegion.shape]
+	mov rcx, [shape.getShapeRegion.space]
 	call list.getNextItemMatch
 	add rsp, 8*8
 
 	
-	mov rbx, [topology.getTopologyRegion.space]
+	mov rbx, [shape.getShapeRegion.space]
 	add rbx, List.itemMatch
 	mov rdx, [rbx]
-	mov [topology.getTopologyRegion.itemMatch], rdx
+	mov [shape.getShapeRegion.itemMatch], rdx
 	add rdx, ItemMatch.nesting
 	mov rcx, [rdx]
-	mov [topology.getTopologyRegion.nesting], rcx
+	mov [shape.getShapeRegion.nesting], rcx
 	
 
 	sub rsp, 8*8
-	mov rcx, [topology.getTopologyRegion.space]
-	call list.getPriorItem					; Reverse once so Topology is not included in search
+	mov rcx, [shape.getShapeRegion.space]
+	call list.getPriorItem					; Reverse once so Shape is not included in search
 	add rsp, 8*8
 
 
-	topology.getTopologyRegion.priorItem:
-	mov rdx, [topology.getTopologyRegion.space]
+	shape.getShapeRegion.priorItem:
+	mov rdx, [shape.getShapeRegion.space]
 	add rdx, List.index
 	mov rcx, [rdx]
 	cmp rcx, 0
-	jl topology.getTopologyRegion.firstIndex
+	jl shape.getShapeRegion.firstIndex
 
 
 	sub rsp, 8*8
-	mov rcx, [topology.getTopologyRegion.space]
+	mov rcx, [shape.getShapeRegion.space]
 	call list.getPriorItem
 	add rsp, 8*8
-	mov [topology.getTopologyRegion.region], rax
+	mov [shape.getShapeRegion.region], rax
 
-	mov [topology.getTopologyRegion.itemMatch], rdx
+	mov [shape.getShapeRegion.itemMatch], rdx
 	add rdx, ItemMatch.nesting
 	mov rcx, [rdx]
 	add rcx, 1b
-	mov r11, [topology.getTopologyRegion.nesting]
+	mov r11, [shape.getShapeRegion.nesting]
 	cmp rcx, r11
-	je topology.getTopologyRegion.firstIndex			; Found
+	je shape.getShapeRegion.firstIndex			; Found
 
 
-	jmp topology.getTopologyRegion.priorItem
-	topology.getTopologyRegion.firstIndex:
+	jmp shape.getShapeRegion.priorItem
+	shape.getShapeRegion.firstIndex:
 
 
 
