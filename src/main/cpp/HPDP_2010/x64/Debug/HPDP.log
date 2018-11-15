@@ -1,0 +1,17 @@
+﻿Build started 11/14/2018 9:29:10 AM.
+     1>Project "C:\Users\lsall\hpdp\src\main\cpp\HPDP_2010\HPDP.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "x64\Debug\HPDP.unsuccessfulbuild".
+       ClCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+         HPDP.vcxproj -> C:\Users\lsall\hpdp\src\main\cpp\HPDP_2010\x64\Debug\HPDP.exe
+       FinalizeBuildStatus:
+         Deleting file "x64\Debug\HPDP.unsuccessfulbuild".
+         Touching "x64\Debug\HPDP.lastbuildstate".
+     1>Done Building Project "C:\Users\lsall\hpdp\src\main\cpp\HPDP_2010\HPDP.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.21

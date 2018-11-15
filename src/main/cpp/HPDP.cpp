@@ -1,7 +1,7 @@
 #include "HPDP.h"
 
 using namespace hpdp;
-
+using namespace std;
 
 
 HPDP::HPDP(){
@@ -45,6 +45,13 @@ void HPDP::writeHTML(string* path) {
 	newLastItem(this->asmHPDP->htmls, html);
 	expose(this->asmHPDP);
 
+}
+
+void HPDP::exposeCHTMLs(){
+	for (list<CHTML*>::iterator listIterator = cHTMLList->begin(); 
+		listIterator != cHTMLList->end(); ++listIterator) {
+			(*listIterator)->expose();
+	}
 }
 
 HPDP::~HPDP(){
