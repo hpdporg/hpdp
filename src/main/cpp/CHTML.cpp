@@ -21,6 +21,7 @@ CHTML* CHTML::expose(){
 			if (topologyShape == TOPOLOGYSHAPE_LETTERS){
 				char* startTag = getTopologyStartTag(topology);
 				char* topologyText = topology->text;
+				
 				LONGLONG offsetI = topology->offsetI;
 				LONGLONG offsetJ = topology->offsetJ;
 				LONGLONG width = topology->width;
@@ -32,16 +33,25 @@ CHTML* CHTML::expose(){
 				itoa((int)topology,id,10);
 				char* endTag = getTopologyEndTag(topology);
 
-
-				std::ostringstream stringStream;
-				stringStream << startTag << " ";
-				stringStream << " dx=\""<<offsetI<<"\" ";
-				stringStream << " dy=\""<<offsetJ<<"\" ";
-				stringStream << " font-size=\""<<size<<"\" ";
-				stringStream << " text-anchor=\""<<textAnchor<<"\" ";
-				stringStream << " fill=\""<<fill<<"\"> ";
-				stringStream << topologyText;
-				stringStream << endTag;
+				topologyText = appendLetters(startTag, " ");
+				topologyText = appendLetters(topologyText, " dx=\"");
+				topologyText = appendLetters(topologyText, numAsLetters(offsetI));
+				topologyText = appendLetters(topologyText, "\" ");
+				topologyText = appendLetters(topologyText, " dy=\"");
+				topologyText = appendLetters(topologyText, numAsLetters(offsetJ));
+				topologyText = appendLetters(topologyText, "\" ");
+				topologyText = appendLetters(topologyText, " font-size=\"");
+				topologyText = appendLetters(topologyText, numAsLetters(size));
+				topologyText = appendLetters(topologyText, "\" ");
+				topologyText = appendLetters(topologyText, " text-anchor=\"");
+				topologyText = appendLetters(topologyText, textAnchor);
+				topologyText = appendLetters(topologyText, "\" ");
+				topologyText = appendLetters(topologyText, " fill=\"");
+				topologyText = appendLetters(topologyText, fill);
+				topologyText = appendLetters(topologyText, "\"> ");
+				topologyText = appendLetters(topologyText, topologyText);
+				topologyText = appendLetters(topologyText, endTag);
+				
 				
 			}else if (topologyShape == TOPOLOGYSHAPE_RECT){
 			

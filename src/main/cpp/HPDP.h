@@ -8,7 +8,8 @@
 #include <sstream>
 
 #include "AsmIncludes.h"
-#include "CHTML.h"
+#include "CTrans.h"
+
 
 
 using namespace std;
@@ -21,11 +22,13 @@ private:
 	void* htmlFileHandle;
 	ASMHPDP* asmHPDP;
 	list<CHTML*>* cHTMLList;
+	CTrans* cTrans;
 public:
 
 	HPDP();
 	void writeHTML(string* path);
-	void exposeCHTMLs();
+	CTrans* newCTrans();
+
 	//newSVG
 	//newElement
 	//elementText

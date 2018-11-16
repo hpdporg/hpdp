@@ -47,11 +47,9 @@ void HPDP::writeHTML(string* path) {
 
 }
 
-void HPDP::exposeCHTMLs(){
-	for (list<CHTML*>::iterator listIterator = cHTMLList->begin(); 
-		listIterator != cHTMLList->end(); ++listIterator) {
-			(*listIterator)->expose();
-	}
+CTrans* HPDP::newCTrans(){
+	this->cTrans = new CTrans();
+	return this->cTrans;
 }
 
 HPDP::~HPDP(){
