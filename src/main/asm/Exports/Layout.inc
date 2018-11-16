@@ -1,4 +1,6 @@
 public layout.new as 'newLayout'
+public layout.newSpaceTopology as 'newSpaceTopology'
+
 
 public layout.getSVGStartTag as 'getSVGStartTag'
 public layout.getSVGEndTag as 'getSVGEndTag'

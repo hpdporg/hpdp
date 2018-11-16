@@ -58,15 +58,17 @@ section '.text' code readable writeable executable ;align 16
 
 
 list:
-.new:
+
+namespace list
+new:
 	push rbp 
 	mov rbp, rsp 
 	sub rsp, (8*2);+(8*0)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
-	label list.new.heapAddress qword at rbp-8  
-	label list.new.handleAllocatedMemory qword at rbp-16
+	label .heapAddress qword at rbp-8  
+	label .handleAllocatedMemory qword at rbp-16
 	;virtual at rbp-64
 	;	.list List
 	;end virtual	
@@ -130,11 +132,11 @@ list:
 	add rbx, List.indexedItemIndex
 	mov rax, 0
 	mov [rbx], rax
-	mov rbx, [list.new.handleAllocatedMemory]
-	add rbx, List.itemMatch
 	sub rsp, 8*8
 	call list.newItemMatch
 	add rsp, 8*8
+	mov rbx, [list.new.handleAllocatedMemory]
+	add rbx, List.itemMatch
 	mov [rbx], rax
 
 
@@ -170,6 +172,7 @@ list:
 	pop rbp
 
 	retn 0
+end namespace
 
 list.newItemMatch:
 	push rbp 
