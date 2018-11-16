@@ -111,13 +111,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\CHTML.cpp" />
+    <ClCompile Include="..\CScraper.cpp" />
+    <ClCompile Include="..\CShape.cpp" />
+    <ClCompile Include="..\CTrans.cpp" />
     <ClCompile Include="..\HPDP.cpp" />
-    <ClCompile Include="..\HTML.cpp" />
     <ClCompile Include="..\Runner.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\AsmIncludes.h" />
+    <ClInclude Include="..\CHTML.h" />
+    <ClInclude Include="..\CScraper.h" />
+    <ClInclude Include="..\CShape.h" />
+    <ClInclude Include="..\CTrans.h" />
     <ClInclude Include="..\HPDP.h" />
-    <ClInclude Include="..\HTML.h" />
     <ClInclude Include="..\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

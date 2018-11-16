@@ -131,8 +131,22 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	file << (LONGLONG)listA->indexItem;
 	file << "\n";
 
+	
+
 	HPDP* hpdp = new HPDP();
-	hpdp->writeHTML(NULL);
+	//hpdp->writeHTML(NULL);
+	CTrans* cTrans = hpdp->newCTrans();
+
+	Topology* topology = newTopology();
+	newShape(topology, TOPOLOGYSHAPE_LETTERS);
+	Layout* layout = newLayout();
+	newSpaceTopology(layout->space, topology, NULL);
+	CHTML* cHTML = new CHTML();
+	newLastItem(cHTML->html->layouts, layout);
+	
+	cTrans->cHTMLList->push_back(cHTML);
+
+	cTrans->expose();
 	
 
 	HWND hwnd = CreateWindowEx(NULL, lpClassName, "HPDP",
