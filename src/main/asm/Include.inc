@@ -4,6 +4,7 @@
 include 'Storage/Storage.inc'
 include 'Util/List.inc'
 include 'Util/Allocate.inc'
+include 'Util/RepCopy.inc'
 include 'Letters/Letters.inc'
 include 'Topology/Topology.inc'
 include 'Topology/Rect.inc'
