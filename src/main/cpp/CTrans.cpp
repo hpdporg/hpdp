@@ -12,7 +12,9 @@ CTrans::CTrans(){
 
  void CTrans::expose(){
 	if (this->exposeLocation == ExposureLocation::HTML_FILE){
-	
+
+	ofstream file("Debug.txt", std::ofstream::out | std::ofstream::app);
+	file << "88ZZ";
 			
 			exposeCHTMLs();
 			
@@ -32,6 +34,7 @@ CTrans::CTrans(){
 						LONGLONG entrySize = (LONGLONG)letterLength(htmlText);
 						writeFile(this->htmlFileHandle, htmlText, entrySize);
 			}
+			file << "88EZ";
 	
 	 }
 	 else if(this->exposeLocation == ExposureLocation::HTML_MEMORY){

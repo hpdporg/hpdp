@@ -35,6 +35,7 @@ typedef struct List {
 	LONGLONG	index;
 	void* indexItem;
 	LONGLONG	indexedItemIndex;
+	void* itemMatch;
 } List;
 
 typedef struct Layout {

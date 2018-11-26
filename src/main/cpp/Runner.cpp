@@ -95,15 +95,22 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//file.close();
 	//parse();
 	ofstream file("Debug.txt", std::ofstream::out | std::ofstream::app);
-	
+	file << "Uno:";
+	file.flush();
 	List* listA = newList();
 	List* listB = newList();
 	newLastItem(listA, listB);
-	listA->index = 3;
+	file << "IndexItem";
+	file << (LONGLONG)((ListItem*)listA->indexItem);
+	file.flush();
+	//listA->index = 3;
 	file << "List ind:";
+	file.flush();
 	file << listA->index;
+	file.flush();
 	file << "\n";
 	file << "Index item:";
+	file.flush();
 	file << (LONGLONG)((ListItem*)listA->indexItem)->item;
 	file << "\n";
 	file << "First item:";
