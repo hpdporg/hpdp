@@ -1,4 +1,4 @@
-﻿Build started 11/19/2018 10:00:46 AM.
+﻿Build started 11/26/2018 11:41:13 AM.
      1>Project "C:\Users\lsall\hpdp\src\main\cpp\HPDP_2010\HPDP.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "x64\Debug\HPDP.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -25,4 +25,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.25
+Time Elapsed 00:00:03.19
