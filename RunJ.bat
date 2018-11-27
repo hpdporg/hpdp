@@ -1,0 +1,1 @@
+cd src/main/java && java -cp hpdp;src/main/java/hpdp;. hpdp.Main
