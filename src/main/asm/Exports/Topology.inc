@@ -2,6 +2,7 @@ public topology.new as 'newTopology'
 public topology.newShape as 'newShape'
 public topology.getTopologyEndTag as 'getTopologyEndTag'
 public topology.getTopologyStartTag as 'getTopologyStartTag'
+public topology.getTopologyRegion as 'getTopologyRegion'
 
 
 public textStartTag as 'textStartTag'

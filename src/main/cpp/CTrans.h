@@ -11,12 +11,18 @@ private:
 	HTML* exposedHTML;
 	enum ExposureLocation{HTML_FILE,HTML_MEMORY};
 	ExposureLocation exposeLocation;
+
 	list<CHTML*>* cHTMLList;
+
+
+
 	string* defaultPath;
 	void* htmlFileHandle;
 	string* path;
 
 public:
+
+		list<CHTML*>* cHTMLList;
 
 CTrans();
 

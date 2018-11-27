@@ -10,13 +10,22 @@ namespace hpdp{
 class CHTML{
 
 private:
+
 	HTML* html;
 
 public:
 
+	
+
+public:
+	HTML* html;
+
+
 CHTML();
 
 	CHTML* expose();
+
+	char* getText();
 
 virtual ~CHTML();
 

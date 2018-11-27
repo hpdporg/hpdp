@@ -10,6 +10,9 @@ section '.data' data readable writeable
 		.offsetJ dq 0
 		.width dq 0
 		.height dq 0
+		.size dq 0
+		.textAnchor dq 0
+		.fill dq 0
 		.space dq 0	
 	end struc
 
@@ -122,6 +125,18 @@ topology:
 	mov [rbx], rax
 	mov rbx, [topology.new.handleAllocatedMemory]
 	add rbx, Topology.height
+	mov rax, 0
+	mov [rbx], rax
+	mov rbx, [topology.new.handleAllocatedMemory]
+	add rbx, Topology.size
+	mov rax, 0
+	mov [rbx], rax
+	mov rbx, [topology.new.handleAllocatedMemory]
+	add rbx, Topology.textAnchor
+	mov rax, 0
+	mov [rbx], rax
+	mov rbx, [topology.new.handleAllocatedMemory]
+	add rbx, Topology.fill
 	mov rax, 0
 	mov [rbx], rax
 	mov rbx, [topology.new.handleAllocatedMemory]
@@ -475,7 +490,7 @@ topology.expose:
 topology.getTopologyRegion:
 	push rbp 
 	mov rbp, rsp 
-	sub rsp, (8*7);+(8*0)
+	sub rsp, (8*8);+(8*0)
 
 	;mov rcx, [rbp+8] 
 	;mov rdx, [rbp+12] 
@@ -485,7 +500,8 @@ topology.getTopologyRegion:
 	label topology.getTopologyRegion.region qword at rbp-32
 	label topology.getTopologyRegion.space qword at rbp-40
 	label topology.getTopologyRegion.nesting qword at rbp-48
-	label topology.getTopologyRegion.itemMatch qword at rbp-56
+	label topology.getTopologyRegion.spaceInitialIndex qword at rbp-56
+	label topology.getTopologyRegion.itemMatch qword at rbp-64
 	;label hpdp.expose.prevItem qword at rbp-40
 	;virtual at rbp-64
 	;	.html HTML
@@ -511,6 +527,9 @@ topology.getTopologyRegion:
 	add rbx, Topology.space
 	mov rcx, [rbx]
 	mov [topology.getTopologyRegion.space], rcx
+	add rcx, List.index
+	mov rdx, [rcx]
+	mov [topology.getTopologyRegion.spaceInitialIndex], rdx
 	
 	sub rsp, 8*8
 	mov rcx, [topology.getTopologyRegion.space]
@@ -565,7 +584,10 @@ topology.getTopologyRegion:
 	jmp topology.getTopologyRegion.priorItem
 	topology.getTopologyRegion.firstIndex:
 
-
+	mov rbx, [topology.getTopologyRegion.space]
+	add rbx, List.index
+	mov rcx, [topology.getTopologyRegion.spaceInitialIndex]		; Return index
+	mov [rbx], rcx
 
 
 

@@ -12,6 +12,7 @@ CTrans::CTrans(){
 
  void CTrans::expose(){
 	if (this->exposeLocation == ExposureLocation::HTML_FILE){
+
 		if (path == NULL) {
 			this->htmlFileHandle = newFile((char*)defaultPath->c_str());
 				LONGLONG entrySize = (LONGLONG)(strlen(getSVGStartTag()));
@@ -27,6 +28,31 @@ CTrans::CTrans(){
 	else {
 		this->htmlFileHandle  = newFile((char*)path->c_str());
 	}
+
+
+
+	ofstream file("Debug.txt", std::ofstream::out | std::ofstream::app);
+	file << "88ZZ";
+			
+			exposeCHTMLs();
+			
+			char* htmlText = NULL;
+
+			for (list<CHTML*>::iterator listIterator = cHTMLList->begin(); 
+					listIterator != cHTMLList->end(); ++listIterator) {
+							if (path == NULL) {
+								this->htmlFileHandle = newFile((char*)defaultPath->c_str());
+							}
+							else {
+									this->htmlFileHandle  = newFile((char*)path->c_str());
+							}
+						htmlText = getSVGStartTag();
+						htmlText = appendLetters(htmlText, (*listIterator)->getText());
+						htmlText = appendLetters(htmlText, getSVGEndTag());
+						LONGLONG entrySize = (LONGLONG)letterLength(htmlText);
+						writeFile(this->htmlFileHandle, htmlText, entrySize);
+			}
+			file << "88EZ";
 
 	
 	 }

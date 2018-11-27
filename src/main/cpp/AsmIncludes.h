@@ -35,6 +35,7 @@ typedef struct List {
 	LONGLONG	index;
 	void* indexItem;
 	LONGLONG	indexedItemIndex;
+	void* itemMatch;
 } List;
 
 typedef struct Layout {
@@ -43,6 +44,7 @@ typedef struct Layout {
 
 typedef struct HTML {
 	List* layouts;
+	char* text;
 } HTML;
 
 typedef struct Topology {
@@ -100,6 +102,7 @@ extern "C" {
 	void expose(ASMHPDP* asmHPDP);
 	// Layout
 	Layout* newLayout();
+	void newSpaceTopology(List* space, Topology* topology, Topology* region);
 	char* getSVGStartTag();
 	char* getSVGEndTag();
 	// HTML
@@ -110,7 +113,7 @@ extern "C" {
 	char* getTopologyStartTag(Topology* topology);
 	char* getTopologyEndTag(Topology* topology);
 	void newShape(Topology* topology, int shape);
-
+	Topology* getTopologyRegion(Topology* topology);
 
 
 }

@@ -19,6 +19,10 @@ CHTML* CHTML::expose(){
 			Topology* topology = (Topology*) getNextItem(space);
 			int topologyShape = topology->shape;
 			if (topologyShape == TOPOLOGYSHAPE_LETTERS){
+
+
+				Topology* region = getTopologyRegion(topology);
+
 				char* startTag = getTopologyStartTag(topology);
 				char* topologyText = topology->text;
 				
@@ -51,8 +55,9 @@ CHTML* CHTML::expose(){
 				topologyText = appendLetters(topologyText, "\"> ");
 				topologyText = appendLetters(topologyText, topologyText);
 				topologyText = appendLetters(topologyText, endTag);
-				
-				
+
+				this->html->text = appendLetters(this->html->text, topologyText);
+
 			}else if (topologyShape == TOPOLOGYSHAPE_RECT){
 			
 			
@@ -84,6 +89,10 @@ CHTML* CHTML::expose(){
 	return this;
 }
 
+
+char* CHTML::getText(){
+	return this->html->text;
+}
 
 
 
