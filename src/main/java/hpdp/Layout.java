@@ -8,7 +8,7 @@ import hpdp.Topology;
 
 public class Layout{
 
-	private List<Topology> space;
+	private List<Region> space;
 
 
 	public Layout(){

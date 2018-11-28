@@ -17,6 +17,14 @@ public class HPDP{
 	}
 
 
+	public Trans getTrans(){
+		if (trans == null){
+			trans = new Trans();
+		}
+		return trans;
+	}
+
+
 
 
 
