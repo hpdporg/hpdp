@@ -52,10 +52,15 @@ public class Layout{
 					}
 					++comparisonSpaceRegionIndex;
 			}
+			topology.nesting = regionNesting + 1;
+		}
+		else{
+			spaceRegionIndex = space.size();
 		}
 		space.add(spaceRegionIndex, topology);
+		System.out.println("Index: " + spaceRegionIndex + " Region: " + topology.region + " Nesting: " + topology.nesting);
 		topology.setSpace(space);
-		topology.nesting = regionNesting + 1;
+
 
 	}
 

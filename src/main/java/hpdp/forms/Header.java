@@ -19,6 +19,7 @@ public class Header extends Region{
         super();
         this.headerLevel = HeaderLevel.LVL_1;
         this.exposedText = "";
+        this.region = false;
 
 
     }
@@ -35,7 +36,7 @@ public class Header extends Region{
             size[0] = 424.45135;
             size[1] = 36.183823;
             super.expose();
-            position[0] = getTopologyRegion(this).getPosition()[0];
+            //position[0] = getTopologyRegion(this).getPosition()[0];
 
             exposedText = "<rect style=\"fill:#f4f4f4;fill-opacity:0.15384617;stroke:none;stroke-width:1.16297209;stroke-opacity:0.61538463\" id=\"rect5982\" width=\"100%\" x=\""+position[0]+"\" y=\""+position[1]+"\" />";//424.45135\" "+size[1]+
             exposedText += "<text\n" +
@@ -49,7 +50,7 @@ public class Header extends Region{
             size[0] = 422.49805;
             size[1] = 28.112316;
             super.expose();
-            position[0] = getTopologyRegion(this).getPosition()[0];
+           // position[0] = getTopologyRegion(this).getPosition()[0];
             exposedText += "<defs>" +
                 /*    "     id=\"defs2\"><linearGradient\n" +
                     "       xlink:href=\"#linearGradient8957\"\n" +

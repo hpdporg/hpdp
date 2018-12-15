@@ -29,33 +29,34 @@ public class Main {
 
 		Header header = new Header();
 		header.letters = "Statements Test Automation";
-
 		layout.newSpaceTopology(header, layout.getSpaceRegion(0));
+
 		Header header2 = new Header();
 		header2.headerLevel = Header.HeaderLevel.LVL_2;
 		header2.letters = "Runs";
 		layout.newSpaceTopology(header2, layout.getSpaceRegion(0));
 
 		Region region2 = new Region();
-		layout.newSpaceTopology(region2, layout.getSpaceRegion(0));
-		region.
+		layout.newSpaceTopology(region2, null);
 
+		Scatter scatter = new Scatter();
+		layout.newSpaceTopology(scatter, region2);
 
 
 		Header header3 = new Header();
 		header3.headerLevel = Header.HeaderLevel.LVL_2;
 		header3.letters = "Input Data Variations";
-		layout.newSpaceTopology(header3, layout.getSpaceRegion(0));
-
+		layout.newSpaceTopology(header3, region2);
+/*
 		Header header4 = new Header();
 		header4.headerLevel = Header.HeaderLevel.LVL_2;
 		header4.letters = "Categories";
-		layout.newSpaceTopology(header4, layout.getSpaceRegion(0));
+		layout.newSpaceTopology(header4, region2);
 
 		Header header5 = new Header();
 		header5.headerLevel = Header.HeaderLevel.LVL_2;
 		header5.letters = "Coverage Ratio";
-		layout.newSpaceTopology(header5, layout.getSpaceRegion(0));
+		layout.newSpaceTopology(header5, region2);*/
 
 
 		trans.expose();
