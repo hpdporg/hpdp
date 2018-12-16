@@ -95,15 +95,22 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//file.close();
 	//parse();
 	ofstream file("Debug.txt", std::ofstream::out | std::ofstream::app);
-	
+	file << "Uno:";
+	file.flush();
 	List* listA = newList();
 	List* listB = newList();
 	newLastItem(listA, listB);
-	listA->index = 3;
+	file << "IndexItem";
+	file << (LONGLONG)((ListItem*)listA->indexItem);
+	file.flush();
+	//listA->index = 3;
 	file << "List ind:";
+	file.flush();
 	file << listA->index;
+	file.flush();
 	file << "\n";
 	file << "Index item:";
+	file.flush();
 	file << (LONGLONG)((ListItem*)listA->indexItem)->item;
 	file << "\n";
 	file << "First item:";
@@ -131,8 +138,22 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	file << (LONGLONG)listA->indexItem;
 	file << "\n";
 
+	
+
 	HPDP* hpdp = new HPDP();
-	hpdp->writeHTML(NULL);
+	//hpdp->writeHTML(NULL);
+	CTrans* cTrans = hpdp->newCTrans();
+
+	Topology* topology = newTopology();
+	newShape(topology, TOPOLOGYSHAPE_LETTERS);
+	Layout* layout = newLayout();
+	newSpaceTopology(layout->space, topology, NULL);
+	CHTML* cHTML = new CHTML();
+	newLastItem(cHTML->html->layouts, layout);
+	
+	cTrans->cHTMLList->push_back(cHTML);
+
+	cTrans->expose();
 	
 
 	HWND hwnd = CreateWindowEx(NULL, lpClassName, "HPDP",

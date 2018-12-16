@@ -4,6 +4,7 @@ section '.data' data readable writeable
 	struc HTML
 		label .
 		.layouts dq 0
+		.text dq 0
 	end struc
 
 
@@ -61,7 +62,7 @@ html:
 	
 
 	mov rcx, 0
-	add rcx, HTML.layouts
+	add rcx, HTML.text
 	add rcx, 1000b
 
 	sub rsp, 8*4
@@ -76,6 +77,10 @@ html:
 	mov rbx, [html.new.handleAllocatedMemory]
 	add rbx, HTML.layouts
 	newList rbx
+	mov rbx, [html.new.handleAllocatedMemory]
+	add rbx, HTML.text
+	mov rax, 0
+	mov [rbx], rax
 
 
 

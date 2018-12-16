@@ -1,7 +1,7 @@
 #include "HPDP.h"
 
 using namespace hpdp;
-
+using namespace std;
 
 
 HPDP::HPDP(){
@@ -45,6 +45,11 @@ void HPDP::writeHTML(string* path) {
 	newLastItem(this->asmHPDP->htmls, html);
 	expose(this->asmHPDP);
 
+}
+
+CTrans* HPDP::newCTrans(){
+	this->cTrans = new CTrans();
+	return this->cTrans;
 }
 
 HPDP::~HPDP(){
