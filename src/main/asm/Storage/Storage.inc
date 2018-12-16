@@ -19,7 +19,7 @@ section '.data' data readable writeable align 16
 	;element Element
 
 
-	fileAddr db 'C:\Users\Qualitest\Desktop\1100111b.txt',0
+	fileAddr db 'C:\Users\lewis\Desktop\1100111b.txt',0
 	fileHandleAddr dq 0
 	fileValue db 'A',0
 	fileValue2 db 'B',0
