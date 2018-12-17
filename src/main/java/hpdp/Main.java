@@ -38,16 +38,38 @@ public class Main {
 
 		Region region2 = new Region();
 		layout.newSpaceTopology(region2, null);
+		//region2.position[1] =layout.getSpaceRegion(0).position[0]+layout.getSpaceRegion(0).size[0];
+		region2.size[1]+=40.0;
+
+		Region region3 = new Region();
+		//region3.size[1] -= 40.0;
+		//region3.size[0] += 40.0;
+		region3.position[1] -= 20.0;
+		//region3.position[1] +=40.0;
+		region3.position[0] +=80.0;
+		//region3.size[1]+=80.0;
+
+		//region3.position[1]+= 40.0;
+		layout.newSpaceTopology(region3,region2);				// Chart - labels area
+
 
 		Scatter scatter = new Scatter();
-		layout.newSpaceTopology(scatter, region2);
+		layout.newSpaceTopology(scatter, region3);
+
+		Region region4 = new Region();
+		layout.newSpaceTopology(region4, null);
+
+//		region4.snap = true;
+		//		region4.position[1] =region2.position[0]+region2.size[0];
 
 
 		Header header3 = new Header();
 		header3.headerLevel = Header.HeaderLevel.LVL_2;
 		header3.letters = "Input Data Variations";
-		layout.newSpaceTopology(header3, region2);
-/*
+		layout.newSpaceTopology(header3, region4);//layout.getSpaceRegion(0));//region3);//			// This is wrong
+
+
+		/*
 		Header header4 = new Header();
 		header4.headerLevel = Header.HeaderLevel.LVL_2;
 		header4.letters = "Categories";

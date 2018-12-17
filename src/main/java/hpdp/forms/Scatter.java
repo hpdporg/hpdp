@@ -12,24 +12,26 @@ public class Scatter extends Chart{
     public String expose() {
 
         size[0] = 424.45135;
-        size[1] = 176.78464 +40.0+40.0;
+        size[1] = 176.78464 ;
 
         super.expose();
-    //    position[1] +=40.0;
-        System.out.println("B: " + position[1]);
-        System.out.println("C: " +getTopologyRegion(this).getPosition()[1]);
-        position[1] = getTopologyRegion(this).getPosition()[1];
+        //size[1] = 176.78464 ;
+        position[1]-=20.0;
+        //    position[1] +=40.0;
+    //    System.out.println("B: " + position[1]);
+     //   System.out.println("C: " +getTopologyRegion(this).getPosition()[1]);
+  //      position[1] = getTopologyRegion(this).getPosition()[1];
      //   position[1] += 40.0;//size[1] + 40.0;
-       // position[0] += getTopologyRegion(this).getPosition()[0];
-        position[1] += 40.0;
-        position[0] += 40.0;
-
-
+        position[0] += getTopologyRegion(this).getPosition()[0];
+ //       position[1] += 40.0;
+       // position[0] += 40.0;
+        //size[1] += getTopologyRegion(this).getSize()[1];
+        //size[1]+= 40.0;
 
 
         double gridIOffset = 0.0;
         boolean even = true;
-        while (gridIOffset <(size[1]-80.0-11.18734-10.0)) {
+        while (gridIOffset <(size[1]-11.18734-10.0)) {
             if (even) {
 
                 exposedText += "<rect style=\"fill:#f4f4f4;fill-opacity:0.15384617;stroke:none;stroke-width:1.16297209;stroke-opacity:0.61538463\" id=\"rectA"+gridIOffset+"5982\" width=\"" + (size[0] + 7.584706 + 36.620815) + "\" height=\"10.0\" x=\"" + position[0] + "\" y=\"" + (position[1] + gridIOffset) + "\" />";//424.45135\" "+size[1]+
@@ -46,7 +48,7 @@ public class Scatter extends Chart{
             gridIOffset = gridIOffset + 10.0;
         }
         gridIOffset = 0.0;
-        while (gridIOffset <(size[1]-80.0-11.18734)) {
+        while (gridIOffset <(size[1]-11.18734)) {
           //  exposedText = "<rect style=\"fill:#f4f4f4;fill-opacity:0.15384617;stroke:none;stroke-width:1.16297209;stroke-opacity:0.61538463\" id=\"rect5982\" width=\""+ (size[0] + 7.584706 + 36.620815) +"\" height=\"10\" x=\""+position[0]+"\" y=\""+ (position[1] + gridIOffset )+ "\" />";//424.45135\" "+size[1]+
 
            exposedText += "<path\n" +
@@ -59,12 +61,12 @@ public class Scatter extends Chart{
         exposedText += "<path" +
                 "    style=\"fill:none;stroke:#616161;stroke-width:0.6868906;stroke-linecap:butt;stroke-dasharray:none;stroke-opacity:0.9375\"" +
                 // "    d=\"m 72.943295,-503.09298 -0.04505,176.78464 c 0,0 7.584706,-6.8177 36.620815,-11.18734 34.4803,-5.18894 97.22055,-2.7759 218.53298,10.30552\"" +
-                "    d=\"m "+position[0]+","+position[1]+" -0.04505,"+(size[1]-80.0)+" c 0,0 7.584706,-6.8177 36.620815,-11.18734 34.4803,-5.18894 97.22055,-2.7759 "+size[0]+",10.30552\\\"\" +//218.53298,10.30552\"" +
+                "    d=\"m "+position[0]+","+position[1]+" -0.04505,"+(size[1])+" c 0,0 7.584706,-6.8177 36.620815,-11.18734 34.4803,-5.18894 97.22055,-2.7759 "+size[0]+",10.30552\\\"\" +//218.53298,10.30552\"" +
                 "    id=\"path4748\"/>";
 
         gridIOffset = 0.0;
         double xOffset = 0.0;
-        while (gridIOffset <(size[1]-80.0-11.18734)) {
+        while (gridIOffset <(size[1]-11.18734)) {
             if (gridIOffset == 50.0){
                 while (xOffset < (size[0] + 7.584706 + 36.620815-30.0)) {
                     exposedText += " <ellipse\n" +
@@ -96,7 +98,7 @@ public class Scatter extends Chart{
         }
 
         gridIOffset = 0.0;
-        while (gridIOffset <(size[1]-80.0-11.18734)) {
+        while (gridIOffset <(size[1]-11.18734)) {
             //  exposedText = "<rect style=\"fill:#f4f4f4;fill-opacity:0.15384617;stroke:none;stroke-width:1.16297209;stroke-opacity:0.61538463\" id=\"rect5982\" width=\""+ (size[0] + 7.584706 + 36.620815) +"\" height=\"10\" x=\""+position[0]+"\" y=\""+ (position[1] + gridIOffset )+ "\" />";//424.45135\" "+size[1]+
 
             exposedText += "<text\n" +

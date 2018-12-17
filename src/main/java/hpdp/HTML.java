@@ -28,9 +28,19 @@ public class HTML{
 
 		if (exposed == false) {
 			for (Layout layout : layouts) {
+				//int ind = 0;
 				for (Topology topology : layout.getSpace()) {
 					exposedHTML += topology.expose();
+					//System.out.println("Ind, size, nesting " + ind + " " + topology.size[1] + " " + topology.nesting);
+				//			++ind;
 				}
+				int ind = 0;
+				for (Topology topology : layout.getSpace()) {
+					//exposedHTML += topology.expose();
+					System.out.println("Ind, size, nesting, position " + ind + " " + topology.size[1] + " " + topology.nesting+" " + topology.position[1]);
+					++ind;
+				}
+
 			}
 			exposedHTML += "</svg></body></html>";
 		}

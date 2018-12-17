@@ -11,6 +11,7 @@ public class Topology{
 	int nesting = 0;
 	public String letters;
 	public boolean region = false;
+	public boolean snap = false;
 
 
 	private List<Topology> space;
@@ -33,40 +34,87 @@ public class Topology{
 
 	public String expose(){
 		Region region = getTopologyRegion(this);
+	//	region = getTopologyRegion(region);
 		Region priorRegion = getPriorRegion(this);
+	//	Region higherRegion = getHigherRegion(this);
+
 
 		double[] priorRegionPosition;
 		double[] priorRegionSize;
 		double[] regionSize = region.getSize();
+		double[] higherRegionPosition;
+		double[] higherRegionSize;
 
-	/*	System.out.println((priorRegion != this));
-		System.out.println((priorRegion != region));
-		System.out.println((priorRegion != null));
-		System.out.println((region != null));
-		System.out.println((region != this));*/
-		if ((priorRegion != this) && (priorRegion != region) && (priorRegion != null)){
+		if ((priorRegion != this) && (priorRegion != region) && (priorRegion != null)) {
 			priorRegionPosition = priorRegion.getPosition();
 			priorRegionSize = priorRegion.getSize();
 			//position[0] = priorRegionPosition[0] + priorRegionSize[0];
 			position[1] = priorRegionPosition[1] + priorRegionSize[1];
 
 			//regionSize[0] = regionSize[0] + size[0];
-			//regionSize[1] = regionSize[1] + size[1];
+		/*	regionSize[1] = regionSize[1] + size[1];
+			priorRegionSize[1] = priorRegionSize[1] + regionSize[1];// + size[1];
+			priorRegionSize[0] = priorRegionSize[0];// + size[1];
+
+			priorRegion.setSize(priorRegionSize);*/
+		}
+		else {
+			priorRegion = null;
 		}
 
+
+
+	/*	System.out.println((priorRegion != this));
+		System.out.println((priorRegion != region));
+		System.out.println((priorRegion != null));
+		System.out.println((region != null));
+		System.out.println((region != this));*/
+
+/*		if ((higherRegion != this) && (higherRegion != region) && (higherRegion != null)){
+			higherRegionPosition = higherRegion.getPosition();
+			higherRegionSize = higherRegion.getSize();
+			//position[0] = priorRegionPosition[0] + priorRegionSize[0];
+			System.out.println("ABC2222222222222");
+			//regionSize[0] = regionSize[0] + size[0];
+			higherRegionSize[1] =  higherRegionSize[1]+ size[1];
+			higherRegion.setSize(higherRegionSize);
+			higherRegionPosition[1] =  higherRegionPosition[1]+ position[1];
+			higherRegion.setPosition(higherRegionPosition);
+
+		}
+*/
 		double[] regionPosition = region.getPosition();
 
 		//position[0] = regionPosition[0] + regionSize[0];
-		position[1] = regionPosition[1] + regionSize[1];
+		if (priorRegion ==null) {
+			position[1] += regionPosition[1] + regionSize[1];
+		}
+		else{
+			position[1] = regionPosition[1] + regionSize[1];
+		}
 
-
-		regionSize[0] = regionSize[0] + size[0];
-		regionSize[1] = regionSize[1] + size[1];
-
+		if (nesting !=0) {
+			regionSize[0] = regionSize[0] + size[0];
+			regionSize[1] = regionSize[1] + size[1];
+		}
 		region.setSize(regionSize);
 
-		System.out.println("Position: " +position[0] + position[1]);
-		System.out.println("Size: " +size[0] + size[1]);
+		Region higherRegion = region;
+		while (region != (higherRegion = region.getTopologyRegion(region))){
+			//regionPosition = higherRegion.getPosition();
+
+			regionSize = higherRegion.getSize();
+			regionSize[0] = regionSize[0] + size[0];
+			regionSize[1] = regionSize[1] + size[1];
+
+			higherRegion.setSize(regionSize);
+
+			region = higherRegion;
+		}
+
+
+		//System.out.println("Position: " +position[0] + position[1]);
+		//System.out.println("Size: " +size[0] + size[1]);
 
 		return exposedText;
 	}
@@ -85,7 +133,7 @@ public class Topology{
 			}
 			++spaceRegionIndex;
 		}
-		System.out.println("Base: " + spaceRegionIndex);
+		//System.out.println("Base: " + spaceRegionIndex);
 		if (spaceRegionIndex<0){
 			spaceRegionIndex = 0;
 		}
@@ -95,6 +143,9 @@ public class Topology{
 			spaceRegionNesting = region.nesting;
 			--spaceRegionIndex;
 			if (spaceRegionIndex<0){
+				if (!(spaceRegionNesting == (topology.nesting -1))){
+					region = (Region)topology;
+				}
 				break;
 			}
 
@@ -123,7 +174,46 @@ public class Topology{
 			region = (Region)space.get(spaceRegionIndex);
 			if (region.region) {
 				spaceRegionNesting = region.nesting;
-				if ((spaceRegionNesting == (topology.nesting))) {
+				if ((spaceRegionNesting <= (topology.nesting))) {
+
+																						// Ensure prior Region is not before higher region
+
+					break;
+				}
+				//else{
+				//	region = null;
+				//}
+			}
+
+			--spaceRegionIndex;
+		}
+
+
+		return region;
+	}
+
+	public Region getHigherRegion(Topology topology){
+		Region region = null;
+
+
+		int spaceRegionIndex = 0;
+
+		for (Topology spaceRegion : space) {
+			if (spaceRegion.equals(topology)) {
+				--spaceRegionIndex;
+				break;
+			}
+			++spaceRegionIndex;
+		}
+		if (spaceRegionIndex<0){
+			spaceRegionIndex = 0;
+		}
+		int spaceRegionNesting = topology.nesting -1;
+		while (spaceRegionIndex>=0){
+			region = (Region)space.get(spaceRegionIndex);
+			if (region.region) {
+				spaceRegionNesting = region.nesting;
+				if ((spaceRegionNesting < (topology.nesting))) {
 					break;
 				}
 			}
