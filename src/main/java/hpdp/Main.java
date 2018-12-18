@@ -2,9 +2,12 @@ package hpdp;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.io.IOException;
 
 import hpdp.*;
 import hpdp.forms.*;
+import hpdp.shapes.Chart.Trace;
+
 
 
 /**
@@ -19,6 +22,14 @@ public class Main {
 
 		HPDP hpdp = new HPDP();
 		Trans trans = hpdp.getTrans();
+		Scraper scraper = hpdp.getScraper();
+
+		try {
+			scraper.scrape();
+		}
+		catch (IOException e){
+			e.printStackTrace();
+		}
 
 		HTML html = trans.newHTML();
 		html.exposedHTML = "<html style=\"margin:0; padding:0; overflow:hidden\"><body style=\"margin:0; padding:0; overflow:hidden\"><svg version=\"1.1\" baseProfile=\"full\"  style=\"position:fixed; top:0; left:0; height:100%; width:100%\" width=\"100%\" height=\"100%\"  preserveAspectRatio=\"xMidYMid meet\" xmlns=\"http://www.w3.org/2000/svg\">";//viewBox="0 0 100 100"
@@ -54,6 +65,22 @@ public class Main {
 
 
 		Scatter scatter = new Scatter();
+		scatter.jAxisLabel.rangeValueBasisIndex = 0;
+		scatter.jAxisLabel.defineRangeValues(scraper.data);
+		scatter.jAxisLabel.defineRangeQuantities();
+		scatter.quantityIncrement = scatter.jAxisLabel.quantityIncrement;
+
+		for(String[] dataPoint : scraper.data){
+			Trace trace = new Trace();
+			scatter.newTrace(trace);
+			double position = scatter.jAxisLabel.rangeQuantities.get(scatter.jAxisLabel.getRangeValueIndex(dataPoint[0]));
+
+			System.out.println("POs: "+position);
+
+			trace.position[1] +=position;
+		}
+
+
 		layout.newSpaceTopology(scatter, region3);
 
 		Region region4 = new Region();

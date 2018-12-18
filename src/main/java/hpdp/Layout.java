@@ -58,6 +58,14 @@ public class Layout{
 			spaceRegionIndex = space.size();
 		}
 		space.add(spaceRegionIndex, topology);
+		int subTopologyIndex = 1;
+		if (topology.topologies != null){
+		    for (Topology subTopology : topology.topologies){
+		        space.add((spaceRegionIndex+subTopologyIndex),subTopology);
+                subTopology.setSpace(space);
+		        ++subTopologyIndex;
+            }
+        }
 		System.out.println("Index: " + spaceRegionIndex + " Region: " + topology.region + " Nesting: " + topology.nesting);
 		topology.setSpace(space);
 

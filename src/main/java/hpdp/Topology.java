@@ -15,6 +15,7 @@ public class Topology{
 
 
 	private List<Topology> space;
+	protected List<Topology> topologies = null;
 
 	public enum TopologyShape{
 		LETTERS
@@ -139,12 +140,22 @@ public class Topology{
 		}
 		int spaceRegionNesting = topology.nesting;
 		while (!(spaceRegionNesting == (topology.nesting -1))){
-			region = (Region)space.get(spaceRegionIndex);
-			spaceRegionNesting = region.nesting;
+			Topology spaceTopology = space.get(spaceRegionIndex);
 			--spaceRegionIndex;
+			if (spaceTopology.region){
+				region = (Region)spaceTopology;
+			}
+			else{
+				continue;
+			}
+
+			spaceRegionNesting = region.nesting;
+
 			if (spaceRegionIndex<0){
 				if (!(spaceRegionNesting == (topology.nesting -1))){
-					region = (Region)topology;
+					if (topology.region) {
+						region = (Region) topology;
+					}
 				}
 				break;
 			}
@@ -171,8 +182,12 @@ public class Topology{
 		}
 		int spaceRegionNesting = topology.nesting -1;
 		while (spaceRegionIndex>=0){
-			region = (Region)space.get(spaceRegionIndex);
-			if (region.region) {
+			Topology spaceTopology = space.get(spaceRegionIndex);
+			if (spaceTopology.region){
+				region = (Region)spaceTopology;
+			}
+
+			if ((region != null) && (region.region)) {
 				spaceRegionNesting = region.nesting;
 				if ((spaceRegionNesting <= (topology.nesting))) {
 
