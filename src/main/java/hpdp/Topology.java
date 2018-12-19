@@ -14,15 +14,15 @@ public class Topology{
 	public boolean snap = false;
 
 
-	private List<Topology> space;
+	private List<Topology> space;					// TO-DO change to protected with getters, setters
 	protected List<Topology> topologies = null;
 
 	public enum TopologyShape{
 		LETTERS
 	}
 
-	protected double[] position;
-	protected double[] size;
+	public double[] position;			// TO-DO change to protected with getters, setters
+	public double[] size;
 
 	public Topology(){
 		exposedText = "";
@@ -65,17 +65,17 @@ public class Topology{
 
 
 
-	/*	System.out.println((priorRegion != this));
-		System.out.println((priorRegion != region));
-		System.out.println((priorRegion != null));
-		System.out.println((region != null));
-		System.out.println((region != this));*/
+	/*	////System.out.println((priorRegion != this));
+		////System.out.println((priorRegion != region));
+		////System.out.println((priorRegion != null));
+		//System.out.println((region != null));
+		//System.out.println((region != this));*/
 
 /*		if ((higherRegion != this) && (higherRegion != region) && (higherRegion != null)){
 			higherRegionPosition = higherRegion.getPosition();
 			higherRegionSize = higherRegion.getSize();
 			//position[0] = priorRegionPosition[0] + priorRegionSize[0];
-			System.out.println("ABC2222222222222");
+			//System.out.println("ABC2222222222222");
 			//regionSize[0] = regionSize[0] + size[0];
 			higherRegionSize[1] =  higherRegionSize[1]+ size[1];
 			higherRegion.setSize(higherRegionSize);
@@ -114,8 +114,8 @@ public class Topology{
 		}
 
 
-		//System.out.println("Position: " +position[0] + position[1]);
-		//System.out.println("Size: " +size[0] + size[1]);
+		////System.out.println("Position: " +position[0] + position[1]);
+		////System.out.println("Size: " +size[0] + size[1]);
 
 		return exposedText;
 	}
@@ -134,7 +134,7 @@ public class Topology{
 			}
 			++spaceRegionIndex;
 		}
-		//System.out.println("Base: " + spaceRegionIndex);
+		////System.out.println("Base: " + spaceRegionIndex);
 		if (spaceRegionIndex<0){
 			spaceRegionIndex = 0;
 		}

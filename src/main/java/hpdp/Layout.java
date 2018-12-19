@@ -66,7 +66,7 @@ public class Layout{
 		        ++subTopologyIndex;
             }
         }
-		System.out.println("Index: " + spaceRegionIndex + " Region: " + topology.region + " Nesting: " + topology.nesting);
+		////System.out.println("Index: " + spaceRegionIndex + " Region: " + topology.region + " Nesting: " + topology.nesting);
 		topology.setSpace(space);
 
 

@@ -6,13 +6,15 @@ import hpdp.shapes.Chart.Trace;
 public class Scatter extends Chart{
 
     public double quantityIncrement = 0.0;
+    public double iQuantityIncrement = 0.0;
 
     public Scatter(){
         super();
-        size[0] = 424.45135;
-        size[1] = 176.78464 ;
+        size[0] = 624.45135;
+        size[1] = 376.78464 ;
         iAxisLabel.setSize(size);
         jAxisLabel.setSize(size);
+        legend.setSize(size);
     }
 
     @Override
@@ -22,10 +24,10 @@ public class Scatter extends Chart{
 
         super.expose();
         //size[1] = 176.78464 ;
-        position[1]-=20.0;
+        position[1]-=10.0;
         //    position[1] +=40.0;
-    //    System.out.println("B: " + position[1]);
-     //   System.out.println("C: " +getTopologyRegion(this).getPosition()[1]);
+    //    //System.out.println("B: " + position[1]);
+     //   //System.out.println("C: " +getTopologyRegion(this).getPosition()[1]);
   //      position[1] = getTopologyRegion(this).getPosition()[1];
      //   position[1] += 40.0;//size[1] + 40.0;
         position[0] += getTopologyRegion(this).getPosition()[0];
@@ -37,6 +39,17 @@ public class Scatter extends Chart{
 
         double gridIOffset = 0.0;
         boolean even = true;
+
+
+        double[] legendPosition = new double[2];
+       legendPosition[0] = legend.getPosition()[0] + position[0];
+        legendPosition[1] = legend.getPosition()[1] + position[1];
+
+        legendPosition[1] -= 30.0;
+       legend.setSize(size);
+        legend.setPosition(legendPosition);
+
+
         area.setSize(size);
         area.quantityIncrement = quantityIncrement;
         area.setPosition(position);
@@ -68,7 +81,8 @@ public class Scatter extends Chart{
 
             trace.setSize(traceSize);
             trace.setPosition(tracePosition);
-            System.out.println("Trace: " + tracePosition[1]);
+            trace.quantityIncrement[0] = iQuantityIncrement;
+            //System.out.println("Trace: " + tracePosition[1]);
             trace.expose();
         }
 

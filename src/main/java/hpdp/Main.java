@@ -20,10 +20,12 @@ public class Main {
 
 	public static void main(String[] args){
 
+
+
 		HPDP hpdp = new HPDP();
 		Trans trans = hpdp.getTrans();
 		Scraper scraper = hpdp.getScraper();
-
+		scraper.filePath("U:\\DEVELOP\\sall\\DataStore1.csv");
 		try {
 			scraper.scrape();
 		}
@@ -32,7 +34,7 @@ public class Main {
 		}
 
 		HTML html = trans.newHTML();
-		html.exposedHTML = "<html style=\"margin:0; padding:0; overflow:hidden\"><body style=\"margin:0; padding:0; overflow:hidden\"><svg version=\"1.1\" baseProfile=\"full\"  style=\"position:fixed; top:0; left:0; height:100%; width:100%\" width=\"100%\" height=\"100%\"  preserveAspectRatio=\"xMidYMid meet\" xmlns=\"http://www.w3.org/2000/svg\">";//viewBox="0 0 100 100"
+		html.exposedHTML = "<html style=\"margin:0; padding:0; overflow:hidden\"><body style=\"margin:0; padding:0; overflow:hidden\"><div style=\"overflow:hidden\"><svg version=\"1.1\" baseProfile=\"full\"  style=\"position:fixed; top:0; left:0; height:100%; width:100%\" width=\"100%\" height=\"100%\"  preserveAspectRatio=\"xMidYMid meet\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">";//viewBox="0 0 100 100"
 		trans.exposureLocation(Trans.ExposureLocation.HTML_FILE);
 		trans.filePath("HTML1.html");
 
@@ -50,14 +52,14 @@ public class Main {
 		Region region2 = new Region();
 		layout.newSpaceTopology(region2, null);
 		//region2.position[1] =layout.getSpaceRegion(0).position[0]+layout.getSpaceRegion(0).size[0];
-		region2.size[1]+=40.0;
+		region2.size[1]+=50.0;
 
 		Region region3 = new Region();
 		//region3.size[1] -= 40.0;
 		//region3.size[0] += 40.0;
 		region3.position[1] -= 20.0;
 		//region3.position[1] +=40.0;
-		region3.position[0] +=80.0;
+		region3.position[0] +=90.0;
 		//region3.size[1]+=80.0;
 
 		//region3.position[1]+= 40.0;
@@ -66,18 +68,46 @@ public class Main {
 
 		Scatter scatter = new Scatter();
 		scatter.jAxisLabel.rangeValueBasisIndex = 0;
-		scatter.jAxisLabel.defineRangeValues(scraper.data);
-		scatter.jAxisLabel.defineRangeQuantities();
-		scatter.quantityIncrement = scatter.jAxisLabel.quantityIncrement;
 
-		for(String[] dataPoint : scraper.data){
+
+		scatter.jAxisLabel.defineRangeValues(scraper.getUniqueDataByIndex(scraper.data, 0));
+		scatter.iAxisLabel.defineRangeValues(scraper.data);
+		scatter.iAxisLabel.setMinTime(scraper.getMinTimeFromKey(scraper.data,1));
+		scatter.iAxisLabel.setMaxTime(scraper.getMaxTimeFromKey(scraper.data,1));
+		scatter.jAxisLabel.defineRangeQuantities();
+		scatter.iAxisLabel.defineRangeQuantities();
+		scatter.quantityIncrement = scatter.jAxisLabel.quantityIncrement;		// TO-DO: Combine
+		scatter.iQuantityIncrement = scatter.iAxisLabel.iQuantityIncrement;
+
+		List<List> tracePoints = scraper.getUniqueDataByKey(scraper.data,0);
+
+	////System.out.println("TR size: " + tracePoints.size());
+
+		for(List<String[]> dataPointList : tracePoints){
+
+
+
 			Trace trace = new Trace();
 			scatter.newTrace(trace);
-			double position = scatter.jAxisLabel.rangeQuantities.get(scatter.jAxisLabel.getRangeValueIndex(dataPoint[0]));
+			trace.values = dataPointList;
+			trace.minTime = scatter.iAxisLabel.minTime;
+			trace.minTime = scatter.iAxisLabel.maxTime;
+			////System.out.println("TR2 size: " + dataPointList.size());
+			for (String[] dataValue : dataPointList){
+				Double[] coord = new Double[2];
+				coord[0] = 0.0;	// Initialize
+				coord[1] = 0.0;	// Initialize
+				coord[0] = scatter.iAxisLabel.iFromTimestamp(Long.parseLong(dataValue[1]));
+				coord[1] = scatter.jAxisLabel.rangeQuantities.get(scatter.jAxisLabel.getRangeValueIndex(dataValue[0]));
+				trace.coords.add(coord);
+			}
 
-			System.out.println("POs: "+position);
+		/*	double position = scatter.jAxisLabel.rangeQuantities.get(scatter.jAxisLabel.getRangeValueIndex(dataPoint[0]));
+
+			////System.out.println("POs: "+position);
 
 			trace.position[1] +=position;
+*/
 		}
 
 
@@ -93,7 +123,7 @@ public class Main {
 		Header header3 = new Header();
 		header3.headerLevel = Header.HeaderLevel.LVL_2;
 		header3.letters = "Input Data Variations";
-		layout.newSpaceTopology(header3, region4);//layout.getSpaceRegion(0));//region3);//			// This is wrong
+	layout.newSpaceTopology(header3, region4);//layout.getSpaceRegion(0));//region3);//			// This is wrong
 
 
 		/*
