@@ -25,7 +25,7 @@ public class Main {
 		HPDP hpdp = new HPDP();
 		Trans trans = hpdp.getTrans();
 		Scraper scraper = hpdp.getScraper();
-		scraper.filePath("U:\\DEVELOP\\sall\\DataStore1.csv");
+		scraper.filePath("DataStore1.csv");
 		try {
 			scraper.scrape();
 		}
@@ -41,12 +41,12 @@ public class Main {
 		Layout layout = html.getLayout(0);
 
 		Header header = new Header();
-		header.letters = "Statements Test Automation";
+		header.letters = "Title";
 		layout.newSpaceTopology(header, layout.getSpaceRegion(0));
 
 		Header header2 = new Header();
 		header2.headerLevel = Header.HeaderLevel.LVL_2;
-		header2.letters = "Runs";
+		header2.letters = "Sub-header";
 		layout.newSpaceTopology(header2, layout.getSpaceRegion(0));
 
 		Region region2 = new Region();
@@ -76,6 +76,7 @@ public class Main {
 		scatter.iAxisLabel.setMaxTime(scraper.getMaxTimeFromKey(scraper.data,1));
 		scatter.jAxisLabel.defineRangeQuantities();
 		scatter.iAxisLabel.defineRangeQuantities();
+		scatter.jAxisLabel.linkPath = "";
 		scatter.quantityIncrement = scatter.jAxisLabel.quantityIncrement;		// TO-DO: Combine
 		scatter.iQuantityIncrement = scatter.iAxisLabel.iQuantityIncrement;
 
@@ -122,7 +123,7 @@ public class Main {
 
 		Header header3 = new Header();
 		header3.headerLevel = Header.HeaderLevel.LVL_2;
-		header3.letters = "Input Data Variations";
+		header3.letters = "Sub-header 2";
 	layout.newSpaceTopology(header3, region4);//layout.getSpaceRegion(0));//region3);//			// This is wrong
 
 

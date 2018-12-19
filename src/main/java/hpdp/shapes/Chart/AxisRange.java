@@ -15,6 +15,7 @@ public class AxisRange extends Topology {
     public double iQuantityIncrement = 0.0;
     public Time minTime = null;
     public Time maxTime = null;
+    public String linkPath = "";
 
 
     public AxisRange() {
@@ -121,7 +122,7 @@ public class AxisRange extends Topology {
                         //  exposedText = "<rect style=\"fill:#f4f4f4;fill-opacity:0.15384617;stroke:none;stroke-width:1.16297209;stroke-opacity:0.61538463\" id=\"rect5982\" width=\""+ (size[0] + 7.584706 + 36.620815) +"\" height=\"10\" x=\""+position[0]+"\" y=\""+ (position[1] + gridIOffset )+ "\" />";//424.45135\" "+size[1]+
 
 
-                        exposedText +="<a xlink:href=\"https://prodqtest.us.aegon.com/p/3/portal/project#tab=testdesign&object=1&id="+rangeValue+"\"\n" +
+                        exposedText +="<a xlink:href=\""+linkPath+""+rangeValue+"\"\n" +
                                 "\t  target=\"_blank\">";
                         exposedText += "<text\n" +
                                 "         style=\"font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.70164156px;font-family:'Times New Roman';fill:#767676;fill-opacity:1;stroke-width:0.53452885\"\n" +
