@@ -6,11 +6,11 @@ The visualization subsystem is a customizable framework providing APIs that expo
 
 The data scraper can be controlled via the network and can also receive dataset updates. Updated datasets provides the option for **HPDP** systems to behave as real-time dashboards.
 
-The **HPDP** tools allow top to bottom visualization and dynamic analytic scripting as well. A single user can therefore script a disposable single-page report or set of charts with minimal effort.
+The **HPDP** tools allow top to bottom visualization and dynamic analytic scripting as well. A single user can therefore script a disposable single-page report or set of charts with minimal effort. **HPDP** uses SVG (Scalable Vector Graphics) as the chart and shapes format.
 
 ## Implementations ##
 
-The **HPDP** source is written in x86_64 ASM, using flatassembler g (fasmg). APIs are subject to change but are planned to include asm, C/C++, Java, along with a network and scripting interface.
+The **HPDP** source is written in x86_64 ASM, using flatassembler g (fasmg) with a C/C++ API. A port is also written in Java. APIs are subject to change but are planned to include a network and scripting interface.
 
 ## Features ##
 
@@ -23,7 +23,7 @@ Along with default charting and metric capabilities, **HPDP** will provide:
 
 ## Platforms ##
 
-**HPDP** should compile or execute on most systems, including:
+**HPDP** should compile or execute on most systems. With minor tweaks to the Java, this is certainly possible and systems include:
 
 * Windows
 * Linux

@@ -17,6 +17,21 @@ public class HPDP{
 	}
 
 
+	public Trans getTrans(){
+		if (trans == null){
+			trans = new Trans();
+		}
+		return trans;
+	}
+
+	public Scraper getScraper(){
+		if (scraper == null){
+			scraper = new Scraper();
+		}
+		return scraper;
+	}
+
+
 
 
 
