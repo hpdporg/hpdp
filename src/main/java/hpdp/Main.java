@@ -33,8 +33,9 @@ public class Main {
 			e.printStackTrace();
 		}
 
+
 		HTML html = trans.newHTML();
-		html.exposedHTML = "<html style=\"margin:0; padding:0; overflow:hidden\"><body style=\"margin:0; padding:0; overflow:hidden\"><div style=\"overflow:hidden\"><svg version=\"1.1\" baseProfile=\"full\"  style=\"position:fixed; top:0; left:0; height:100%; width:100%\" width=\"100%\" height=\"100%\"  preserveAspectRatio=\"xMidYMid meet\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">";//viewBox="0 0 100 100"
+		html.exposedHTML = "<html style=\"margin:0; padding:0; overflow:hidden\"><body style=\"margin:0; padding:0; overflow:hidden\"><div style=\"overflow:hidden;position:fixed;height:100%; width:100%\"><svg version=\"1.1\" baseProfile=\"full\"  style=\" top:0; left:0;width:100%;height:100%;\"  preserveAspectRatio=\"xMidYMid meet\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">";//viewBox="0 0 100 100"
 		trans.exposureLocation(Trans.ExposureLocation.HTML_FILE);
 		trans.filePath("HTML1.html");
 
@@ -52,12 +53,12 @@ public class Main {
 		Region region2 = new Region();
 		layout.newSpaceTopology(region2, null);
 		//region2.position[1] =layout.getSpaceRegion(0).position[0]+layout.getSpaceRegion(0).size[0];
-		region2.size[1]+=50.0;
+		region2.size[1]+=60.0;
 
 		Region region3 = new Region();
 		//region3.size[1] -= 40.0;
 		//region3.size[0] += 40.0;
-		region3.position[1] -= 20.0;
+		region3.position[1] -= 30.0;
 		//region3.position[1] +=40.0;
 		region3.position[0] +=90.0;
 		//region3.size[1]+=80.0;
@@ -102,6 +103,10 @@ public class Main {
 				coord[1] = scatter.jAxisLabel.rangeQuantities.get(scatter.jAxisLabel.getRangeValueIndex(dataValue[0]));
 				trace.coords.add(coord);
 			}
+		//	System.out.println("Trace coord size: " + trace.coords.size());
+		//	System.out.println("Vals size: " + trace.values.size());
+
+			trans.sortTraceCoords(trace,0);
 
 		/*	double position = scatter.jAxisLabel.rangeQuantities.get(scatter.jAxisLabel.getRangeValueIndex(dataPoint[0]));
 
@@ -138,8 +143,22 @@ public class Main {
 		header5.letters = "Coverage Ratio";
 		layout.newSpaceTopology(header5, region2);*/
 
-
 		trans.expose();
+	/*	while (true) {
+			try {
+				scraper.filePath("DataStore1.csv");
+				scraper.scrape();
+			}
+			catch (IOException e){
+				e.printStackTrace();
+			}
+			trans.expose();
+			try {
+				Thread.sleep(5000);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}*/
 	}
 
 

@@ -41,6 +41,8 @@ public class Storage{
         return this;
     }
 
+
+
     public void writeHTML(String htmlText) throws IOException {
         if (file != null){
 

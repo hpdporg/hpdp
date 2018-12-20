@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.FileSystemNotFoundException;
 import java.util.List;
 import java.util.ArrayList;
+
+import hpdp.shapes.Chart.Trace;
 import hpdp.storage.*;
 
 public class Trans{
@@ -16,6 +18,8 @@ public class Trans{
 		HTML_FILE,HTML_MEMORY
 	}
 	ExposureLocation exposureLocation;
+	public boolean realTime = false;
+
 
 
 	public Trans(){
@@ -48,6 +52,10 @@ public class Trans{
 	public boolean expose(){
 		boolean exposed = false;
 
+
+
+
+
 		if (htmls != null) {
 			for (HTML html : htmls) {
 				html.expose();
@@ -71,17 +79,95 @@ public class Trans{
 
 
 	public boolean filePath(String filePath){
-		if (storage != null){
-			try {
-				storage.newFile(filePath);
-			}catch(IOException e){
-				e.printStackTrace();
-				return false;
+
+			if (storage != null) {
+				try {
+					storage.newFile(filePath);
+				} catch (IOException e) {
+					e.printStackTrace();
+					return false;
+				}
+
 			}
 
-		}
 		return true;
 	}
 
+
+	public Trace sortTraceCoords(Trace trace, int index ){
+		List<Double[]> sortedCoords = new ArrayList<>();
+
+		int unsortedSize = trace.coords.size();
+		Double[] minimumCoord = null;
+		boolean exists = false;
+		if (trace.coords != null &&trace.coords.size()!= 0) {
+
+			int passCount = 0;
+
+			while ((unsortedSize >0)) {
+
+				for (Double[] coord : trace.coords) {
+					exists = false;
+					for (Double[] sortedCoord : sortedCoords) {
+						if (coord[index].compareTo(sortedCoord[index])==0) {
+
+							exists = true;
+
+						}
+					}
+
+					if (exists == false) {
+						if ((minimumCoord == null)) {
+							minimumCoord = coord;
+
+							passCount = 0;
+						} else if (coord[index].compareTo(minimumCoord[index]) < 0) {
+							minimumCoord = coord;
+							passCount = 0;
+						}
+					}
+					else if (sortedCoords.size()>0) {
+						if ((minimumCoord == null)) {
+							if ((passCount > 4) && (coord[index].compareTo(sortedCoords.get(sortedCoords.size() - 1)[index]) == 0)) {    // Duplicate
+								minimumCoord = coord;
+
+								exists = false;
+
+							}
+						}
+						if ((passCount > 4)){				// Duplicate, next pass, need exists as false.
+							exists = false;
+						}
+					}
+
+
+					if ((exists == false) && (passCount >6 )) {
+						sortedCoords.add(minimumCoord);
+
+						--unsortedSize;
+						passCount = 0;
+						minimumCoord = null;
+
+					}
+
+
+
+				}
+				++passCount;			// Do not get stuck in a loop with faulty data.
+
+
+
+
+
+
+
+
+			}
+
+			trace.coords = sortedCoords;
+		}
+
+		return trace;
+	}
 
 }

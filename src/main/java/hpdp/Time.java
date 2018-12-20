@@ -78,6 +78,17 @@ public class Time {
         return year + " " + month + " " +day + " " +hour + " "+ " " +minute + " " + second + " " + ms + " " + timestamp;
     }
 
+    public String getDateString(){
+        return year+"-"+month+"-"+day;
+
+
+    }
+    public String getDateTimeString(){
+        return year+"-"+month+"-"+day+" "+hour+":"+minute;
+
+
+    }
+
 
 
 }

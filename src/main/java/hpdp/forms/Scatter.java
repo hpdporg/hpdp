@@ -24,7 +24,7 @@ public class Scatter extends Chart{
 
         super.expose();
         //size[1] = 176.78464 ;
-        position[1]-=10.0;
+        position[1]-=20.0;
         //    position[1] +=40.0;
     //    //System.out.println("B: " + position[1]);
      //   //System.out.println("C: " +getTopologyRegion(this).getPosition()[1]);
@@ -64,6 +64,10 @@ public class Scatter extends Chart{
 
 
 
+        iAxisLabel.setSize(size);
+        iAxisLabel.setPosition(position);
+        iAxisLabel.defineRangeQuantities();
+        iAxisLabel.expose();
 
         jAxisLabel.setSize(size);
         jAxisLabel.setPosition(position);
