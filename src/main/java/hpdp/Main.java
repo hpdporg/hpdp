@@ -53,12 +53,12 @@ public class Main {
 		Region region2 = new Region();
 		layout.newSpaceTopology(region2, null);
 		//region2.position[1] =layout.getSpaceRegion(0).position[0]+layout.getSpaceRegion(0).size[0];
-		region2.size[1]+=60.0;
+		region2.size[1]+=85.0;
 
 		Region region3 = new Region();
 		//region3.size[1] -= 40.0;
 		//region3.size[0] += 40.0;
-		region3.position[1] -= 30.0;
+		region3.position[1] -= 55.0;
 		//region3.position[1] +=40.0;
 		region3.position[0] +=90.0;
 		//region3.size[1]+=80.0;
@@ -119,17 +119,90 @@ public class Main {
 
 		layout.newSpaceTopology(scatter, region3);
 
+
+		Region summaryTable1Region = new Region();
+		//region3.size[1]+= 40.0;
+		//region3.size[0] += 40.0;
+		summaryTable1Region.position[1] -= 30.0;
+		//region3.position[1] +=40.0;
+		//summaryTable1Region.position[0] += 0.0;// +=90.0;
+		//region3.size[1]+=80.0;
+
+		//region3.position[1]+= 40.0;
+	//	layout.newSpaceTopology(summaryTable1Region,region2);				// summaryTable1Region area
+
+		int passCount = scraper.getCountByKeyValue(scraper.data,2,"PASS");
+		int failCount = scraper.getCountByKeyValue(scraper.data,2,"FAIL");
+		int inProgressCount = scraper.getCountByKeyValue(scraper.data,2,"IN PROGRESS");
+		int brokenCount = scraper.getCountByKeyValue(scraper.data,2,"BROKEN");
+		int notStartedCount = scraper.getCountByKeyValue(scraper.data,2,"NOT STARTED");
+
+
+		SummaryTable summaryTable = new SummaryTable();
+		summaryTable.table.newRow("PASS", "FAIL", "IN PROGRESS", "BROKEN", "NOT STARTED");
+		summaryTable.table.newRow(String.valueOf(passCount), String.valueOf(failCount), String.valueOf(inProgressCount), String.valueOf(brokenCount), String.valueOf(notStartedCount));
+
+		layout.newSpaceTopology(summaryTable, region3);//layout.getSpaceRegion(0));//region3);//			// This is wrong
+
+
 		Region region4 = new Region();
 		layout.newSpaceTopology(region4, null);
-
+		//region4.position[1] -= 90.0;
 //		region4.snap = true;
 		//		region4.position[1] =region2.position[0]+region2.size[0];
+	//	region4.size[1]+=10.0;
+		/*
 
+
+		//region3.position[1] +=40.0;
+		region4.position[0] +=90.0;*/
 
 		Header header3 = new Header();
 		header3.headerLevel = Header.HeaderLevel.LVL_2;
 		header3.letters = "Sub-header 2";
+		header3.position[1] -=30.0;
 	layout.newSpaceTopology(header3, region4);//layout.getSpaceRegion(0));//region3);//			// This is wrong
+
+
+		int lastPassCount = 0;
+		int lastFailCount =0;
+		int lastInProgressCount =0;
+		int lastBrokenCount  =0;
+		int lastNotStartedCount  =0;
+
+		for(List<String[]> dataPointList : tracePoints) {
+
+			if ((dataPointList.get(dataPointList.size()-1)[2]).equals("PASS")){
+
+				lastPassCount += 1;
+
+
+			}
+			else if ((dataPointList.get(dataPointList.size()-1)[2]).equals("FAIL")){
+				lastFailCount += 1;
+			}
+			else if ((dataPointList.get(dataPointList.size()-1)[2]).equals("IN PROGRESS")){
+				lastInProgressCount += 1;
+			}
+			else if ((dataPointList.get(dataPointList.size()-1)[2]).equals("BROKEN")){
+				lastBrokenCount += 1;
+			}
+			else if ((dataPointList.get(dataPointList.size()-1)[2]).equals("NOT STARTED")){
+				lastNotStartedCount += 1;
+			}
+
+
+		}
+
+		SummaryTable lastSummaryTable = new SummaryTable();
+		lastSummaryTable.table.newRow("PASS", "FAIL", "IN PROGRESS", "BROKEN", "NOT STARTED");
+		lastSummaryTable.table.newRow(String.valueOf(lastPassCount), String.valueOf(lastFailCount), String.valueOf(lastInProgressCount), String.valueOf(lastBrokenCount), String.valueOf(lastNotStartedCount));
+
+		lastSummaryTable.position[1] -= 0.0;
+
+		lastSummaryTable.position[0] += 90.0;
+
+		layout.newSpaceTopology(lastSummaryTable, region4);//layout.getSpaceRegion(0));//region3);//			// This is wrong
 
 
 		/*

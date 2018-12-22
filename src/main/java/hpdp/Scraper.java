@@ -112,6 +112,22 @@ public class Scraper{
 		return uniqueDataLists;
 	}
 
+	// Aggregate data row count when key is equal to value
+	public int getCountByKeyValue(List<String[]> data, int key, String value){
+
+		int count = 0;
+
+		for (String[] dataPoint : data) {
+			if (dataPoint[key].equals(value)){
+				count = count + 1;
+			}
+
+		}
+
+
+		return count;
+	}
+
 
 	// Get minimum time from data using key
 	public Time getMinTimeFromKey(List<String[]> data, int index){

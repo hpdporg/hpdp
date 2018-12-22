@@ -94,6 +94,7 @@ public class Header extends Region{
                     "   <stop offset=\"0%\" stop-color=\"#e2e2e2\" stop-opacity=\"0\"/>" +
                     "   <stop offset=\"100%\" stop-color=\"#e2e2e2\" stop-opacity=\"1\"/>" +
                     "    </linearGradient>" +
+
                     "</defs>";
 
             exposedText += "<rect\n" +

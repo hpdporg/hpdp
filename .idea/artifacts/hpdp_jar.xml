@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="hpdp:jar">
-    <output-path>$PROJECT_DIR$/lib</output-path>
-    <root id="archive" name="hpdp.jar">
-      <element id="module-output" name="hpdp" />
-    </root>
-  </artifact>
-</component>
