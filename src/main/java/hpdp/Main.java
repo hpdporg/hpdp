@@ -25,7 +25,7 @@ public class Main {
 		HPDP hpdp = new HPDP();
 		Trans trans = hpdp.getTrans();
 		Scraper scraper = hpdp.getScraper();
-		scraper.filePath("DataStore1.csv");
+		scraper.filePath("DataStore2.csv");
 		try {
 			scraper.scrape();
 		}
