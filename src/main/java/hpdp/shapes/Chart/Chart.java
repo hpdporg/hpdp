@@ -4,6 +4,7 @@ import hpdp.Region;
 import hpdp.Topology;
 import java.util.List;
 import java.util.ArrayList;
+import hpdp.shapes.Chart.Legend.LegendStyle;
 
 public class Chart  extends Region {
 
@@ -25,12 +26,48 @@ public class Chart  extends Region {
         jAxisLabel = new AxisRange();
         jAxisLabel.axisRangeDirection[1] = 1;
         legend = new Legend();
+        legend.legendStyle = LegendStyle.GRAPH;
 
         traces = new ArrayList<>();
 
         topologies.add(area);
         topologies.add(iAxisLabel);
         topologies.add(jAxisLabel);
+        topologies.add(legend);
+
+
+    }
+
+
+    public Chart(boolean hasAxisLabels){
+        super();
+
+        this.region = false;
+        topologies = new ArrayList<>();
+
+        area = new Area();
+        if (hasAxisLabels) {
+            iAxisLabel = new AxisRange();
+            iAxisLabel.axisRangeDirection[0] = 1;
+            jAxisLabel = new AxisRange();
+            jAxisLabel.axisRangeDirection[1] = 1;
+        }
+        legend = new Legend();
+
+        if (hasAxisLabels){
+            legend.legendStyle = LegendStyle.GRAPH;
+        }
+        else{
+            legend.legendStyle = LegendStyle.COLOR_INDICATOR;
+        }
+
+        traces = new ArrayList<>();
+
+        topologies.add(area);
+        if (hasAxisLabels) {
+            topologies.add(iAxisLabel);
+            topologies.add(jAxisLabel);
+        }
         topologies.add(legend);
 
 

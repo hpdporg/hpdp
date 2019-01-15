@@ -1,5 +1,7 @@
 package hpdp;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -84,7 +86,9 @@ public class Time {
 
     }
     public String getDateTimeString(){
-        return year+"-"+month+"-"+day+" "+hour+":"+minute;
+        NumberFormat formatter = new DecimalFormat("00");
+        NumberFormat yearFormatter = new DecimalFormat("0000");
+        return yearFormatter.format(year)+"-"+formatter.format(month)+"-"+formatter.format(day)+" "+formatter.format(hour)+":"+formatter.format(minute);
 
 
     }

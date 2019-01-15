@@ -31,7 +31,7 @@ public class Trace extends Topology {
 
 
 
-    public String getColor(String term){
+    public static String getColor(String term){
         String color = null;
 
         if (term.equals("PASS")){

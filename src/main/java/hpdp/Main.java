@@ -23,8 +23,8 @@ public class Main {
 	//	ChartTest chartTest = new ChartTest();
 	//			chartTest.runTest();
 
-		SummaryReportTest summaryReportTest = new SummaryReportTest();
-		summaryReportTest.runTest();
+	//	SummaryReportTest summaryReportTest = new SummaryReportTest();
+	//	summaryReportTest.runTest();
 
 	}
 

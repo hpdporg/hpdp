@@ -10,6 +10,8 @@ import hpdp.Table;
     public class SummaryTable extends Region{
 
 
+        public boolean excludeHeader = false;
+
 
         public Table table;
  /*   public enum HeaderLevel{
@@ -57,6 +59,7 @@ import hpdp.Table;
         int index  = 0;
         for (List<String> row : table.getRows()) {
             if (index == 0){                                    // Header
+
                 exposedText += "<defs>" +
                         "<linearGradient\n" +
                         "       id=\"linearGradient4359\"\n" +/*
@@ -95,30 +98,36 @@ import hpdp.Table;
                                     "         id=\"stop4363\" />\n" +
                                     "    </linearGradient>"+*/
                         "</defs>";
-                exposedText +=
-                        "<rect\n" +
-                                "       style=\"display:inline;fill:url(#linearGradient4359);fill-opacity:1;stroke-width:0.22655451\"\n" +
-                                //"       style=\"display:inline;fill:#e3e3e3;fill-opacity:1;stroke-width:0.22655451\"\n" +
-                                "       id=\"rect5773-1-83\"\n" +
-                                "       width=\""+(size[0])+"\"\n" +
-                                "       height=\"10.362959\"\n" +
-                                "       x=\"" + (position[0] + iDisplacement) + "\"\n" +
-                                "       y=\"" + position[1] + "\" />\n";
+
+                if (!excludeHeader) {
+
+
+                    exposedText +=
+                            "<rect\n" +
+                                    "       style=\"display:inline;fill:url(#linearGradient4359);fill-opacity:1;stroke-width:0.22655451\"\n" +
+                                    //"       style=\"display:inline;fill:#e3e3e3;fill-opacity:1;stroke-width:0.22655451\"\n" +
+                                    "       id=\"rect5773-1-83\"\n" +
+                                    "       width=\"" + (size[0]) + "\"\n" +
+                                    "       height=\"12.362959\"\n" +
+                                    "       x=\"" + (position[0] + iDisplacement) + "\"\n" +
+                                    "       y=\"" + position[1] + "\" />\n";
+                }
                 for (String value : row) {
 
 
-
+                if(!excludeHeader) {
                     exposedText += "<text\n" +
-                        //    "       xml:space=\"preserve\"\n" +
+                            //    "       xml:space=\"preserve\"\n" +
                             //"       style=\"font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.04130268px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#4e4e4e;fill-opacity:1;stroke:none;stroke-width:0.42381126\"\n" +
                             "         style=\"font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.04130268px;font-family:'Times New Roman';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#4e4e4e;fill-opacity:1;stroke-width:0.42381126\"" +
-                       //     "       x=\"31.853239\"\n" +
-                        //    "       y=\"-313.07266\"\n" +
+                            //     "       x=\"31.853239\"\n" +
+                            //    "       y=\"-313.07266\"\n" +
                             "       id=\"text107-29\"\n" +
-                       //     "       transform=\"scale(1.1109935,0.90009527)\"" +
-                            "       x=\"" + (position[0] + 3.0 +iDisplacement) + "\"\n" +
-                            "       y=\"" + (position[1]+7.0) + "\" "+
-                            ">" + value +" </text>";
+                            //     "       transform=\"scale(1.1109935,0.90009527)\"" +
+                            "       x=\"" + (position[0] + 3.0 + iDisplacement) + "\"\n" +
+                            "       y=\"" + (position[1] + 8.0) + "\" " +
+                            ">" + value + " </text>";
+                }
                     iDisplacement = iDisplacement + (value.length()*5.0)+15.0;
                   //  iDisplacement += (value.length()*3)+15;
                 }
@@ -129,9 +138,9 @@ import hpdp.Table;
                         "       style=\"display:inline;fill:#efefef;fill-opacity:0.58208953;stroke-width:0.33232033\"\n" +
                         "       id=\"rect5773-1-8\"\n" +
                         "       width=\""+(size[0])+"\"\n" +
-                        "       height=\"10.362959\"\n" +
+                        "       height=\"12.362959\"\n" +
                         "       x=\"" + (position[0] + iDisplacement) + "\"\n" +
-                        "       y=\"" +( position[1]+(7.0*index) )+ "\" />\n";
+                        "       y=\"" +( position[1]+(9.0*index) )+ "\" />\n";
                 int columnIndex = 0;
                 for (String value : row) {
 
@@ -147,7 +156,7 @@ import hpdp.Table;
                             "       id=\"text107-29\"\n" +
                    //         "       transform=\"scale(1.1109935,0.90009527)\"" +
                             "       x=\"" + (position[0] + 3.0 +iDisplacement) + "\"\n" +
-                            "       y=\"" + (position[1]+8.0+(7.0*index)) + "\" "+
+                            "       y=\"" + (position[1]+8.0+(9.0*index)) + "\" "+
                             ">" + value +" </text>";
 
 

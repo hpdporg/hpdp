@@ -105,9 +105,9 @@ public class CompositeTable extends Region{
                                 //"       style=\"display:inline;fill:#e3e3e3;fill-opacity:1;stroke-width:0.22655451\"\n" +
                                 "       id=\"rect5773-1-83\"\n" +
                                 "       width=\""+(size[0])+"\"\n" +
-                                "       height=\"11.362959\"\n" +
+                                "       height=\"12.362959\"\n" +
                                 "       x=\"" + (position[0] + iDisplacement) + "\"\n" +
-                                "       y=\"" +( position[1]+(8.0*index) )+ "\" />\n";
+                                "       y=\"" +( position[1]+(9.0*index) )+ "\" />\n";
                 for (String value : row) {
 
 
@@ -121,7 +121,7 @@ public class CompositeTable extends Region{
                             "       id=\"text107-29\"\n" +
                             //     "       transform=\"scale(1.1109935,0.90009527)\"" +
                             "       x=\"" + (position[0] + 3.0 +iDisplacement) + "\"\n" +
-                            "       y=\"" + (position[1]+8.0+(8.0*index)) + "\" "+
+                            "       y=\"" + (position[1]+8.0+(9.0*index)) + "\" "+
                             ">" + value +" </text>";
                     iDisplacement = iDisplacement + (value.length()*5.0)+15.0;
                     //  iDisplacement += (value.length()*3)+15;
@@ -136,9 +136,9 @@ public class CompositeTable extends Region{
                         "       style=\"display:inline;fill:#efefef;fill-opacity:0.58208953;stroke-width:0.33232033\"\n" +
                         "       id=\"rect5773-1-8\"\n" +
                         "       width=\""+(size[0])+"\"\n" +
-                        "       height=\"11.362959\"\n" +
+                        "       height=\"12.362959\"\n" +
                         "       x=\"" + (position[0] + iDisplacement) + "\"\n" +
-                        "       y=\"" +( position[1]+(8.0*index) )+ "\" />\n";
+                        "       y=\"" +( position[1]+(9.0*index) )+ "\" />\n";
                 int columnIndex = 0;
                 for (String value : row) {
 
@@ -154,7 +154,7 @@ public class CompositeTable extends Region{
                             "       id=\"text107-29\"\n" +
                             //         "       transform=\"scale(1.1109935,0.90009527)\"" +
                             "       x=\"" + (position[0] + 3.0 +iDisplacement) + "\"\n" +
-                            "       y=\"" + (position[1]+8.0+(8.0*index)) + "\" "+
+                            "       y=\"" + (position[1]+8.0+(9.0*index)) + "\" "+
                             ">" + value +" </text>";
 
 

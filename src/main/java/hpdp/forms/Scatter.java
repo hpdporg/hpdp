@@ -2,6 +2,7 @@ package hpdp.forms;
 
 import hpdp.shapes.Chart.Chart;
 import hpdp.shapes.Chart.Trace;
+import hpdp.shapes.Chart.Legend.LegendStyle;
 
 public class Scatter extends Chart{
 
@@ -15,6 +16,7 @@ public class Scatter extends Chart{
         iAxisLabel.setSize(size);
         jAxisLabel.setSize(size);
         legend.setSize(size);
+        legend.legendStyle = LegendStyle.GRAPH;
     }
 
     @Override
