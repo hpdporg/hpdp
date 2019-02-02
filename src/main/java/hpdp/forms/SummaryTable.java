@@ -11,7 +11,7 @@ import hpdp.Table;
 
 
         public boolean excludeHeader = false;
-
+        public String[] linkPath = null;
 
         public Table table;
  /*   public enum HeaderLevel{
@@ -116,6 +116,14 @@ import hpdp.Table;
 
 
                 if(!excludeHeader) {
+                    if (linkPath != null){
+                        exposedText +="<a xlink:href=\""+linkPath[index]+"\"\n" +
+                                "\t  target=\"_blank\">";
+
+
+                    }
+
+
                     exposedText += "<text\n" +
                             //    "       xml:space=\"preserve\"\n" +
                             //"       style=\"font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.04130268px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#4e4e4e;fill-opacity:1;stroke:none;stroke-width:0.42381126\"\n" +
@@ -127,6 +135,9 @@ import hpdp.Table;
                             "       x=\"" + (position[0] + 3.0 + iDisplacement) + "\"\n" +
                             "       y=\"" + (position[1] + 8.0) + "\" " +
                             ">" + value + " </text>";
+                    if (linkPath != null){
+                        exposedText += "</a>";
+                    }
                 }
                     iDisplacement = iDisplacement + (value.length()*5.0)+15.0;
                   //  iDisplacement += (value.length()*3)+15;
@@ -147,6 +158,12 @@ import hpdp.Table;
                     if (columnIndex > 0){
                         iDisplacement = iDisplacement + (((String)(table.getRows().get(0).get(columnIndex-1))).length()*5.0)+15.0;
                     }
+                    if (linkPath != null){
+                        exposedText +="<a xlink:href=\""+linkPath[index]+"\"\n" +
+                                "\t  target=\"_blank\">";
+
+
+                    }
                     exposedText += "<text\n" +
                             //    "       xml:space=\"preserve\"\n" +
                             //"       style=\"font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.04130268px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#4e4e4e;fill-opacity:1;stroke:none;stroke-width:0.42381126\"\n" +
@@ -158,6 +175,10 @@ import hpdp.Table;
                             "       x=\"" + (position[0] + 3.0 +iDisplacement) + "\"\n" +
                             "       y=\"" + (position[1]+8.0+(9.0*index)) + "\" "+
                             ">" + value +" </text>";
+
+                    if (linkPath != null){
+                        exposedText += "</a>";
+                    }
 
 
                         columnIndex = columnIndex + 1;

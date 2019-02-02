@@ -81,15 +81,16 @@ public class Time {
     }
 
     public String getDateString(){
-        return year+"-"+month+"-"+day;
+        String dateString = year+"-"+month+"-"+day;
+        return dateString.replace("--", "-"); // Two dashes are showing after the year. Find a different fix upstream
 
 
     }
     public String getDateTimeString(){
         NumberFormat formatter = new DecimalFormat("00");
         NumberFormat yearFormatter = new DecimalFormat("0000");
-        return yearFormatter.format(year)+"-"+formatter.format(month)+"-"+formatter.format(day)+" "+formatter.format(hour)+":"+formatter.format(minute);
-
+        String dateTimeString = yearFormatter.format(year)+"-"+formatter.format(month)+"-"+formatter.format(day)+" "+formatter.format(hour)+":"+formatter.format(minute);
+        return dateTimeString.replace("--", "-"); // Two dashes are showing after the year. Find a different fix upstream
 
     }
 

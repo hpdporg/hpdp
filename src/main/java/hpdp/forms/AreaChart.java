@@ -67,48 +67,97 @@ public class AreaChart extends Chart{
 
        // System.out.println("Pos: " + position[1]);
         int plotIndex = 0;
+        int plotCount = plots.length;
+        int traceCount = traces.size();
+        if (traceCount == 1){
+            iQuantityIncrement = 154.173;
+        }
         for (String plotValue : plots){
-            double iIndex = 0.0;
-            exposedText += "  <polygon points=\"";
 
-            if (plotIndex == 0){
-                exposedText+= ""+(int)(position[0])+","+(int)(position[1])+" ";
-
-            }
-            else{
-                exposedText+= ""+(int)(position[0])+","+(int)(position[1]+54.237)+" ";
-               // exposedText+= ""+(int)(position[0])+","+(int)(position[1]+54.237)+" ";
-            }
-            String lastColor = "none";
-            for (Trace trace : traces){
+            long plotValueTraceCount = traces.stream().filter((Trace trace) ->{
                 if (trace.values.get(0)[0].equals(plotValue)){
-
- //                   System.out.println("AR: "+trace.values.get(0)[0]+ " " +trace.coords.size() + " " + trace.coords.get(0)[0] +", " + trace.coords.get(0)[1]);
-                    exposedText+= ""+(int)((iIndex*iQuantityIncrement)+position[0])+","+(int)(position[1]+trace.coords.get(0)[1])+" ";
-                    lastColor = trace.getColor(plotValue);
-                    iIndex += 1.0;
-   //                 System.out.println(""+(int)((iIndex*iQuantityIncrement)+position[0])+","+(int)(position[1]+trace.coords.get(0)[1])+" ");
+                    return true;
                 }
-                else {
-
-     //               System.out.println("AR: "+trace.values.get(0)[0]+ " " +trace.coords.size() + " " + trace.coords.get(0)[0] +", " + trace.coords.get(0)[1]);
-                    exposedText+= ""+(int)((iIndex*iQuantityIncrement)+position[0])+","+(int)(position[1]+trace.coords.get(0)[1])+" ";
-
-                    iIndex += 1.0;
-       //             System.out.println(""+(int)((iIndex*iQuantityIncrement)+position[0])+","+(int)(position[1]+trace.coords.get(0)[1])+" ");
+                else{
+                    return false;
                 }
+             }).count();
+            if (plotValueTraceCount > 0) {
 
 
+                double iIndex = 0.0;
+                exposedText += "  <polygon points=\"";
+
+                if (plotIndex == 0) {
+
+                    if (traceCount == 1) {
+
+                        exposedText += "" + (int) (position[0]) + "," + (int) (position[1] ) + " ";
+
+                    } else {
+                        exposedText += "" + (int) (position[0]) + "," + (int) (position[1]) + " ";
+                   }
+                } else {
+                    if (traceCount == 1) {
+                        exposedText += "" + (int) (position[0]) + "," + (int) (position[1] + 54.237) + " ";
+
+
+                    } else {
+                        exposedText += "" + (int) (position[0]) + "," + (int) (position[1] + 54.237) + " ";
+                    }
+                   // if (traceCount == 1) {
+                    //     exposedText += "" + (int) (position[0]) + "," + (int) (position[1]) + " ";
+                    //  exposedText += "" + (int) (position[0]) + "," + (int) (position[1] + 54.237) + " ";
+                    //} else {
+
+                    //}
+                    // exposedText+= ""+(int)(position[0])+","+(int)(position[1]+54.237)+" ";
+                }
+                String lastColor = "none";
+                for (Trace trace : traces) {
+                    if (trace.values.get(0)[0].equals(plotValue)) {
+
+                        //                   System.out.println("AR: "+trace.values.get(0)[0]+ " " +trace.coords.size() + " " + trace.coords.get(0)[0] +", " + trace.coords.get(0)[1]);
+                        exposedText += "" + (int) ((iIndex * iQuantityIncrement) + position[0]) + "," + (int) (position[1] + trace.coords.get(0)[1]) + " ";
+                        lastColor = trace.getColor(plotValue);
+                        iIndex += 1.0;
+                        //                 System.out.println(""+(int)((iIndex*iQuantityIncrement)+position[0])+","+(int)(position[1]+trace.coords.get(0)[1])+" ");
+                    } else {
+                        //               System.out.println("AR: "+trace.values.get(0)[0]+ " " +trace.coords.size() + " " + trace.coords.get(0)[0] +", " + trace.coords.get(0)[1]);
+                        exposedText += "" + (int) ((iIndex * iQuantityIncrement) + position[0]) + "," + (int) (position[1] + trace.coords.get(0)[1]) + " ";
+
+                        iIndex += 1.0;
+                        //             System.out.println(""+(int)((iIndex*iQuantityIncrement)+position[0])+","+(int)(position[1]+trace.coords.get(0)[1])+" ");
+                    }
+
+
+                }
+                if (plotIndex == 0) {
+                    if (traceCount == 1) {
+                        exposedText += "" + (int) (position[0] + 154.173) + "," + (int) (position[1] + 54.237) + " ";
+                        exposedText += "" + (int) (position[0] + 154.173) + "," + (int) (position[1]) + " ";
+
+
+                    } else {
+                        exposedText += "" + (int) (position[0] + 154.173) + "," + (int) (position[1]) + " ";
+                    }
+
+                    //     System.out.println("Oner" + exposedText);
+                } else {
+                    if (traceCount == 1) {
+                        exposedText += "" + (int) (position[0] + 154.173) + "," + (int) (position[1] ) + " ";
+                        exposedText += "" + (int) (position[0] + 154.173) + "," + (int) (position[1] + 54.237) + " ";
+
+
+                    } else {
+                        exposedText += "" + (int) (position[0] + 154.173) + "," + (int) (position[1] + 54.237) + " ";
+                    }
+                    //  exposedText+= ""+(int)(position[0]+154.173)+","+(int)(position[1])+" ";
+
+                }
+                exposedText += "\"  style=\"fill-opacity:0.68235294;stroke-opacity:0.2\" fill=\"#" + lastColor + "\" stroke=\"black\" />";
+               // ++plotIndex;
             }
-            if (plotIndex == 0){
-                exposedText+= ""+(int)(position[0]+154.173)+","+(int)(position[1])+" ";
-           //     System.out.println("Oner" + exposedText);
-            }
-            else{
-              //  exposedText+= ""+(int)(position[0]+154.173)+","+(int)(position[1])+" ";
-                exposedText+= ""+(int)(position[0]+154.173)+","+(int)(position[1]+54.237)+" ";
-            }
-           exposedText+= "\"  style=\"fill-opacity:0.68235294;stroke-opacity:0.2\" fill=\"#"+lastColor+"\" stroke=\"black\" />";
             ++plotIndex;
 //break;
         }
