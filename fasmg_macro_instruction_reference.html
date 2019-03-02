@@ -1,0 +1,184 @@
+<html>
+<style type="text/css">
+	.td,th{
+		text-align:left;
+		vertical-align:top;
+	}
+</style>
+<h1>fasmg macro instruction reference</h1>
+
+<h2>Namespace</h2>
+
+<table>
+	<tr><th>.</th>
+	<td>	Descendent in namespace</td><td style="font-style:italic">Example:</td>
+	<td><pre>space.x</pre></td>
+	<td>has space namespace, x is descendant in space</td></tr>
+
+</table>
+
+<table>
+	<tr><th>namespace</th>
+	<td>	Switches the base namespace</td><td style="font-style:italic">Example:</td>
+	<td><pre>namespace module .symbVar = 4 end namespace</pre></td>
+	<td>Switches to the module namespace and assigns the value 4 to the symbolic variable symbVar, a descendant in the namespace</td></tr>
+
+</table>
+
+<h2>Symbolic Variables</h2>
+
+<table>
+	<tr><th>?</th>
+	<td>	Case-insensitive symbol</td><td style="font-style:italic">Example:</td>
+	<td><pre>tester?</pre></td>
+	<td>is the same as tester and TESTER</td></tr>
+
+</table>
+
+<table>
+	<tr><th>=</th>
+	<td>	Assign symbolic variable a value</td><td style="font-style:italic">Example:</td>
+	<td><pre>numeric = 2</pre></td>
+	<td>numeric's value is now 2</td></tr>
+
+</table>
+
+<table>
+	<tr><th>local</th>
+	<td>	Disposable symbolic variable, only accessible within macro</td><td style="font-style:italic">Example:</td>
+	<td><pre>macro macroName local macroSymbVar ASSEMBLE_BLOCK end macro</pre></td>
+	<td>Defines a symbolic variable within the macro named macroName</td></tr>
+
+</table>
+
+<table>
+	<tr><th>iterate</th>
+	<td>	Assembles next lines on each sequence of parameters</td><td style="font-style:italic">Example:</td>
+	<td><pre>iterate localSymbVar1 symbListVar1 ASSEMBLE_BLOCK end iterate</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK on each of symbListVar1 and passes each as localSymbVar1 into ASSEMBLE_BLOCK</td></tr>
+
+</table>
+
+<table>
+	<tr><th>%</th>
+	<td>	Base 1 iteration number</td><td style="font-style:italic">Example:</td>
+	<td><pre>repeat 4 symbVar% = value end repeat</pre></td>
+	<td>Repeats assigning symbolic variables symbVar1, symbVar2 up to 4 with a value</td></tr>
+
+</table>
+
+<table>
+	<tr><th>%%</th>
+	<td>	Iteration count</td><td style="font-style:italic">Example:</td>
+	<td><pre>repeat 4 symbVar% = %% end repeat</pre></td>
+	<td>Repeats assigning symbolic variables symbVar1, symbVar2 up to 4 with the value 4</td></tr>
+
+</table>
+
+<h2>Data definition</h2>
+
+<table>
+	<tr><th>emit</th>
+	<td>	Define data</td><td style="font-style:italic">Example:</td>
+	<td><pre>emit 1: "Message emitted",0</pre></td>
+	<td>defines a string in place with byte size elements (2 would define 16 bit elements)</td></tr>
+
+</table>
+
+<h2>Conditions</h2>
+
+<table>
+	<tr><th>if</th>
+	<td>	Assemble next lines when condition is TRUE</td><td style="font-style:italic">Example:</td>
+	<td><pre>if count > 1 ASSEMBLE_BLOCK end if</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK only when the condition count > 1 evaluates to true</td></tr>
+
+</table>
+
+<table>
+	<tr><th>=</th>
+	<td>	Equality in condition</td><td style="font-style:italic">Example:</td>
+	<td><pre>if count = 1 ASSEMBLE_BLOCK end if</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK only when the condition count = 1 evaluates to true. Equality is = not ==</td></tr>
+
+</table>
+
+
+<table>
+	<tr><th>while</th>
+	<td>	Assemble next lines when condition is TRUE</td><td style="font-style:italic">Example:</td>
+	<td><pre>while count > 1 ASSEMBLE_BLOCK end if</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK as long as the condition count > 1 evaluates to true</td></tr>
+
+</table>
+
+<table>
+	<tr><th>break</th>
+	<td>	Breaks out of a loop</td><td style="font-style:italic">Example:</td>
+	<td><pre>while count > 1 ASSEMBLE_BLOCK break end if</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK when the condition is true and breaks out after</td></tr>
+
+</table>
+
+<table>
+	<tr><th>match</th>
+	<td>	Assembles the following block when match pattern and parameter are equal</td><td style="font-style:italic">Example:</td>
+	<td><pre>match count,1 ASSEMBLE_BLOCK end match</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK when the pattern count equals 1</td></tr>
+
+</table>
+
+<table>
+	<tr><th>&gt;</th>
+	<td>	Greater than</td><td style="font-style:italic">Example:</td>
+	<td><pre>if count>1 ASSEMBLE_BLOCK end if</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK when the condition count>1 is true</td></tr>
+
+</table>
+
+<table>
+	<tr><th>&lt;</th>
+	<td>	Less than</td><td style="font-style:italic">Example:</td>
+	<td><pre>if count<1 ASSEMBLE_BLOCK end if</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK when the condition count<1 is true</td></tr>
+
+</table>
+
+<table>
+	<tr><th>else if</th>
+	<td>	Assemble next lines when condition is true</td><td style="font-style:italic">Example:</td>
+	<td><pre>if count > 3 ASSEMBLE_BLOCK else if count > 2 ASSEMBLE_BLOCK_2 end if</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK when the condition count > 3 is true, otherwise assembles ASSEMBLE_BLOCK_2 when the condition count > 2 is true</td></tr>
+
+</table>
+
+<table>
+	<tr><th>else</th>
+	<td>	Assemble next lines when condition is true</td><td style="font-style:italic">Example:</td>
+	<td><pre>if count > 3 ASSEMBLE_BLOCK else count > 2 ASSEMBLE_BLOCK_2 end if</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK when the condition count > 3 is true, otherwise assembles ASSEMBLE_BLOCK_2 unconditionally. else block must be last block</td></tr>
+
+</table>
+
+<table>
+	<tr><th>repeat</th>
+	<td>	Assemble next lines repeatedly</td><td style="font-style:italic">Example:</td>
+	<td><pre>repeat 5 ASSEMBLE_BLOCK end repeat</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK 5 times</td></tr>
+
+</table>
+
+<h2>Instructions</h2>
+
+<table>
+	<tr><th>macro</th>
+	<td>	Define re-usable instructions</td><td style="font-style:italic">Example:</td>
+	<td><pre>macro macroName param1 ASSEMBLE_BLOCK end macro</pre></td>
+	<td>Assembles the ASSEMBLE_BLOCK when macroName is called and passes param1 inside the ASSEMBLE_BLOCK</td></tr>
+
+</table>
+
+
+
+
+</html>
