@@ -76,7 +76,7 @@ public class Scatter extends Chart{
         jAxisLabel.defineRangeQuantities();
         jAxisLabel.expose();
 
-        for (Trace trace : traces){
+         for (Trace trace : traces){
             double[] traceSize = new double[2];
             double[] tracePosition = new double[2];
             traceSize[0] = trace.getSize()[0] + size[0];
@@ -84,12 +84,13 @@ public class Scatter extends Chart{
             tracePosition[0] = trace.getPosition()[0] + position[0];
             tracePosition[1] = trace.getPosition()[1] + position[1];
 
-
             trace.setSize(traceSize);
+
             trace.setPosition(tracePosition);
             trace.quantityIncrement[0] = iQuantityIncrement;
             //System.out.println("Trace: " + tracePosition[1]);
             trace.expose();
+
         }
 
         return exposedText;

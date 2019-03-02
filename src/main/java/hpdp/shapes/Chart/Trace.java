@@ -13,6 +13,7 @@ public class Trace extends Topology {
     public Time minTime = null;
     public Time maxTime = null;
     public double[] quantityIncrement = null;
+    public double radius = 2.5532577;
 
 
     public String[] data = null;
@@ -92,8 +93,8 @@ public class Trace extends Topology {
                         "       id=\"path4827-6-03-6-6-9-8\"\n" +
                         "       cx=\"" + (position[0] + 30.0 +  coord[0]) + "\"" +//159.56712\"\n" +
                         "       cy=\"" + (position[1] + coord[1]) + "\"" +//cy=\"-471.32864\"\n" +
-                        "       rx=\"2.5532577\"\n" +
-                        "       ry=\"2.5620646\" />\n";
+                        "       rx=\""+radius+"\"\n" +
+                        "       ry=\""+radius+"\" />\n";
                 if (linkPath != null) {
                     exposedText += "</a>";
                 }
@@ -123,8 +124,8 @@ public class Trace extends Topology {
                         "       id=\"path4827-6-03-6-6-9-8\"\n" +
                         "       cx=\"" + (position[0] + 30.0 + coord[0]) + "\"" +//159.56712\"\n" +
                         "       cy=\"" + (position[1] + coord[1]) + "\"" +//cy=\"-471.32864\"\n" +
-                        "       rx=\"2.5532577\"\n" +
-                        "       ry=\"2.5620646\" />\n";
+                        "       rx=\""+radius+"\"\n" +
+                        "       ry=\""+radius+"\" />\n";
                     if (linkPath != null){
                         exposedText += "</a>";
                     }
@@ -177,6 +178,14 @@ public class Trace extends Topology {
 
 
         return exposedText;
+    }
+
+    public void setRadius(double radius){
+        this.radius = radius;
+    }
+
+    public double getRadius(){
+       return this.radius;
     }
 
 

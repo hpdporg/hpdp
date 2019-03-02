@@ -94,6 +94,7 @@ public class Trans{
 	}
 
 
+	// Sorts Double values
 	public Trace sortTraceCoords(Trace trace, int index ){
 		List<Double[]> sortedCoords = new ArrayList<>();
 
