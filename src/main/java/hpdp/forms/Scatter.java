@@ -2,6 +2,7 @@ package hpdp.forms;
 
 import hpdp.shapes.Chart.Chart;
 import hpdp.shapes.Chart.Trace;
+import hpdp.shapes.Chart.Legend.LegendStyle;
 
 public class Scatter extends Chart{
 
@@ -15,6 +16,7 @@ public class Scatter extends Chart{
         iAxisLabel.setSize(size);
         jAxisLabel.setSize(size);
         legend.setSize(size);
+        legend.legendStyle = LegendStyle.GRAPH;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class Scatter extends Chart{
 
         super.expose();
         //size[1] = 176.78464 ;
-        position[1]-=20.0;
+        position[1]-=45.0;
         //    position[1] +=40.0;
     //    //System.out.println("B: " + position[1]);
      //   //System.out.println("C: " +getTopologyRegion(this).getPosition()[1]);
@@ -74,7 +76,7 @@ public class Scatter extends Chart{
         jAxisLabel.defineRangeQuantities();
         jAxisLabel.expose();
 
-        for (Trace trace : traces){
+         for (Trace trace : traces){
             double[] traceSize = new double[2];
             double[] tracePosition = new double[2];
             traceSize[0] = trace.getSize()[0] + size[0];
@@ -82,12 +84,13 @@ public class Scatter extends Chart{
             tracePosition[0] = trace.getPosition()[0] + position[0];
             tracePosition[1] = trace.getPosition()[1] + position[1];
 
-
             trace.setSize(traceSize);
+
             trace.setPosition(tracePosition);
             trace.quantityIncrement[0] = iQuantityIncrement;
             //System.out.println("Trace: " + tracePosition[1]);
             trace.expose();
+
         }
 
         return exposedText;

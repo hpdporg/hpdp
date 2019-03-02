@@ -9,7 +9,7 @@ public class Header extends Region{
 
 
     public enum HeaderLevel{
-        LVL_1,LVL_2
+        LVL_1,LVL_2,LVL_3
     }
 
     public HeaderLevel headerLevel;
@@ -94,6 +94,7 @@ public class Header extends Region{
                     "   <stop offset=\"0%\" stop-color=\"#e2e2e2\" stop-opacity=\"0\"/>" +
                     "   <stop offset=\"100%\" stop-color=\"#e2e2e2\" stop-opacity=\"1\"/>" +
                     "    </linearGradient>" +
+
                     "</defs>";
 
             exposedText += "<rect\n" +
@@ -113,6 +114,15 @@ public class Header extends Region{
                     "       id=\"text103\"" +
                     "       transform=\"scale(0.98683003,1.0133457)527\">"+letters+"</text>\n" +
                     " ";
+        } else if (headerLevel.equals(HeaderLevel.LVL_3)){
+            super.expose();
+            exposedText+= "<text " +
+                    "       x=\""+(position[0]+0.0)+"\" " +
+                    "       y=\""+(position[1]+20.0)+"\" " +
+                    "       id=\"text107-29-9-5\" " +
+                /*   "transform=\"scale\n" +
+                    "(1.1109935,0.90009527)\""+*/
+                    "         style=\"font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.04130268px;font-family:'Times New Roman';fill:#4e4e4e;fill-opacity:1;stroke-width:0.42381126\">"+letters+"</text>\n";
         }
         return exposedText;
     }

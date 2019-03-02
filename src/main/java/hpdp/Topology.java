@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Topology{
 
+	Padding padding;
 	public String exposedText;					// TO-DO change to private
 	TopologyShape topologyShape;
 	int nesting = 0;
@@ -30,6 +31,7 @@ public class Topology{
 		position = new double[2];
 		size = new double[2];
 		region = false;
+		padding = new Padding();
 	}
 
 

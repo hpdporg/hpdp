@@ -1,5 +1,7 @@
 package hpdp;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -41,7 +43,7 @@ public class Time {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         time.timestamp = calendar.getTimeInMillis();
         time.year = calendar.get(Calendar.YEAR);
-        time.month = calendar.get(Calendar.MONTH) - 1;
+        time.month = calendar.get(Calendar.MONTH) + 1;
         time.day = calendar.get(Calendar.DAY_OF_MONTH);
         time.hour = calendar.get(Calendar.HOUR_OF_DAY);
         time.minute = calendar.get(Calendar.MINUTE);
@@ -79,13 +81,20 @@ public class Time {
     }
 
     public String getDateString(){
-        return year+"-"+month+"-"+day;
+        NumberFormat formatter = new DecimalFormat("00");
+        String dateString = year+"-"+(formatter.format(month))+"-"+day;
+        dateString = dateString.replace("--", "-"); // Two dashes are showing after the year. Find a different fix upstream
+        return dateString;
 
 
     }
     public String getDateTimeString(){
-        return year+"-"+month+"-"+day+" "+hour+":"+minute;
+        NumberFormat formatter = new DecimalFormat("00");
+        NumberFormat yearFormatter = new DecimalFormat("0000");
+        String dateTimeString = yearFormatter.format(year)+"-"+(formatter.format(month))+"-"+formatter.format(day)+" "+formatter.format(hour)+":"+formatter.format(minute);
+        dateTimeString = dateTimeString.replace("--", "-"); // Two dashes are showing after the year. Find a different fix upstream
 
+        return dateTimeString;
 
     }
 
