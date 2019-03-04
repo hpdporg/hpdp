@@ -20,11 +20,17 @@ public class Main {
 
 	public static void main(String[] args){
 
-		ChartTest chartTest = new ChartTest();
-				chartTest.runTest();
+	//	ChartTest chartTest = new ChartTest();
+	//			chartTest.runTest();
 
 	//	SummaryReportTest summaryReportTest = new SummaryReportTest();
 	//	summaryReportTest.runTest();
+
+        PaddingTest paddingTest = new PaddingTest();
+        paddingTest.buildHTMLPage();
+
+
+
 
 	}
 
