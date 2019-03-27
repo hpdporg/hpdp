@@ -5,10 +5,13 @@ format MS64 COFF
 
 include 'Include.inc'
 include 'Exports.inc'
+include 'dtest.inc'
 
 
 
 
+
+dtDelta dtest.subspace.subsubspace.subsubsubspace,2
 
 
 

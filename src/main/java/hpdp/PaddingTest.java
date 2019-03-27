@@ -25,7 +25,7 @@ public class PaddingTest {
         header1.headerLevel = Header.HeaderLevel.LVL_1;
 
         header1.letters = "Padding header letters";
-
+        System.out.println("Building");
 
         layout1.newSpaceTopology(header1,region1);
 
