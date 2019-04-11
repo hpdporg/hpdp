@@ -98,6 +98,14 @@ public class Time {
 
     }
 
+    public String getDateTimeSecondsString(){
+        NumberFormat formatter = new DecimalFormat("00");
+        NumberFormat yearFormatter = new DecimalFormat("0000");
+        String dateTimeString = yearFormatter.format(year)+"-"+(formatter.format(month))+"-"+formatter.format(day)+" "+formatter.format(hour)+":"+formatter.format(minute)+":"+formatter.format(second);
+        dateTimeString = dateTimeString.replace("--", "-"); // Two dashes are showing after the year. Find a different fix upstream
 
+        return dateTimeString;
+
+    }
 
 }

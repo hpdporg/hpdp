@@ -26,8 +26,8 @@ public class Main {
 	//	SummaryReportTest summaryReportTest = new SummaryReportTest();
 	//	summaryReportTest.runTest();
 
-        PaddingTest paddingTest = new PaddingTest();
-        paddingTest.buildHTMLPage();
+     //   PaddingTest paddingTest = new PaddingTest();
+       // paddingTest.buildHTMLPage();
 
 
 
