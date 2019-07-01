@@ -17,7 +17,7 @@ import hpdp.shapes.Chart.Trace;
 
 public class Main {
 
-	static boolean skipTests = false;
+	static boolean skipTests = true;
 
 	public static void main(String[] args){
 
