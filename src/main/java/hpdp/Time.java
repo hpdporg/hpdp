@@ -54,6 +54,29 @@ public class Time {
         return time;
     }
 
+    /*
+     *  Build Time after setting members.
+     *  Months are 1 based and are decremented internally using 0-basesd months.
+     *
+     */
+    public Time buildTime(String year, String month, String dayOfMonth){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        int monthPlusOne = Integer.parseInt(month)-1;
+        calendar.set(Integer.parseInt(year),monthPlusOne,Integer.parseInt(dayOfMonth));
+
+        this.timestamp = calendar.getTimeInMillis();
+        this.year = calendar.get(Calendar.YEAR);
+        this.month = calendar.get(Calendar.MONTH) + 1;
+        this.day = calendar.get(Calendar.DAY_OF_MONTH);
+        this.hour = calendar.get(Calendar.HOUR_OF_DAY);
+        this.minute = calendar.get(Calendar.MINUTE);
+        this.second = calendar.get(Calendar.SECOND);
+        this.ms = calendar.get(Calendar.MILLISECOND);
+
+
+        return this;
+    }
+
     public static Time timeFromTimestamp(long timestamp){
         Time time = new Time();
 
@@ -82,10 +105,17 @@ public class Time {
 
     public String getDateString(){
         NumberFormat formatter = new DecimalFormat("00");
-        String dateString = year+"-"+(formatter.format(month))+"-"+day;
+        String dateString = year+"-"+(formatter.format(month))+"-"+(formatter.format(day));
         dateString = dateString.replace("--", "-"); // Two dashes are showing after the year. Find a different fix upstream
         return dateString;
 
+
+    }
+    /*
+     *  Returns date with no dashes i.e. 20190502
+     */
+    public String getDateStringNoDashes(){
+        return getDateString().replace("-", "");
 
     }
     public String getDateTimeString(){
