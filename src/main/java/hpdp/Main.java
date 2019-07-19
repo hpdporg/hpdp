@@ -17,7 +17,7 @@ import hpdp.shapes.Chart.Trace;
 
 public class Main {
 
-	static boolean skipTests = true;
+	static boolean skipTests = false;
 
 	public static void main(String[] args){
 
@@ -34,8 +34,8 @@ public class Main {
 	//	ChartTest chartTest = new ChartTest();
 	//			chartTest.runTest();
 
-	//	SummaryReportTest summaryReportTest = new SummaryReportTest();
-	//	summaryReportTest.runTest();
+		SummaryReportTest summaryReportTest = new SummaryReportTest();
+		summaryReportTest.runTest();
 
      //   PaddingTest paddingTest = new PaddingTest();
        // paddingTest.buildHTMLPage();

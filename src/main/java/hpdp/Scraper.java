@@ -13,6 +13,7 @@ public class Scraper{
 	private Storage storage = null;
 	public List<String[]> data = null;
 	String filePath = null;
+	String delimiter = ",";
 
 
 	public Scraper(){
@@ -33,7 +34,7 @@ public class Scraper{
 
 		String line = "";
 		while ((line = storage.readLine()) != null){
-			String vals[] = line.split(",");
+			String vals[] = line.split(delimiter);
 			data.add(vals);
 		}
 	}
