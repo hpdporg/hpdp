@@ -1,0 +1,19 @@
+Pareto
+
+Project management
+	percentages table
+	decomposition
+	Temporal information
+	EVM
+	Task list
+
+
+
+Excel spreadsheet building
+
+
+
+
+PM-tools/hpdp tools as separate project?
+HRD? HPDP Rep Datap
+Vis tools, pm tools separate? dash tools
