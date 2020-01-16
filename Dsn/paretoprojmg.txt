@@ -1,0 +1,35 @@
+Pareto
+
+Project management
+	percentages table
+	decomposition
+	Temporal information
+	EVM
+	Task list
+
+
+
+Excel spreadsheet building
+
+
+Control Chart
+Gantt (no gant? anything better?)
+
+
+
+
+PM-tools/hpdp tools as separate project?
+HRD? HPDP Rep Datap
+Vis tools, pm tools separate? dash tools
+
+
+Windows frontend with auto refresh?
+
+
+
+
+
+
+Way down the line:
+3d
+spirv
