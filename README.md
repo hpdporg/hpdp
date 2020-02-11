@@ -6,9 +6,7 @@
 
 The visualization subsystem is a customizable framework providing APIs that expose chart, layout, and interactivity specification.
 
-The data scraper can be controlled via the network and can also receive dataset updates. Updated datasets provides the option for **HPDP** systems to behave as real-time dashboards.
-
-A single user can therefore script a disposable single-page report or set of charts with minimal effort. **HPDP** uses SVG (Scalable Vector Graphics) as the chart and shapes format.
+A single user can script a disposable single-page report or set of charts with minimal effort. **hpdp** uses SVG (Scalable Vector Graphics) as the chart and shapes format.
 
 ## Implementations and Roadmap ##
 
