@@ -1,30 +1,34 @@
-# HPDP #
+# hpdp #
 
-**HPDP**  High Performance Data Processing is a visualization and analytics framework. The core subsystems are a fast data scraper, which acts as a lightweight server, and the translation subsystem, which visualizes the dataset.
+**hpdp**  High Performance Data Processing is a visualization and analytics framework. The core subsystems are a fast data **scraper**, which acts as a lightweight server, and the **trans**lation subsystem, which visualizes the dataset.
+
+![](HTMLReport.gif)
 
 The visualization subsystem is a customizable framework providing APIs that expose chart, layout, and interactivity specification.
 
 The data scraper can be controlled via the network and can also receive dataset updates. Updated datasets provides the option for **HPDP** systems to behave as real-time dashboards.
 
-The **HPDP** tools allow top to bottom visualization and dynamic analytic scripting as well. A single user can therefore script a disposable single-page report or set of charts with minimal effort. **HPDP** uses SVG (Scalable Vector Graphics) as the chart and shapes format.
+A single user can therefore script a disposable single-page report or set of charts with minimal effort. **HPDP** uses SVG (Scalable Vector Graphics) as the chart and shapes format.
 
-## Implementations ##
+## Implementations and Roadmap ##
 
-The **HPDP** source is written in x86_64 ASM, using flatassembler g (fasmg) with a C/C++ API. A port is also written in Java. APIs are subject to change but are planned to include a network and scripting interface.
+**hpdp** has two implementations: a completed, workable port in Java and an incomplete assembly port with a C interface.
+* **port**: The java port may receive some small enhancements and fixes in the short term. Building svg output has some quirks with padding sections (regions) and requires manual tweaking.
+* **core**: The assembly main version will ideally receive the next set of enhancements and reach completion. The **datap** and **rep** projects will provide the heavy lifting on the backend and the formatting/layout representation respectively. Since the **hpdp** port reached a usable proof-of-concept status, the remaining main assembly version requirements have been made clear.
 
 ## Features ##
 
-Along with default charting and metric capabilities, **HPDP** will provide:
+**hpdp** provides:
 
-* Hierarchically-organized datasets: View data broken down by different nesting levels.
-* Status and health indicators: Leverage **HPDP** views as project summary and project health dashboards.
-* Advanced stochastic analytical capabilities: Plot standard deviations, frequency domain plots, trend prediction charts. 
-* Exportable results and plugins: Export views as images, PDFs, and div panels.
+* Area charts, data tables
+* Data aggregation and sorting
+* Tooltips to show expanded values
+* Status and health indicators: Leverage **hpdp** views as project summary and project health dashboards.
+* svg is part of the HTML standard, so **hpdp** output is very portable.
 
 ## Platforms ##
 
-**HPDP** should compile or execute on most systems. With minor tweaks to the Java, this is certainly possible and systems include:
-
+The **hpdp** port should compile or execute on most systems, including:
 * Windows
 * Linux
 * Mac
