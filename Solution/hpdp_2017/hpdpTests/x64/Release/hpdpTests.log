@@ -1,0 +1,10 @@
+﻿  Main.cpp
+  ParsingTests.cpp
+datap.obj : warning LNK4078: multiple '.data' sections found with different attributes (C03000C0)
+gtest.lib(gtest-all.obj) : warning LNK4078: multiple '.text' sections found with different attributes (60501020)
+  Generating code
+  All 348 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+rep.obj : warning LNK4204: 'C:\Users\lewis\hpdp\Solution\hpdp_2017\hpdpTests\x64\Release\vc141.pdb' is missing debugging information for referencing module; linking object as if no debug info
+gtest.lib(gtest-all.obj) : warning LNK4099: PDB 'gtest.pdb' was not found with 'gtest.lib(gtest-all.obj)' or at 'C:\Users\lewis\hpdp\Solution\hpdp_2017\hpdpTests\x64\Release\gtest.pdb'; linking object as if no debug info
+  hpdpTests.vcxproj -> C:\Users\lewis\hpdp\Solution\hpdp_2017\\hpdpTests\x64\Release\hpdpTests.exe

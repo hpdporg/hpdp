@@ -1,4 +1,2 @@
-set include=include
-fasmg HPDP.asm HPDP.obj
-fasmg HPDP.asm HPDPLib.obj
-.\Build.bat
+set include=..\..\..\external\fasmg\include
+..\..\..\external\fasmg\fasmg.exe ..\..\..\src\main\asm\HPDP.asm ..\..\..\src\main\asm\HPDP.obj
