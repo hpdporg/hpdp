@@ -17,14 +17,31 @@ import hpdp.shapes.Chart.Trace;
 
 public class Main {
 
+	static boolean skipTests = false;
 
 	public static void main(String[] args){
 
-		ChartTest chartTest = new ChartTest();
-				chartTest.runTest();
 
-	//	SummaryReportTest summaryReportTest = new SummaryReportTest();
-	//	summaryReportTest.runTest();
+
+
+
+
+				if (skipTests == false) {
+					DateTest dateTest = new DateTest();
+					dateTest.runTest();
+
+
+	//	ChartTest chartTest = new ChartTest();
+	//			chartTest.runTest();
+
+		SummaryReportTest summaryReportTest = new SummaryReportTest();
+		summaryReportTest.runTest();
+
+     //   PaddingTest paddingTest = new PaddingTest();
+       // paddingTest.buildHTMLPage();
+				}
+
+
 
 	}
 

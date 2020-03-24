@@ -12,6 +12,10 @@ import hpdp.Table;
 
         public boolean excludeHeader = false;
         public String[] linkPath = null;
+        public String[][] tooltip = null;
+        public String[] tooltipCols = null;         // Which columns have tooltips
+        public int tooltipColIndex = 0;         // Which column we are pulling tooltip from. Start at first, then increment. If columns 2 and 4 have tooltips, the second dimension of tooltip[][] would be 0 and 1.
+        int columnIndex = 0;
 
         public Table table;
  /*   public enum HeaderLevel{
@@ -112,6 +116,9 @@ import hpdp.Table;
                                     "       x=\"" + (position[0] + iDisplacement) + "\"\n" +
                                     "       y=\"" + position[1] + "\" />\n";
                 }
+
+                columnIndex = 0;
+                tooltipColIndex = 0;
                 for (String value : row) {
 
 
@@ -124,6 +131,7 @@ import hpdp.Table;
                     }
 
 
+
                     exposedText += "<text\n" +
                             //    "       xml:space=\"preserve\"\n" +
                             //"       style=\"font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.04130268px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#4e4e4e;fill-opacity:1;stroke:none;stroke-width:0.42381126\"\n" +
@@ -134,13 +142,31 @@ import hpdp.Table;
                             //     "       transform=\"scale(1.1109935,0.90009527)\"" +
                             "       x=\"" + (position[0] + 3.0 + iDisplacement) + "\"\n" +
                             "       y=\"" + (position[1] + 8.0) + "\" " +
-                            ">" + value + " </text>";
+                            ">" + value + " ";
+
+
+                    if (tooltipCols != null){
+
+                        for (String requiredTooltipIndex : tooltipCols){
+                            if (columnIndex == Integer.parseInt(requiredTooltipIndex)){
+                                if (tooltip[index][tooltipColIndex]!= null && tooltip[index][tooltipColIndex].length()>0) {
+                                    exposedText += "<title>" + tooltip[index][tooltipColIndex] + "</title>";
+                                    ++tooltipColIndex;
+                                }
+
+                            }
+                        }
+
+                    }
+                            exposedText +=
+                            "</text>";
                     if (linkPath != null){
                         exposedText += "</a>";
                     }
                 }
                     iDisplacement = iDisplacement + (value.length()*5.0)+15.0;
                   //  iDisplacement += (value.length()*3)+15;
+                    ++columnIndex;
                 }
             }
             else {
@@ -152,7 +178,8 @@ import hpdp.Table;
                         "       height=\"12.362959\"\n" +
                         "       x=\"" + (position[0] + iDisplacement) + "\"\n" +
                         "       y=\"" +( position[1]+(9.0*index) )+ "\" />\n";
-                int columnIndex = 0;
+                columnIndex = 0;
+                tooltipColIndex = 0;
                 for (String value : row) {
 
                     if (columnIndex > 0){
@@ -174,7 +201,24 @@ import hpdp.Table;
                    //         "       transform=\"scale(1.1109935,0.90009527)\"" +
                             "       x=\"" + (position[0] + 3.0 +iDisplacement) + "\"\n" +
                             "       y=\"" + (position[1]+8.0+(9.0*index)) + "\" "+
-                            ">" + value +" </text>";
+                            ">" + value + " ";
+
+
+                    if (tooltipCols != null){
+
+                        for (String requiredTooltipIndex : tooltipCols){
+                            if (columnIndex == Integer.parseInt(requiredTooltipIndex)){
+                                if (tooltip[index][tooltipColIndex]!= null && tooltip[index][tooltipColIndex].length()>0) {
+                                    exposedText += "<title>" + tooltip[index][tooltipColIndex] + "</title>";
+                                    ++tooltipColIndex;
+                                }
+
+                            }
+                        }
+
+                    }
+                    exposedText +=
+                            "</text>";
 
                     if (linkPath != null){
                         exposedText += "</a>";
@@ -182,6 +226,7 @@ import hpdp.Table;
 
 
                         columnIndex = columnIndex + 1;
+
                     }
 
             }
