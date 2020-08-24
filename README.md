@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/lewissall/hpdporg/_apis/build/status/hpdporg.hpdp?branchName=master)](https://dev.azure.com/lewissall/hpdporg/_build/latest?definitionId=1&branchName=master)
+
 # hpdp #
 
 **hpdp**  High Performance Data Processing is a visualization and analytics framework. The core subsystems are a fast data **scraper**, which acts as a lightweight server, and the **trans**lation subsystem, which visualizes the dataset.
