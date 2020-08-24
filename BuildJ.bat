@@ -1,1 +1,4 @@
-javac -cp external/junit-platform-console-standalone-1.1.0.jar;src/main/java/hpdp;src/test/resources;src/test/java/hpdp;src/main/java/hpdp/storage src/test/java/hpdp/*.java src/main/java/hpdp/forms/*.java src/main/java/hpdp/Storage/*.java src/main/java/hpdp/shapes/Chart/*.java  src/main/java/hpdp/*.java ^
+cd src
+dir /s /B *.java > sources.txt
+javac -cp ../external/junit-platform-console-standalone-1.1.0.jar;../src/main/java/hpdp;../src\main\java\hpdp;../src/test/resources;../src/test/java/hpdp;../src/main/java/hpdp/storage @sources.txt ^
+ && cd ..
