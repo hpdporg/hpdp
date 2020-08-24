@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="JUnit Vintage" tests="0" skipped="0" failures="0" errors="0" time="0.001" hostname="DESKTOP-14N7FDI" timestamp="2020-08-24T01:29:38">
+<properties>
+<property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+<property name="file.encoding" value="Cp1252"/>
+<property name="file.separator" value="\"/>
+<property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+<property name="java.class.path" value="../../../external/junit-platform-console-standalone-1.1.0.jar"/>
+<property name="java.class.version" value="56.0"/>
+<property name="java.home" value="C:\Program Files\jdk-12.0.1_windows-x64_bin\jdk-12.0.1"/>
+<property name="java.io.tmpdir" value="C:\Users\lewis\AppData\Local\Temp\"/>
+<property name="java.library.path" value="C:\Program Files\jdk-12.0.1_windows-x64_bin\jdk-12.0.1\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\VulkanSDK\1.1.101.0\Bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\AMD APP SDK\3.0\bin\x86_64;C:\Program Files (x86)\AMD APP SDK\3.0\bin\x86;C:\Program Files\Git\cmd;C:\Program Files\CMake\bin;C:\Program Files\jdk-12.0.1_windows-x64_bin\jdk-12.0.1\bin;C:\Program Files\apache-ant-1.10.6\bin;C:\cygwin64\bin;C:\Program Files\nodejs\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\lewis\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\lewis\AppData\Local\Programs\Python\Python37\;C:\Users\lewis\AppData\Local\Microsoft\WindowsApps;C:\cygwin64\bin;C:\Program Files\dos2unix-7.4.0-win64\bin;C:\Users\lewis\AppData\Roaming\npm;."/>
+<property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+<property name="java.runtime.version" value="12.0.1+12"/>
+<property name="java.specification.name" value="Java Platform API Specification"/>
+<property name="java.specification.vendor" value="Oracle Corporation"/>
+<property name="java.specification.version" value="12"/>
+<property name="java.vendor" value="Oracle Corporation"/>
+<property name="java.vendor.url" value="https://java.oracle.com/"/>
+<property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+<property name="java.version" value="12.0.1"/>
+<property name="java.version.date" value="2019-04-16"/>
+<property name="java.vm.compressedOopsMode" value="Zero based"/>
+<property name="java.vm.info" value="mixed mode, sharing"/>
+<property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+<property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+<property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+<property name="java.vm.specification.version" value="12"/>
+<property name="java.vm.vendor" value="Oracle Corporation"/>
+<property name="java.vm.version" value="12.0.1+12"/>
+<property name="jdk.debug" value="release"/>
+<property name="line.separator" value="
+"/>
+<property name="os.arch" value="amd64"/>
+<property name="os.name" value="Windows 10"/>
+<property name="os.version" value="10.0"/>
+<property name="path.separator" value=";"/>
+<property name="sun.arch.data.model" value="64"/>
+<property name="sun.boot.library.path" value="C:\Program Files\jdk-12.0.1_windows-x64_bin\jdk-12.0.1\bin"/>
+<property name="sun.cpu.endian" value="little"/>
+<property name="sun.cpu.isalist" value="amd64"/>
+<property name="sun.desktop" value="windows"/>
+<property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+<property name="sun.java.command" value="../../../external/junit-platform-console-standalone-1.1.0.jar --reports-dir ../../../report/junit --cp hpdp;../../main/java;../resources;.;./hpdp --select-package hpdp"/>
+<property name="sun.java.launcher" value="SUN_STANDARD"/>
+<property name="sun.jnu.encoding" value="Cp1252"/>
+<property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+<property name="sun.os.patch.level" value=""/>
+<property name="sun.stderr.encoding" value="cp437"/>
+<property name="sun.stdout.encoding" value="cp437"/>
+<property name="user.country" value="US"/>
+<property name="user.dir" value="C:\Users\lewis\hpdp\src\test\java"/>
+<property name="user.home" value="C:\Users\lewis"/>
+<property name="user.language" value="en"/>
+<property name="user.name" value="lewis"/>
+<property name="user.script" value=""/>
+<property name="user.timezone" value="America/New_York"/>
+<property name="user.variant" value=""/>
+</properties>
+<system-out><![CDATA[
+unique-id: [engine:junit-vintage]
+display-name: JUnit Vintage
+]]></system-out>
+</testsuite>
