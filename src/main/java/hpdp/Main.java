@@ -27,15 +27,15 @@ public class Main {
 
 
 				if (skipTests == false) {
-					DateTest dateTest = new DateTest();
-					dateTest.runTest();
+					//DateTest dateTest = new DateTest();
+					//dateTest.runTest();
 
 
 	//	ChartTest chartTest = new ChartTest();
 	//			chartTest.runTest();
 
-		SummaryReportTest summaryReportTest = new SummaryReportTest();
-		summaryReportTest.runTest();
+	//	SummaryReportTest summaryReportTest = new SummaryReportTest();
+	//	summaryReportTest.runTest();
 
      //   PaddingTest paddingTest = new PaddingTest();
        // paddingTest.buildHTMLPage();
